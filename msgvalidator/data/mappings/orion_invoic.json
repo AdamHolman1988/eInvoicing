@@ -1,0 +1,5993 @@
+{
+ "id": "orion-invoic",
+ "format": "ORION XML",
+ "message": "INVOIC",
+ "source": "Dokumentace INVOIC CZE ENG 3.1.3.xlsx",
+ "title": "Struktura zprávy ORION INVOIC XML 3.1.2",
+ "version": "3.1.3",
+ "versions": [
+  "3.0.0",
+  "3.0.1",
+  "3.0.2",
+  "3.0.3",
+  "3.0.4",
+  "3.0.5",
+  "3.0.6",
+  "3.0.8",
+  "3.0.9",
+  "3.1.0",
+  "3.1.1",
+  "3.1.2",
+  "3.1.3"
+ ],
+ "generated_by": "tools/import_orion.py",
+ "groups": {
+  "BG-20": {
+   "each": "body/summary/allowances_and_charges/allowance"
+  },
+  "BG-21": {
+   "each": "body/summary/allowances_and_charges/charge"
+  },
+  "BG-23": {
+   "each": "body/summary/tax_details/vat"
+  },
+  "BG-25": {
+   "each": "body/line_items/item"
+  },
+  "BG-27": {
+   "each": "body/line_items/item/allowances_and_charges/allowance",
+   "parent": "BG-25"
+  },
+  "BG-28": {
+   "each": "body/line_items/item/allowances_and_charges/charge",
+   "parent": "BG-25"
+  }
+ },
+ "containers": [
+  {
+   "path": "body",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/advances",
+   "occurrence": "0-1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/advances/advance_payment",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/advances/advance_payment/advance_payment_rates",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/line_items",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/line_items/item",
+   "occurrence": "1-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/line_items/item/allowances_and_charges",
+   "occurrence": "0-1",
+   "repeating": false,
+   "mandatory": "no",
+   "since": null
+  },
+  {
+   "path": "body/line_items/item/allowances_and_charges/allowance",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/line_items/item/allowances_and_charges/charge",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/line_items/item/article_id_add",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": "no",
+   "since": null
+  },
+  {
+   "path": "body/line_items/item/party",
+   "occurrence": "0-9",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/message_header",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/message_header/party",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/message_header/skonto",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": "3.0.3"
+  },
+  {
+   "path": "body/summary",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/summary/allowances_and_charges",
+   "occurrence": "0-1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/summary/allowances_and_charges/allowance",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/summary/allowances_and_charges/charge",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/summary/tax_details",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "body/summary/tax_details/vat",
+   "occurrence": "0-n",
+   "repeating": true,
+   "mandatory": null,
+   "since": null
+  },
+  {
+   "path": "header",
+   "occurrence": "1",
+   "repeating": false,
+   "mandatory": null,
+   "since": null
+  }
+ ],
+ "fields": [
+  {
+   "id": "SYS1",
+   "path": "header/message_type",
+   "tag": "message_type",
+   "name_cs": "Typ zprávy",
+   "name_en": "Message type",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 20,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS2",
+   "path": "header/version",
+   "tag": "version",
+   "name_cs": "Verze specifikace",
+   "name_en": "Version",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS3",
+   "path": "header/message_id",
+   "tag": "message_id",
+   "name_cs": "Referenční číslo zprávy",
+   "name_en": "Message ID",
+   "mandatory": "orion",
+   "mandatory_raw": "Orion",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS4",
+   "path": "header/creation_date",
+   "tag": "creation_date",
+   "name_cs": "Datum vytvoření zprávy",
+   "name_en": "Date of message creation",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS5",
+   "path": "header/creation_time",
+   "tag": "creation_time",
+   "name_cs": "Čas vytvoření zprávy",
+   "name_en": "Time of message creation",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS6",
+   "path": "header/receiver",
+   "tag": "receiver",
+   "name_cs": "Adresát zprávy",
+   "name_en": "Receiver of message",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 14,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS7",
+   "path": "header/sender",
+   "tag": "sender",
+   "name_cs": "Odesílatel zprávy",
+   "name_en": "Sender of message",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 14,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SYS8",
+   "path": "header/test_flag",
+   "tag": "test_flag",
+   "name_cs": "Testovací příznak",
+   "name_en": "Test flag",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "codelist": "Testovací příznak",
+   "bts": []
+  },
+  {
+   "id": "HDR1",
+   "path": "body/message_header/doc_number",
+   "tag": "doc_number",
+   "name_cs": "Číslo dokladu (daňového dokladu)",
+   "name_en": "Document number",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:ID (BT-1)",
+   "bts_doc": [
+    "BT-1"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-1"
+   ]
+  },
+  {
+   "id": "HDR2",
+   "path": "body/message_header/doc_type",
+   "tag": "doc_type",
+   "name_cs": "Druh dokladu (kód)",
+   "name_en": "Document type",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:InvoiceTypeCode / cbc:CreditNoteTypeCode (BT-3)",
+   "bts_doc": [
+    "BT-3"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "codelist": "Druh dokladu",
+   "bts": [
+    "BT-3"
+   ]
+  },
+  {
+   "id": "HDR3",
+   "path": "body/message_header/doc_function",
+   "tag": "doc_function",
+   "name_cs": "Funkce zprávy (kód)",
+   "name_en": "Message function",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "codelist": "Funkce zprávy",
+   "bts": []
+  },
+  {
+   "id": "HDR4",
+   "path": "body/message_header/issue_date",
+   "tag": "issue_date",
+   "name_cs": "Datum vystavení dokladu",
+   "name_en": "Document date of issue",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:IssueDate (BT-2)",
+   "bts_doc": [
+    "BT-2"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-2"
+   ]
+  },
+  {
+   "id": "HDR5",
+   "path": "body/message_header/tax_date",
+   "tag": "tax_date",
+   "name_cs": "Datum uskutečnění zdanitelného plnění",
+   "name_en": "Taxable date",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cbc:TaxPointDate (BT-7) – povinné, pokud se daňový okamžik liší od data vystavení",
+   "bts_doc": [
+    "BT-7"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-7"
+   ]
+  },
+  {
+   "id": "HDR6",
+   "path": "body/message_header/despatch_date",
+   "tag": "despatch_date",
+   "name_cs": "Datum vyskladnění",
+   "name_en": "Despatch date",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR7",
+   "path": "body/message_header/delivery_date",
+   "tag": "delivery_date",
+   "name_cs": "Datum dodání",
+   "name_en": "Delivery date",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Delivery/cbc:ActualDeliveryDate (BT-72)",
+   "bts_doc": [
+    "BT-72"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-72"
+   ]
+  },
+  {
+   "id": "HDR8",
+   "path": "body/message_header/invoice_period_start",
+   "tag": "invoice_period_start",
+   "name_cs": "Fakturace od: (pro sumární fakturu)",
+   "name_en": "Invoicing period start (consolidated invoice)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:InvoicePeriod/cbc:StartDate, cbc:EndDate (BT-73, BT-74)",
+   "bts_doc": [
+    "BT-73",
+    "BT-74"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-73"
+   ]
+  },
+  {
+   "id": "HDR9",
+   "path": "body/message_header/invoice_period_end",
+   "tag": "invoice_period_end",
+   "name_cs": "Fakturace do: (pro sumární fakturu)",
+   "name_en": "Invoicing period end (consolidated invoice)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:InvoicePeriod/cbc:StartDate, cbc:EndDate (BT-73, BT-74)",
+   "bts_doc": [
+    "BT-73",
+    "BT-74"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-74"
+   ]
+  },
+  {
+   "id": "HDR10",
+   "path": "body/message_header/due_date",
+   "tag": "due_date",
+   "name_cs": "Datum splatnosti",
+   "name_en": "Due date",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cbc:DueDate (BT-9) – při kladné částce k úhradě musí být datum splatnosti nebo platební podmínky",
+   "bts_doc": [
+    "BT-9"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-9"
+   ]
+  },
+  {
+   "id": "HDR11",
+   "path": "body/message_header/payment_means",
+   "tag": "payment_means",
+   "name_cs": "Kód způsobu úhrady",
+   "name_en": "Payment method",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PaymentMeans/cbc:PaymentMeansCode (BT-81) – povinné při použití platebních instrukcí",
+   "bts_doc": [
+    "BT-81"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Způsob úhrady",
+   "bts": [
+    "BT-81"
+   ]
+  },
+  {
+   "id": "HDR12",
+   "path": "body/message_header/currency_code",
+   "tag": "currency_code",
+   "name_cs": "Kód měny fakturační",
+   "name_en": "Currency code",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:DocumentCurrencyCode (BT-5)",
+   "bts_doc": [
+    "BT-5"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Kód měny",
+   "bts": [
+    "BT-5"
+   ]
+  },
+  {
+   "id": "HDR13",
+   "path": "body/message_header/currency_target_code",
+   "tag": "currency_target_code",
+   "name_cs": "Kód měny místní (přepočtená)",
+   "name_en": "Target currency (local)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cbc:TaxCurrencyCode (BT-6) – pokud se měna DPH liší od měny faktury",
+   "bts_doc": [
+    "BT-6"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Kód měny",
+   "bts": [
+    "BT-6"
+   ]
+  },
+  {
+   "id": "HDR14",
+   "path": "body/message_header/currency_exchange_rate",
+   "tag": "currency_exchange_rate",
+   "name_cs": "Kurz přepočtu měny",
+   "name_en": "Currency conversion exchange rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR15",
+   "path": "body/message_header/currency_rate_value",
+   "tag": "currency_rate_value",
+   "name_cs": "Počet jednotek měny pro převodní kurz",
+   "name_en": "Number of units of currency exchange rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR16",
+   "path": "body/message_header/currency_exchange_date",
+   "tag": "currency_exchange_date",
+   "name_cs": "Datum kurzu přepočtu",
+   "name_en": "Date of exchange rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR17",
+   "path": "body/message_header/registration",
+   "tag": "registration",
+   "name_cs": "Spisová značka dodavatele - zápis v OR",
+   "name_en": "Supplier's registration in Company register",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 140,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-33"
+   ]
+  },
+  {
+   "id": "HDR18",
+   "path": "body/message_header/regulatory_information",
+   "tag": "regulatory_information",
+   "name_cs": "Texty vyplývající z požadavku daňových zákonů",
+   "name_en": "Other texts required by the law",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 512,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR19",
+   "path": "body/message_header/reverse_charge",
+   "tag": "reverse_charge",
+   "name_cs": "Přenesená daňovná povinnost",
+   "name_en": "Reverse Charge mode",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:TaxCategory (BT-118 až BT-121) – reverse charge se vyjadřuje kategorií AE a důvodem",
+   "bts_doc": [
+    "BT-118",
+    "BT-121"
+   ],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "A/N",
+   "not_mapped": "Přenesená daňová povinnost – použito jen pro odvození kategorie DPH AE (BT-118/BT-151).",
+   "bts": []
+  },
+  {
+   "id": "HDR20",
+   "path": "body/message_header/country_of_origin",
+   "tag": "country_of_origin",
+   "name_cs": "Země původu",
+   "name_en": "Country of origin",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Země původu, Kód země",
+   "bts": []
+  },
+  {
+   "id": "HDR21",
+   "path": "body/message_header/contract_number",
+   "tag": "contract_number",
+   "name_cs": "Číslo smlouvy",
+   "name_en": "Contract number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:ContractDocumentReference/cbc:ID (BT-12)",
+   "bts_doc": [
+    "BT-12"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-12"
+   ]
+  },
+  {
+   "id": "HDR22",
+   "path": "body/message_header/order_number",
+   "tag": "order_number",
+   "name_cs": "Číslo objednávky odběratele",
+   "name_en": "Customer's order number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:OrderReference/cbc:ID (BT-13) – faktura musí obsahovat BuyerReference nebo referenci objednávky",
+   "bts_doc": [
+    "BT-13"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-13"
+   ]
+  },
+  {
+   "id": "HDR23",
+   "path": "body/message_header/order_number_date",
+   "tag": "order_number_date",
+   "name_cs": "Datum vystavení objednávky",
+   "name_en": "Order - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR24",
+   "path": "body/message_header/order_number_time",
+   "tag": "order_number_time",
+   "name_cs": "Čas vystavení objednávky",
+   "name_en": "Order - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR25",
+   "path": "body/message_header/supplier_order_number",
+   "tag": "supplier_order_number",
+   "name_cs": "Číslo objednávky u dodavatele",
+   "name_en": "Supplier's order number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:OrderReference/cbc:SalesOrderID (BT-14)",
+   "bts_doc": [
+    "BT-14"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-14"
+   ]
+  },
+  {
+   "id": "HDR26",
+   "path": "body/message_header/supplier_order_number_date",
+   "tag": "supplier_order_number_date",
+   "name_cs": "Datum přijetí objednávky u dodavatele",
+   "name_en": "Date of receiving order (supplier)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR27",
+   "path": "body/message_header/supplier_order_number_time",
+   "tag": "supplier_order_number_time",
+   "name_cs": "Čas přijetí objednávky u dodavatele",
+   "name_en": "Time of receiving order (supplier)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR28",
+   "path": "body/message_header/despatch_advice_number",
+   "tag": "despatch_advice_number",
+   "name_cs": "Číslo dodacího listu",
+   "name_en": "Delivery note number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:DespatchDocumentReference/cbc:ID (BT-16)",
+   "bts_doc": [
+    "BT-16"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-16"
+   ]
+  },
+  {
+   "id": "HDR29",
+   "path": "body/message_header/despatch_advice_date",
+   "tag": "despatch_advice_date",
+   "name_cs": "Datum vystavení dodacího listu",
+   "name_en": "Delivery note - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR30",
+   "path": "body/message_header/despatch_advice_time",
+   "tag": "despatch_advice_time",
+   "name_cs": "Čas vystavení dodacího listu",
+   "name_en": "Delivery note - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR31",
+   "path": "body/message_header/receiving_advice_number",
+   "tag": "receiving_advice_number",
+   "name_cs": "Číslo příjemky",
+   "name_en": "Receiving advice number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:ReceiptDocumentReference/cbc:ID (BT-15)",
+   "bts_doc": [
+    "BT-15"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-15"
+   ]
+  },
+  {
+   "id": "HDR32",
+   "path": "body/message_header/receiving_advice_date",
+   "tag": "receiving_advice_date",
+   "name_cs": "Datum vystavení příjemky",
+   "name_en": "Receiving advice - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR33",
+   "path": "body/message_header/receiving_advice_time",
+   "tag": "receiving_advice_time",
+   "name_cs": "Čas vystavení příjemky",
+   "name_en": "Receiving advice - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR34",
+   "path": "body/message_header/reclamation_number",
+   "tag": "reclamation_number",
+   "name_cs": "Číslo reklamace",
+   "name_en": "Reclamation number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR35",
+   "path": "body/message_header/date_of_reclamation",
+   "tag": "date_of_reclamation",
+   "name_cs": "Datum vystavení reklamace",
+   "name_en": "Date of reclamation",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR36",
+   "path": "body/message_header/previous_comdis_number",
+   "tag": "previous_comdis_number",
+   "name_cs": "Číslo zprávy COMDIS",
+   "name_en": "COMDIS number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR37",
+   "path": "body/message_header/previous_comdis_date",
+   "tag": "previous_comdis_date",
+   "name_cs": "Datum vystavení zprávy COMDIS",
+   "name_en": "COMDIS - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR38",
+   "path": "body/message_header/previous_comdis_time",
+   "tag": "previous_comdis_time",
+   "name_cs": "Čas vystavení zprávy COMDIS",
+   "name_en": "COMDIS - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR39",
+   "path": "body/message_header/meaning_of_reference_number",
+   "tag": "meaning_of_reference_number",
+   "name_cs": "Význam refer. čísla faktury",
+   "name_en": "Meaning of reference number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Význam referenčního čísla faktury",
+   "bts": []
+  },
+  {
+   "id": "HDR40",
+   "path": "body/message_header/reference_number",
+   "tag": "reference_number",
+   "name_cs": "Referenční číslo faktury (zálohové f. apod.)",
+   "name_en": "Reference document number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:BillingReference/cac:InvoiceDocumentReference/cbc:ID (BT-25)",
+   "bts_doc": [
+    "BT-25"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-25"
+   ]
+  },
+  {
+   "id": "HDR41",
+   "path": "body/message_header/reference_number_date",
+   "tag": "reference_number_date",
+   "name_cs": "Datum vztahující se k ref. číslu faktury",
+   "name_en": "Reference document - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:BillingReference/.../cbc:IssueDate (BT-26)",
+   "bts_doc": [
+    "BT-26"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-26"
+   ]
+  },
+  {
+   "id": "HDR42",
+   "path": "body/message_header/reference_number_time",
+   "tag": "reference_number_time",
+   "name_cs": "Čas vztahující se k ref. číslu faktury",
+   "name_en": "Reference document - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR43",
+   "path": "body/message_header/originators_reference",
+   "tag": "originators_reference",
+   "name_cs": "Číslo seznamu faktur",
+   "name_en": "Number of the list of invoices",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR44",
+   "path": "body/message_header/originators_reference_date",
+   "tag": "originators_reference_date",
+   "name_cs": "Datum vystavení seznamu faktur",
+   "name_en": "List of invoices date",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR45",
+   "path": "body/message_header/originators_reference_time",
+   "tag": "originators_reference_time",
+   "name_cs": "Čas vystavení seznamu faktur",
+   "name_en": "List of invoices time",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR46",
+   "path": "body/message_header/reference_number_free",
+   "tag": "reference_number_free",
+   "name_cs": "Referenční číslo volné (vzájemně definováno)",
+   "name_en": "Reference document number (free)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR47",
+   "path": "body/message_header/reference_number_free_date",
+   "tag": "reference_number_free_date",
+   "name_cs": "Datum k volnému referenčnímu číslu",
+   "name_en": "Reference document (free) - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR48",
+   "path": "body/message_header/reference_number_free_time",
+   "tag": "reference_number_free_time",
+   "name_cs": "Čas k volnému referenčnímu číslu",
+   "name_en": "Reference document (free) - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR49",
+   "path": "body/message_header/promotion_deal",
+   "tag": "promotion_deal",
+   "name_cs": "Promo akce",
+   "name_en": "Promotion deal number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDR50",
+   "path": "body/message_header/special_condition",
+   "tag": "special_condition",
+   "name_cs": "Speciální podmínky pro fakturu - kód",
+   "name_en": "Special invoicee condition",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "codelist": "Speciální podmínky pro fakturu (kód). Vztahují se ke slevám a bonusům",
+   "bts": []
+  },
+  {
+   "id": "HDR51",
+   "path": "body/message_header/reason_of_issue",
+   "tag": "reason_of_issue",
+   "name_cs": "Důvod vystavení opravného daňového dokladu",
+   "name_en": "Reason of credit notes issue (text)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cbc:Note (BT-22) – důvod opravy lze uvést jen jako volný text",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 512,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR52",
+   "path": "body/message_header/discount_due_date",
+   "tag": "discount_due_date",
+   "name_cs": "Termín včasné platby",
+   "name_en": "Early payment due date",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – termín skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDR53",
+   "path": "body/message_header/discount_rate",
+   "tag": "discount_rate",
+   "name_cs": "Procento skonta při včasné platbě",
+   "name_en": "Percentage discount for early payment",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – procento skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDR54",
+   "path": "body/message_header/discount_amount",
+   "tag": "discount_amount",
+   "name_cs": "Částka skonta při včasné platbě",
+   "name_en": "Discount amount for early payment (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – částku skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDR55",
+   "path": "body/message_header/free_text_1",
+   "tag": "free_text_1",
+   "name_cs": "Volný text 1 (Řádek 1)",
+   "name_en": "Free text 1",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR56",
+   "path": "body/message_header/free_text_2",
+   "tag": "free_text_2",
+   "name_cs": "Volný text 2 (Řádek 1)",
+   "name_en": "Free text 2",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR57",
+   "path": "body/message_header/free_text_3",
+   "tag": "free_text_3",
+   "name_cs": "Volný text 3 (Řádek 1)",
+   "name_en": "Free text 3",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR58",
+   "path": "body/message_header/free_text_4",
+   "tag": "free_text_4",
+   "name_cs": "Volný text 4 (Řádek 1)",
+   "name_en": "Free text 4",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR59",
+   "path": "body/message_header/free_text_5",
+   "tag": "free_text_5",
+   "name_cs": "Volný text 5 (Řádek 1)",
+   "name_en": "Free text 5",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR60",
+   "path": "body/message_header/free_text_6",
+   "tag": "free_text_6",
+   "name_cs": "Volný text 1 (Řádek 2)",
+   "name_en": "Free text 6",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR61",
+   "path": "body/message_header/free_text_7",
+   "tag": "free_text_7",
+   "name_cs": "Volný text 2 (Řádek 2)",
+   "name_en": "Free text 7",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR62",
+   "path": "body/message_header/free_text_8",
+   "tag": "free_text_8",
+   "name_cs": "Volný text 3 (Řádek 2)",
+   "name_en": "Free text 8",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR63",
+   "path": "body/message_header/free_text_9",
+   "tag": "free_text_9",
+   "name_cs": "Volný text 4 (Řádek 2)",
+   "name_en": "Free text 9",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR64",
+   "path": "body/message_header/free_text_10",
+   "tag": "free_text_10",
+   "name_cs": "Volný text 5 (Řádek 2)",
+   "name_en": "Free text 10",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cbc:Note (BT-22)",
+   "bts_doc": [
+    "BT-22"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-22"
+   ]
+  },
+  {
+   "id": "HDR65",
+   "path": "body/message_header/orion_url",
+   "tag": "orion_url",
+   "name_cs": "URL pro odkaz do ORiONu, pro stažení PDF či HTML",
+   "name_en": "Orion URL for embedded preview in ERP",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI (BT-124)",
+   "bts_doc": [
+    "BT-124"
+   ],
+   "length": 255,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": "3.0.4",
+   "not_mapped": "orion_url (BT-124) obsahuje přihlašovací údaje (login/pwd) a v Peppol by vyžadoval BG-24 s BT-122 – nemapováno.",
+   "bts": []
+  },
+  {
+   "id": "HDR66",
+   "path": "body/message_header/legislation_free_text",
+   "tag": "legislation_free_text",
+   "name_cs": "Informace o certifikátech (bio, FSC apod.)",
+   "name_en": "Certification info (bio, FSC etc.)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": "3.1.0",
+   "bts": []
+  },
+  {
+   "id": "HDR67",
+   "path": "body/message_header/skonto_maturity_date_type",
+   "tag": "skonto_maturity_date_type",
+   "name_cs": "Období splatnosti skonta - typ",
+   "name_en": "Maturity date by skonto - type",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – období skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 5,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": null,
+   "since": "3.1.1",
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDR68",
+   "path": "body/message_header/skonto_maturity_date_value",
+   "tag": "skonto_maturity_date_value",
+   "name_cs": "Období splatnosti skonta - hodnota",
+   "name_en": "Maturity date by skonto - value",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – období skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": "3.1.1",
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDRNAD1",
+   "path": "body/message_header/party/party_qualifier",
+   "tag": "party_qualifier",
+   "name_cs": "Kvalifikátor partnera",
+   "name_en": "Party qualifier",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/message_header/party",
+   "since": null,
+   "codelist": "Kvalifikátor obchodního partnera",
+   "not_mapped": "Kvalifikátor partnera – určuje roli (SE/SU prodávající, BY/IV kupující, DP místo dodání).",
+   "bts": []
+  },
+  {
+   "id": "HDRNAD2",
+   "path": "body/message_header/party/party_id",
+   "tag": "party_id",
+   "name_cs": "GLN partnera (GLN kód 13 míst)",
+   "name_en": "Party GLN",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cbc:EndpointID (BT-34/BT-49) nebo cac:PartyIdentification/cbc:ID – podle role partnera",
+   "bts_doc": [
+    "BT-34",
+    "BT-49"
+   ],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "not_mapped": "GLN partnera – BT podle role (BT-29/BT-46/BT-71), endpoint BT-34/BT-49 se odvozuje.",
+   "bts": [
+    "BT-29",
+    "BT-46",
+    "BT-71"
+   ]
+  },
+  {
+   "id": "HDRNAD3",
+   "path": "body/message_header/party/party_description",
+   "tag": "party_description",
+   "name_cs": "Popis obchodního partnera",
+   "name_en": "Party description",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 175,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD4",
+   "path": "body/message_header/party/party_name",
+   "tag": "party_name",
+   "name_cs": "Obchodní jméno",
+   "name_en": "Party name",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PartyLegalEntity/cbc:RegistrationName – povinné pro prodávajícího a kupujícího",
+   "bts_doc": [],
+   "length": 140,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-27",
+    "BT-44",
+    "BT-70"
+   ]
+  },
+  {
+   "id": "HDRNAD5",
+   "path": "body/message_header/party/street",
+   "tag": "street",
+   "name_cs": "Adresa - ulice a číslo",
+   "name_en": "Address - street",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PostalAddress/cbc:StreetName (BT-35/BT-50)",
+   "bts_doc": [
+    "BT-35",
+    "BT-50"
+   ],
+   "length": 140,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-35",
+    "BT-50",
+    "BT-75"
+   ]
+  },
+  {
+   "id": "HDRNAD6",
+   "path": "body/message_header/party/place",
+   "tag": "place",
+   "name_cs": "Adresa - místo (obec)",
+   "name_en": "Address - town/city",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PostalAddress/cbc:CityName (BT-37/BT-52)",
+   "bts_doc": [
+    "BT-37",
+    "BT-52"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-37",
+    "BT-52",
+    "BT-77"
+   ]
+  },
+  {
+   "id": "HDRNAD7",
+   "path": "body/message_header/party/postcode",
+   "tag": "postcode",
+   "name_cs": "Adresa - PSČ",
+   "name_en": "Address - ZIP code",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PostalAddress/cbc:PostalZone (BT-38/BT-53)",
+   "bts_doc": [
+    "BT-38",
+    "BT-53"
+   ],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-38",
+    "BT-53",
+    "BT-78"
+   ]
+  },
+  {
+   "id": "HDRNAD8",
+   "path": "body/message_header/party/country_code",
+   "tag": "country_code",
+   "name_cs": "Adresa - kód země",
+   "name_en": "Address - country code",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PostalAddress/cac:Country/cbc:IdentificationCode (BT-40/BT-55) – povinné pro prodávajícího a kupujícího",
+   "bts_doc": [
+    "BT-40",
+    "BT-55"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "codelist": "Země původu, Kód země",
+   "bts": [
+    "BT-40",
+    "BT-55",
+    "BT-80"
+   ]
+  },
+  {
+   "id": "HDRNAD9",
+   "path": "body/message_header/party/country_name",
+   "tag": "country_name",
+   "name_cs": "Adresa - země slovy",
+   "name_en": "Address - country (full name)",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD10",
+   "path": "body/message_header/party/company_id",
+   "tag": "company_id",
+   "name_cs": "Identifikační číslo (IČO)",
+   "name_en": "Company ID",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PartyLegalEntity/cbc:CompanyID (BT-30 / BT-47)",
+   "bts_doc": [
+    "BT-30",
+    "BT-47"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-30",
+    "BT-47"
+   ]
+  },
+  {
+   "id": "HDRNAD11",
+   "path": "body/message_header/party/tax_id",
+   "tag": "tax_id",
+   "name_cs": "Identifikační číslo pro DPH",
+   "name_en": "VAT ID",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PartyTaxScheme/cbc:CompanyID (BT-31/BT-48) – podle role a daňového režimu",
+   "bts_doc": [
+    "BT-31",
+    "BT-48"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-31",
+    "BT-48"
+   ]
+  },
+  {
+   "id": "HDRNAD12",
+   "path": "body/message_header/party/vat_id",
+   "tag": "vat_id",
+   "name_cs": "Daňové identifikační číslo SK",
+   "name_en": "VAT ID (IČ DPH) in Slovakia",
+   "mandatory": "no",
+   "mandatory_raw": "Optional",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PartyTaxScheme/cbc:CompanyID (BT-31/BT-48) – podle role a daňového režimu",
+   "bts_doc": [
+    "BT-31",
+    "BT-48"
+   ],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-32"
+   ]
+  },
+  {
+   "id": "HDRNAD13",
+   "path": "body/message_header/party/contact_type",
+   "tag": "contact_type",
+   "name_cs": "Identifikace kontaktní osoby (oddělení)",
+   "name_en": "Contact type",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD14",
+   "path": "body/message_header/party/contact_name",
+   "tag": "contact_name",
+   "name_cs": "Kontaktní osoba (oddělení)",
+   "name_en": "Contact person - name",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Contact/cbc:Name",
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-41",
+    "BT-56"
+   ]
+  },
+  {
+   "id": "HDRNAD15",
+   "path": "body/message_header/party/contact_tel",
+   "tag": "contact_tel",
+   "name_cs": "Kontaktní osoba (oddělení) - telefon",
+   "name_en": "Contact person - phone",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Contact/cbc:Telephone",
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-42",
+    "BT-57"
+   ]
+  },
+  {
+   "id": "HDRNAD16",
+   "path": "body/message_header/party/contact_fax",
+   "tag": "contact_fax",
+   "name_cs": "Kontaktní osoba (oddělení) - fax",
+   "name_en": "Contact person - fax",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD17",
+   "path": "body/message_header/party/contact_email",
+   "tag": "contact_email",
+   "name_cs": "Kontaktní osoba (oddělení) - email",
+   "name_en": "Contact person - email",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Contact/cbc:ElectronicMail",
+   "bts_doc": [],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-43",
+    "BT-58"
+   ]
+  },
+  {
+   "id": "HDRNAD18",
+   "path": "body/message_header/party/account_number",
+   "tag": "account_number",
+   "name_cs": "Číslo bank. účtu dodavatele",
+   "name_en": "Bank account number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID (BT-84) – při převodu na tento účet",
+   "bts_doc": [
+    "BT-84"
+   ],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-84"
+   ]
+  },
+  {
+   "id": "HDRNAD19",
+   "path": "body/message_header/party/bank_code",
+   "tag": "bank_code",
+   "name_cs": "Směrový kód banky",
+   "name_en": "Bank code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PaymentMeans/cac:PayeeFinancialAccount/cac:FinancialInstitutionBranch/cbc:ID (BT-86)",
+   "bts_doc": [
+    "BT-86"
+   ],
+   "length": 4,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-86"
+   ]
+  },
+  {
+   "id": "HDRNAD20",
+   "path": "body/message_header/party/bank_name",
+   "tag": "bank_name",
+   "name_cs": "Název peněžního ústavu",
+   "name_en": "Bank name",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD21",
+   "path": "body/message_header/party/iban",
+   "tag": "iban",
+   "name_cs": "IBAN",
+   "name_en": "IBAN number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID (BT-84) – při převodu na účet",
+   "bts_doc": [
+    "BT-84"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-84"
+   ]
+  },
+  {
+   "id": "HDRNAD22",
+   "path": "body/message_header/party/swift",
+   "tag": "swift",
+   "name_cs": "SWIFT",
+   "name_en": "SWIFT code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PaymentMeans/cac:PayeeFinancialAccount/cac:FinancialInstitutionBranch/cbc:ID (BT-86)",
+   "bts_doc": [
+    "BT-86"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-86"
+   ]
+  },
+  {
+   "id": "HDRNAD23",
+   "path": "body/message_header/party/constant_symbol",
+   "tag": "constant_symbol",
+   "name_cs": "Konstantní symbol platby",
+   "name_en": "Constat code of the payment",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 4,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD24",
+   "path": "body/message_header/party/variable_symbol",
+   "tag": "variable_symbol",
+   "name_cs": "Variabilní symbol platby",
+   "name_en": "Variable code of the payment",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PaymentMeans/cbc:PaymentID (BT-83)",
+   "bts_doc": [
+    "BT-83"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": [
+    "BT-83"
+   ]
+  },
+  {
+   "id": "HDRNAD25",
+   "path": "body/message_header/party/specific_symbol",
+   "tag": "specific_symbol",
+   "name_cs": "Specifický symbol platby",
+   "name_en": "Specific code of payment",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRNAD26",
+   "path": "body/message_header/party/id_add_yc1",
+   "tag": "id_add_yc1",
+   "name_cs": "Doplňková identifikace partnera - id v systému protistrany",
+   "name_en": "Additional partner ID",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:PartyIdentification/cbc:ID",
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/message_header/party",
+   "since": "3.0.2",
+   "not_mapped": "Doplňková identifikace partnera (id v systému protistrany) – v Peppol bez jednoznačného BT.",
+   "bts": []
+  },
+  {
+   "id": "HDRSKT01",
+   "path": "body/message_header/skonto/counter",
+   "tag": "counter",
+   "name_cs": "Počítadlo sekce SKONTO",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1-n",
+   "group": "body/message_header/skonto",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "HDRSKT02",
+   "path": "body/message_header/skonto/discount_due_date",
+   "tag": "discount_due_date",
+   "name_cs": "Termín včasné platby",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – termín skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/message_header/skonto",
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDRSKT03",
+   "path": "body/message_header/skonto/discount_rate",
+   "tag": "discount_rate",
+   "name_cs": "Procento skonta při včasné platbě",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – procento skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/message_header/skonto",
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "HDRSKT04",
+   "path": "body/message_header/skonto/discount_amount",
+   "tag": "discount_amount",
+   "name_cs": "Částka skonta při včasné platbě",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné – pouze textově",
+   "peppol_mapping": "cac:PaymentTerms/cbc:Note (BT-20) – částku skonta lze uvést jen v textu platebních podmínek",
+   "bts_doc": [
+    "BT-20"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/message_header/skonto",
+   "since": null,
+   "not_mapped": "Skonto – jen textově v BT-20 (odvozeno).",
+   "bts": []
+  },
+  {
+   "id": "LIN1",
+   "path": "body/line_items/item/item_number",
+   "tag": "item_number",
+   "name_cs": "Číslo řádku",
+   "name_en": "Line number",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:InvoiceLine/cbc:ID nebo cac:CreditNoteLine/cbc:ID (BT-126)",
+   "bts_doc": [
+    "BT-126"
+   ],
+   "length": 6,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-126"
+   ]
+  },
+  {
+   "id": "LIN2",
+   "path": "body/line_items/item/article_gtin",
+   "tag": "article_gtin",
+   "name_cs": "GTIN (EAN) kód",
+   "name_en": "Article GTIN (EAN)",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:StandardItemIdentification/cbc:ID (BT-157)",
+   "bts_doc": [
+    "BT-157"
+   ],
+   "length": 25,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-157"
+   ]
+  },
+  {
+   "id": "LIN3",
+   "path": "body/line_items/item/article_id_supplier",
+   "tag": "article_id_supplier",
+   "name_cs": "Číslo zboží dle dodavatele",
+   "name_en": "Article supplier ID",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:SellersItemIdentification/cbc:ID (BT-155)",
+   "bts_doc": [
+    "BT-155"
+   ],
+   "length": 25,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-155"
+   ]
+  },
+  {
+   "id": "LIN4",
+   "path": "body/line_items/item/article_id_buyer",
+   "tag": "article_id_buyer",
+   "name_cs": "Číslo zboží dle objednatele",
+   "name_en": "Acticle buyer ID",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:BuyersItemIdentification/cbc:ID (BT-156)",
+   "bts_doc": [
+    "BT-156"
+   ],
+   "length": 25,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-156"
+   ]
+  },
+  {
+   "id": "LIN5",
+   "path": "body/line_items/item/article_id_add/article_id_type",
+   "tag": "article_id_type",
+   "name_cs": "Typ kódu",
+   "name_en": "Additional article ID - type",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode/@listID – jen pokud jde o klasifikaci položky",
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/article_id_add",
+   "since": null,
+   "codelist": "Kód typu identifikace položky",
+   "not_mapped": "Typ doplňkového čísla zboží (SA/IN/NB …) není klasifikace (BT-158); SA/IN použity pro BT-155/156.",
+   "bts": []
+  },
+  {
+   "id": "LIN6",
+   "path": "body/line_items/item/article_id_add/article_id_code",
+   "tag": "article_id_code",
+   "name_cs": "Kód položky",
+   "name_en": "Additional article ID - code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode (BT-158) – jen pokud jde o klasifikaci položky",
+   "bts_doc": [
+    "BT-158"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/article_id_add",
+   "since": null,
+   "not_mapped": "Doplňkové číslo zboží – viz LIN5.",
+   "bts": []
+  },
+  {
+   "id": "LIN7",
+   "path": "body/line_items/item/article_id_add/article_id_description",
+   "tag": "article_id_description",
+   "name_cs": "Popis typu kódu",
+   "name_en": "Additional article ID - description",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/article_id_add",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN8",
+   "path": "body/line_items/item/article_name",
+   "tag": "article_name",
+   "name_cs": "Název zboží",
+   "name_en": "Article name",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:Item/cbc:Name (BT-153)",
+   "bts_doc": [
+    "BT-153"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-153"
+   ]
+  },
+  {
+   "id": "LIN9",
+   "path": "body/line_items/item/item_type",
+   "tag": "item_type",
+   "name_cs": "Typ položky",
+   "name_en": "Item type",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode (BT-158)",
+   "bts_doc": [
+    "BT-158"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "Typ položky",
+   "not_mapped": "Typ položky Z/O/S není klasifikace dle UNCL7143 – nemapováno na BT-158.",
+   "bts": []
+  },
+  {
+   "id": "LIN10",
+   "path": "body/line_items/item/quantity",
+   "tag": "quantity",
+   "name_cs": "Množství",
+   "name_en": "Quantity",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:InvoicedQuantity / cbc:CreditedQuantity (BT-129)",
+   "bts_doc": [
+    "BT-129"
+   ],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-129"
+   ]
+  },
+  {
+   "id": "LIN11",
+   "path": "body/line_items/item/gross_price",
+   "tag": "gross_price",
+   "name_cs": "Cena za jednotku před uplatněním přirážek a slev",
+   "name_en": "Unit price before allowance without VAT (gross)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Price/cac:AllowanceCharge/cbc:BaseAmount (BT-148) – hrubá jednotková cena před cenovou slevou",
+   "bts_doc": [
+    "BT-148"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-148"
+   ]
+  },
+  {
+   "id": "LIN12",
+   "path": "body/line_items/item/allowance_rate",
+   "tag": "allowance_rate",
+   "name_cs": "Sleva na položce (procentní)",
+   "name_en": "Allowance rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Price/cac:AllowanceCharge/cbc:MultiplierFactorNumeric (BT-147-1)",
+   "bts_doc": [
+    "BT-147-1"
+   ],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "not_mapped": "Procento slevy z ceny (BT-147-1) není v syntax bindingu Peppol UBL.",
+   "bts": []
+  },
+  {
+   "id": "LIN13",
+   "path": "body/line_items/item/allowance_total",
+   "tag": "allowance_total",
+   "name_cs": "Částka slevy na jednotku (v měnové jednotce)",
+   "name_en": "Allowance amount per unit (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:Price/cac:AllowanceCharge/cbc:Amount (BT-147) – povinné při použití cenové slevy",
+   "bts_doc": [
+    "BT-147"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-147"
+   ]
+  },
+  {
+   "id": "LIN14",
+   "path": "body/line_items/item/net_price",
+   "tag": "net_price",
+   "name_cs": "Cena za jednotku po uplatnění přirážek a slev",
+   "name_en": "Unit price after allowance without VAT (net)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:Price/cbc:PriceAmount (BT-146)",
+   "bts_doc": [
+    "BT-146"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-146"
+   ]
+  },
+  {
+   "id": "LIN15",
+   "path": "body/line_items/item/total_price",
+   "tag": "total_price",
+   "name_cs": "Celková částka za položku bez DPH",
+   "name_en": "Total price for the item (excluding VAT)",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cbc:LineExtensionAmount (BT-131)",
+   "bts_doc": [
+    "BT-131"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-131"
+   ]
+  },
+  {
+   "id": "LIN16",
+   "path": "body/line_items/item/vat_rate",
+   "tag": "vat_rate",
+   "name_cs": "Sazba DPH",
+   "name_en": "VAT rate",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:Item/cac:ClassifiedTaxCategory/cbc:Percent (BT-152) – podle kategorie DPH",
+   "bts_doc": [
+    "BT-152"
+   ],
+   "length": 6,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": [
+    "BT-152"
+   ]
+  },
+  {
+   "id": "LIN17",
+   "path": "body/line_items/item/vat_total",
+   "tag": "vat_total",
+   "name_cs": "DPH celkem",
+   "name_en": "VAT amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN18",
+   "path": "body/line_items/item/total_price_vat",
+   "tag": "total_price_vat",
+   "name_cs": "Celková částka za položku včetně DPH",
+   "name_en": "Total price for the item (including VAT)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN19",
+   "path": "body/line_items/item/unit",
+   "tag": "unit",
+   "name_cs": "Fakturační měrná jednotka",
+   "name_en": "Unit of measure",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "@unitCode na cbc:InvoicedQuantity/CreditedQuantity (BT-130)",
+   "bts_doc": [
+    "BT-130"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "Měrné jednotky",
+   "bts": [
+    "BT-130"
+   ]
+  },
+  {
+   "id": "LIN20",
+   "path": "body/line_items/item/number_of_units",
+   "tag": "number_of_units",
+   "name_cs": "Počet spotřebitelských jedn. ve fakt. jedn.",
+   "name_en": "Numbers of consumer units in the traded unit",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN21",
+   "path": "body/line_items/item/excise_duty_group",
+   "tag": "excise_duty_group",
+   "name_cs": "Skupina spotřební daně-kód",
+   "name_en": "The category of excise duty - code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN22",
+   "path": "body/line_items/item/excise_duty_basis",
+   "tag": "excise_duty_basis",
+   "name_cs": "Základ pro spotřební daň (množství)",
+   "name_en": "Basis for excise duty (quantity)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN23",
+   "path": "body/line_items/item/excise_duty",
+   "tag": "excise_duty",
+   "name_cs": "Částka spotřební daně",
+   "name_en": "Excise duty amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN24",
+   "path": "body/line_items/item/reverse_charge",
+   "tag": "reverse_charge",
+   "name_cs": "Přenesená daňovná povinnost",
+   "name_en": "Reverse Charge mode",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:Item/cac:ClassifiedTaxCategory – reverse charge se vyjadřuje kategorií AE",
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "A/N",
+   "not_mapped": "Přenesená daňová povinnost na řádku – použito pro odvození kategorie AE (BT-151).",
+   "bts": []
+  },
+  {
+   "id": "LIN25",
+   "path": "body/line_items/item/country_of_origin",
+   "tag": "country_of_origin",
+   "name_cs": "Země původu",
+   "name_en": "Country of origin",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:OriginCountry/cbc:IdentificationCode (BT-159)",
+   "bts_doc": [
+    "BT-159"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "Země původu, Kód země",
+   "bts": [
+    "BT-159"
+   ]
+  },
+  {
+   "id": "LIN26",
+   "path": "body/line_items/item/special_condition",
+   "tag": "special_condition",
+   "name_cs": "Speciální podmínky pro fakturu - kód",
+   "name_en": "Special invoicee condition",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "Speciální podmínky pro fakturu (kód). Vztahují se ke slevám a bonusům",
+   "bts": []
+  },
+  {
+   "id": "LIN27",
+   "path": "body/line_items/item/delivery_date",
+   "tag": "delivery_date",
+   "name_cs": "Datum dodání",
+   "name_en": "Delivery date",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN28",
+   "path": "body/line_items/item/order_number",
+   "tag": "order_number",
+   "name_cs": "Číslo objednávky odběratele",
+   "name_en": "Customer's order number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN29",
+   "path": "body/line_items/item/order_number_date",
+   "tag": "order_number_date",
+   "name_cs": "Datum vystavení objednávky",
+   "name_en": "Order - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN30",
+   "path": "body/line_items/item/order_number_time",
+   "tag": "order_number_time",
+   "name_cs": "Čas vystavení objednávky",
+   "name_en": "Order - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN31",
+   "path": "body/line_items/item/supplier_order_number",
+   "tag": "supplier_order_number",
+   "name_cs": "Číslo objednávky u dodavatele",
+   "name_en": "Supplier's order number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN32",
+   "path": "body/line_items/item/supplier_order_number_date",
+   "tag": "supplier_order_number_date",
+   "name_cs": "Datum přijetí objednávky u dodavatele",
+   "name_en": "Date of receiving order (supplier)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN33",
+   "path": "body/line_items/item/supplier_order_number_time",
+   "tag": "supplier_order_number_time",
+   "name_cs": "Čas přijetí objednávky u dodavatele",
+   "name_en": "Time of receiving order (supplier)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN34",
+   "path": "body/line_items/item/despatch_advice_number",
+   "tag": "despatch_advice_number",
+   "name_cs": "Číslo dodacího listu",
+   "name_en": "Delivery note number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN35",
+   "path": "body/line_items/item/despatch_advice_date",
+   "tag": "despatch_advice_date",
+   "name_cs": "Datum vystavení dodacího listu",
+   "name_en": "Delivery note - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN36",
+   "path": "body/line_items/item/despatch_advice_time",
+   "tag": "despatch_advice_time",
+   "name_cs": "Čas vystavení dodacího listu",
+   "name_en": "Delivery note - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN37",
+   "path": "body/line_items/item/receiving_advice_number",
+   "tag": "receiving_advice_number",
+   "name_cs": "Číslo příjemky",
+   "name_en": "Receiving advice number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN38",
+   "path": "body/line_items/item/receiving_advice_date",
+   "tag": "receiving_advice_date",
+   "name_cs": "Datum vystavení příjemky",
+   "name_en": "Receiving advice - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN39",
+   "path": "body/line_items/item/receiving_advice_time",
+   "tag": "receiving_advice_time",
+   "name_cs": "Čas vystavení příjemky",
+   "name_en": "Receiving advice - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN40",
+   "path": "body/line_items/item/reclamation_number",
+   "tag": "reclamation_number",
+   "name_cs": "Číslo reklamace",
+   "name_en": "Reclamation number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN41",
+   "path": "body/line_items/item/date_of_reclamation",
+   "tag": "date_of_reclamation",
+   "name_cs": "Datum vystavení reklamace",
+   "name_en": "Date of reclamation",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN42",
+   "path": "body/line_items/item/previous_comdis_number",
+   "tag": "previous_comdis_number",
+   "name_cs": "Číslo zprávy COMDIS",
+   "name_en": "COMDIS number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN43",
+   "path": "body/line_items/item/previous_comdis_date",
+   "tag": "previous_comdis_date",
+   "name_cs": "Datum vystavení zprávy COMDIS",
+   "name_en": "COMDIS - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN44",
+   "path": "body/line_items/item/previous_comdis_time",
+   "tag": "previous_comdis_time",
+   "name_cs": "Čas vystavení zprávy COMDIS",
+   "name_en": "COMDIS - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN45",
+   "path": "body/line_items/item/meaning_of_reference_number",
+   "tag": "meaning_of_reference_number",
+   "name_cs": "Význam refer. čísla faktury",
+   "name_en": "Meaning of reference number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "codelist": "Význam referenčního čísla faktury",
+   "bts": []
+  },
+  {
+   "id": "LIN46",
+   "path": "body/line_items/item/reference_number",
+   "tag": "reference_number",
+   "name_cs": "Referenční číslo faktury (zálohové f. apod.)",
+   "name_en": "Reference document number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN47",
+   "path": "body/line_items/item/reference_number_date",
+   "tag": "reference_number_date",
+   "name_cs": "Datum vztahující se k ref. číslu faktury",
+   "name_en": "Reference document - date of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN48",
+   "path": "body/line_items/item/reference_number_time",
+   "tag": "reference_number_time",
+   "name_cs": "Čas vztahující se k ref. číslu faktury",
+   "name_en": "Reference document - time of issue",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Time",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN49",
+   "path": "body/line_items/item/promotion_deal",
+   "tag": "promotion_deal",
+   "name_cs": "Promo akce",
+   "name_en": "Promotion deal number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN50",
+   "path": "body/line_items/item/packagings_balance",
+   "tag": "packagings_balance",
+   "name_cs": "Stav salda vratných obalů za danou cenu",
+   "name_en": "Packagings balance",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 8,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN51",
+   "path": "body/line_items/item/packagings_delivered",
+   "tag": "packagings_delivered",
+   "name_cs": "Obaly dodané",
+   "name_en": "Packagings delivered",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 8,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN52",
+   "path": "body/line_items/item/packagings_returned",
+   "tag": "packagings_returned",
+   "name_cs": "Obaly vrácené",
+   "name_en": "Packagings returned",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 8,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN53",
+   "path": "body/line_items/item/packagings_type_balance",
+   "tag": "packagings_type_balance",
+   "name_cs": "Stav salda vrat. obalů jednoho typu celkem",
+   "name_en": "packagings type balance",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 8,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LIN54",
+   "path": "body/line_items/item/recycling_fee",
+   "tag": "recycling_fee",
+   "name_cs": "Recyklační příspěvek za jednotku",
+   "name_en": "Recycling fee per unit",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.1",
+   "bts": []
+  },
+  {
+   "id": "LIN55",
+   "path": "body/line_items/item/author_fee",
+   "tag": "author_fee",
+   "name_cs": "Autorský poplatek za jednotku",
+   "name_en": "Author (copyrigth) fee per unit",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.1",
+   "bts": []
+  },
+  {
+   "id": "LIN56",
+   "path": "body/line_items/item/order_line",
+   "tag": "order_line",
+   "name_cs": "Line number from reference ORDERS",
+   "name_en": "Additional allowances and charges",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:OrderLineReference/cbc:LineID (BT-132)",
+   "bts_doc": [
+    "BT-132"
+   ],
+   "length": 6,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.5",
+   "bts": [
+    "BT-132"
+   ]
+  },
+  {
+   "id": "LIN57",
+   "path": "body/line_items/item/customs_tarif_number",
+   "tag": "customs_tarif_number",
+   "name_cs": "Číslo zboží podle celního sazebníku",
+   "name_en": "Customs tarif number",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode (BT-158)",
+   "bts_doc": [
+    "BT-158"
+   ],
+   "length": 25,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.6",
+   "bts": [
+    "BT-158"
+   ]
+  },
+  {
+   "id": "LIN58",
+   "path": "body/line_items/item/total_weight",
+   "tag": "total_weight",
+   "name_cs": "Celková hmotnost položky na řádku",
+   "name_en": "Total weight",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": 3,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.6",
+   "bts": []
+  },
+  {
+   "id": "LIN59",
+   "path": "body/line_items/item/weight_unit",
+   "tag": "weight_unit",
+   "name_cs": "Hmotnost - měrná jednotka",
+   "name_en": "Weight unit",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.6",
+   "bts": []
+  },
+  {
+   "id": "LIN60",
+   "path": "body/line_items/item/expiry_date",
+   "tag": "expiry_date",
+   "name_cs": "Použitelnost do data",
+   "name_en": "Expiry date",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 10,
+   "decimals": null,
+   "type": "Date",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.0.8",
+   "bts": []
+  },
+  {
+   "id": "LIN61",
+   "path": "body/line_items/item/legislation_free_text",
+   "tag": "legislation_free_text",
+   "name_cs": "Informace o certifikátech (bio, FSC apod.)",
+   "name_en": "Certification info (bio, FSC etc.)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:Item/cac:AdditionalItemProperty (BT-160/BT-161) – pouze jako strukturovaný název a hodnota vlastnosti",
+   "bts_doc": [
+    "BT-160",
+    "BT-161"
+   ],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item",
+   "since": "3.1.0",
+   "not_mapped": "Certifikace – v Peppol jen jako dvojice název/hodnota (BT-160/161), konverze by musela doplnit název.",
+   "bts": []
+  },
+  {
+   "id": "LINALC1",
+   "path": "body/line_items/item/allowances_and_charges/allowance/allowance_id",
+   "tag": "allowance_id",
+   "name_cs": "Identifikace slevy",
+   "name_en": "Additional allowance identifier",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReason nebo ReasonCode – důvod nebo kód je povinný",
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-139"
+   ]
+  },
+  {
+   "id": "LINALC2",
+   "path": "body/line_items/item/allowances_and_charges/allowance/allowance_rate",
+   "tag": "allowance_rate",
+   "name_cs": "Dodatečná sleva na artikl v %",
+   "name_en": "Additional allowance rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": ".../cbc:MultiplierFactorNumeric (BT-138)",
+   "bts_doc": [
+    "BT-138"
+   ],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-138"
+   ]
+  },
+  {
+   "id": "LINALC3",
+   "path": "body/line_items/item/allowances_and_charges/allowance/allowance_total",
+   "tag": "allowance_total",
+   "name_cs": "Dodatečná sleva na artikl absolutně",
+   "name_en": "Additional allowance amount total (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:AllowanceCharge/cbc:Amount (BT-136) – povinné při řádkové slevě",
+   "bts_doc": [
+    "BT-136"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-136"
+   ]
+  },
+  {
+   "id": "LINALC4",
+   "path": "body/line_items/item/allowances_and_charges/allowance/calculation_sequence",
+   "tag": "calculation_sequence",
+   "name_cs": "Kalkulační stupeň",
+   "name_en": "Calculation sequence code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/allowance",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINALC5",
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_id",
+   "tag": "charge_id",
+   "name_cs": "Identifikace přirážky",
+   "name_en": "Additional charge identifier",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReason nebo ReasonCode – důvod nebo kód je povinný",
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-144"
+   ]
+  },
+  {
+   "id": "LINLAC9",
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_code",
+   "tag": "charge_code",
+   "name_cs": "Kód přirážky",
+   "name_en": "Charge code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReasonCode – důvod nebo kód je povinný",
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "codelist": "Kód přirážky (UNCL 7161)",
+   "bts": [
+    "BT-145"
+   ]
+  },
+  {
+   "id": "LINALC6",
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_rate",
+   "tag": "charge_rate",
+   "name_cs": "Dodatečná přirážka na artikl v %",
+   "name_en": "Additional charge rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": ".../cbc:MultiplierFactorNumeric (BT-143)",
+   "bts_doc": [
+    "BT-143"
+   ],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-143"
+   ]
+  },
+  {
+   "id": "LINALC7",
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_total",
+   "tag": "charge_total",
+   "name_cs": "Dodatečná přirážka na artikl absolutně",
+   "name_en": "Additional charge amount total (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:InvoiceLine/cac:AllowanceCharge/cbc:Amount (BT-141) – povinné při řádkové přirážce",
+   "bts_doc": [
+    "BT-141"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-141"
+   ]
+  },
+  {
+   "id": "LINLAC10",
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_unit",
+   "tag": "charge_unit",
+   "name_cs": "Dodatečná přirážka na jednotku",
+   "name_en": "Additional charge amount per unit (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINALC8",
+   "path": "body/line_items/item/allowances_and_charges/charge/calculation_sequence",
+   "tag": "calculation_sequence",
+   "name_cs": "Kalkulační stupeň",
+   "name_en": "Calculation sequence code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD1",
+   "path": "body/line_items/item/party/party_qualifier",
+   "tag": "party_qualifier",
+   "name_cs": "Kvalifikátor partnera",
+   "name_en": "Party qualifier",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "codelist": "Kvalifikátor obchodního partnera",
+   "bts": []
+  },
+  {
+   "id": "LINNAD2",
+   "path": "body/line_items/item/party/party_id",
+   "tag": "party_id",
+   "name_cs": "GLN partnera (GLN kód 13 míst)",
+   "name_en": "Party GLN",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD3",
+   "path": "body/line_items/item/party/party_description",
+   "tag": "party_description",
+   "name_cs": "Popis obchodního partnera",
+   "name_en": "Party description",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 175,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD4",
+   "path": "body/line_items/item/party/party_name",
+   "tag": "party_name",
+   "name_cs": "Obchodní jméno",
+   "name_en": "Party name",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 140,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD5",
+   "path": "body/line_items/item/party/street",
+   "tag": "street",
+   "name_cs": "Adresa - ulice a číslo",
+   "name_en": "Address - street",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 140,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD6",
+   "path": "body/line_items/item/party/place",
+   "tag": "place",
+   "name_cs": "Adresa - místo",
+   "name_en": "Address - town/city",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD7",
+   "path": "body/line_items/item/party/postcode",
+   "tag": "postcode",
+   "name_cs": "Adresa - PSČ",
+   "name_en": "Address - ZIP code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD8",
+   "path": "body/line_items/item/party/country_code",
+   "tag": "country_code",
+   "name_cs": "Adresa - kód země",
+   "name_en": "Address - country code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "codelist": "Země původu, Kód země",
+   "bts": []
+  },
+  {
+   "id": "LINNAD9",
+   "path": "body/line_items/item/party/country_name",
+   "tag": "country_name",
+   "name_cs": "Adresa - země slovy",
+   "name_en": "Address - country (full name)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD10",
+   "path": "body/line_items/item/party/company_id",
+   "tag": "company_id",
+   "name_cs": "Identifikační číslo (IČO)",
+   "name_en": "Company ID",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD11",
+   "path": "body/line_items/item/party/tax_id",
+   "tag": "tax_id",
+   "name_cs": "Daňové identifikační číslo (DIČ)",
+   "name_en": "VAT ID",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD12",
+   "path": "body/line_items/item/party/vat_id",
+   "tag": "vat_id",
+   "name_cs": "Daňové identifikační číslo (IČ DPH) na Slovensku",
+   "name_en": "VAT ID (IČ DPH) in Slovakia",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD13",
+   "path": "body/line_items/item/party/contact_type",
+   "tag": "contact_type",
+   "name_cs": "Identifikace kontaktní osoby (oddělení)",
+   "name_en": "Contact type",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 17,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD14",
+   "path": "body/line_items/item/party/contact_name",
+   "tag": "contact_name",
+   "name_cs": "Kontaktní osoba (oddělení)",
+   "name_en": "Contact person - name",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD15",
+   "path": "body/line_items/item/party/contact_tel",
+   "tag": "contact_tel",
+   "name_cs": "Kontaktní osoba (oddělení) - telefon",
+   "name_en": "Contact person - phone",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD16",
+   "path": "body/line_items/item/party/contact_fax",
+   "tag": "contact_fax",
+   "name_cs": "Kontaktní osoba (oddělení) - fax",
+   "name_en": "Contact person - fax",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "LINNAD17",
+   "path": "body/line_items/item/party/contact_email",
+   "tag": "contact_email",
+   "name_cs": "Kontaktní osoba (oddělení) - email",
+   "name_en": "Contact person - email",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 70,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/line_items/item/party",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "ADV1",
+   "path": "body/advances/advance_payment/advance_payment_number",
+   "tag": "advance_payment_number",
+   "name_cs": "Číslo zálohové faktury",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 15,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "ADV2",
+   "path": "body/advances/advance_payment/advance_payment_price",
+   "tag": "advance_payment_price",
+   "name_cs": "Částka zálohy",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "ADV3",
+   "path": "body/advances/advance_payment/advance_payment_rates/advance_payment_type",
+   "tag": "advance_payment_type",
+   "name_cs": "Typ",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment/advance_payment_rates",
+   "since": null,
+   "codelist": "Typ zálohy",
+   "bts": []
+  },
+  {
+   "id": "ADV4",
+   "path": "body/advances/advance_payment/advance_payment_rates/advance_payment_rate",
+   "tag": "advance_payment_rate",
+   "name_cs": "Sazba DPH zálohy",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment/advance_payment_rates",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "ADV5",
+   "path": "body/advances/advance_payment/advance_payment_rates/advance_payment_basis",
+   "tag": "advance_payment_basis",
+   "name_cs": "Částka základu daně zálohy",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment/advance_payment_rates",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "ADV6",
+   "path": "body/advances/advance_payment/advance_payment_rates/advance_payment_price",
+   "tag": "advance_payment_price",
+   "name_cs": "Částka DPH zálohy",
+   "name_en": null,
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/advances/advance_payment/advance_payment_rates",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUM1",
+   "path": "body/summary/number_of_items",
+   "tag": "number_of_items",
+   "name_cs": "Počet řádků (LIN) v dokumentu",
+   "name_en": "Number of line items (LIN) in message",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 6,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUM2",
+   "path": "body/summary/total_quantity",
+   "tag": "total_quantity",
+   "name_cs": "Součet Množství z položek",
+   "name_en": "Total quantity",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUM3",
+   "path": "body/summary/price_invoiced",
+   "tag": "price_invoiced",
+   "name_cs": "Fakturováno celkem",
+   "name_en": "Total invoiced amount",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:TaxInclusiveAmount (BT-112)",
+   "bts_doc": [
+    "BT-112"
+   ],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-112"
+   ]
+  },
+  {
+   "id": "SUM4",
+   "path": "body/summary/items_price",
+   "tag": "items_price",
+   "name_cs": "Součet Celkových částek z položek",
+   "name_en": "Total line items amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:LineExtensionAmount (BT-106)",
+   "bts_doc": [
+    "BT-106"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-106"
+   ]
+  },
+  {
+   "id": "SUM5",
+   "path": "body/summary/taxable_amount",
+   "tag": "taxable_amount",
+   "name_cs": "Cena bez DPH celkem",
+   "name_en": "Total taxable amount without VAT",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:TaxExclusiveAmount (BT-109)",
+   "bts_doc": [
+    "BT-109"
+   ],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-109"
+   ]
+  },
+  {
+   "id": "SUM6",
+   "path": "body/summary/advance_payment_rate",
+   "tag": "advance_payment_rate",
+   "name_cs": "Procento zálohové platby",
+   "name_en": "Percentage of the advance payment",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUM7",
+   "path": "body/summary/advance_payment_price",
+   "tag": "advance_payment_price",
+   "name_cs": "Částka zálohové platby",
+   "name_en": "Advance payment amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUM8",
+   "path": "body/summary/advance_payment_paid",
+   "tag": "advance_payment_paid",
+   "name_cs": "Zaplacené zálohy celkem",
+   "name_en": "Advance amount paid in total",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:PrepaidAmount (BT-113)",
+   "bts_doc": [
+    "BT-113"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-113"
+   ]
+  },
+  {
+   "id": "SUM9",
+   "path": "body/summary/remains_unsettled",
+   "tag": "remains_unsettled",
+   "name_cs": "K úhradě (zbývá uhradit)",
+   "name_en": "To settle (remains unsettled)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:PayableAmount (BT-115)",
+   "bts_doc": [
+    "BT-115"
+   ],
+   "length": 12,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-115"
+   ]
+  },
+  {
+   "id": "SUM10",
+   "path": "body/summary/rounding_difference",
+   "tag": "rounding_difference",
+   "name_cs": "Zaokrouhlení faktury",
+   "name_en": "Rounding diference (adjustment amount)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:PayableRoundingAmount (BT-114)",
+   "bts_doc": [
+    "BT-114"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-114"
+   ]
+  },
+  {
+   "id": "SUMALC01",
+   "path": "body/summary/allowances_and_charges/allowance/allowance_group",
+   "tag": "allowance_group",
+   "name_cs": "Daňová skupina slevy",
+   "name_en": "VAT group of allowance",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cac:TaxCategory (BT-95 až BT-97) – Daňová kategorie slevy je při použití slevy povinná",
+   "bts_doc": [
+    "BT-95",
+    "BT-97"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": null,
+   "codelist": "Daňové skupiny",
+   "not_mapped": "Daňová skupina slevy – BT-95/BT-96 se odvozují přes rozpis DPH.",
+   "bts": []
+  },
+  {
+   "id": "SUMALC02",
+   "path": "body/summary/allowances_and_charges/allowance/allowance_id",
+   "tag": "allowance_id",
+   "name_cs": "Identifikace slevy",
+   "name_en": "Allowance identifier",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:AllowanceChargeReason nebo cbc:AllowanceChargeReasonCode (BT-97/BT-98) – Při dokumentové slevě musí být uveden důvod nebo kód důvodu",
+   "bts_doc": [
+    "BT-97",
+    "BT-98"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-97"
+   ]
+  },
+  {
+   "id": "SUMALC03",
+   "path": "body/summary/allowances_and_charges/allowance/allowance_rate",
+   "tag": "allowance_rate",
+   "name_cs": "Dodatečná sleva na fakturu jako celek v %",
+   "name_en": "Allowance rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:MultiplierFactorNumeric (BT-94)",
+   "bts_doc": [
+    "BT-94"
+   ],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-94"
+   ]
+  },
+  {
+   "id": "SUMALC04",
+   "path": "body/summary/allowances_and_charges/allowance/allowance_total",
+   "tag": "allowance_total",
+   "name_cs": "Dodatečná sleva na fakturu jako celek absolutně",
+   "name_en": "Allowance amount (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:Amount (BT-92) – Částka dokumentové slevy je při použití skupiny povinná",
+   "bts_doc": [
+    "BT-92"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": null,
+   "bts": [
+    "BT-92"
+   ]
+  },
+  {
+   "id": "SUMALC05",
+   "path": "body/summary/allowances_and_charges/allowance/calculation_sequence",
+   "tag": "calculation_sequence",
+   "name_cs": "Kalkulační stupeň",
+   "name_en": "Calculation sequence code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUMALC06",
+   "path": "body/summary/allowances_and_charges/allowance/allowance_code",
+   "tag": "allowance_code",
+   "name_cs": "Kód slevy",
+   "name_en": "Allowance code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (BT-98) – Alternativa k textovému důvodu slevy; alespoň důvod nebo kód musí být uveden",
+   "bts_doc": [
+    "BT-98"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/allowance",
+   "since": "3.1.2",
+   "bts": [
+    "BT-98"
+   ]
+  },
+  {
+   "id": "SUMALC09",
+   "path": "body/summary/allowances_and_charges/allowance_rate_total",
+   "tag": "allowance_rate_total",
+   "name_cs": "Celková dodatečná sleva na fakturu jako celek v %",
+   "name_en": "Allowance on invoice in percent",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUMALC10",
+   "path": "body/summary/allowances_and_charges/allowance_total",
+   "tag": "allowance_total",
+   "name_cs": "Celková dodatečná sleva na fakturu jako celek (absolutně)",
+   "name_en": "Allowance amount on invoice (total value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:AllowanceTotalAmount (BT-107) – Celková částka slev; uvádí se v návaznosti na dokumentové slevy",
+   "bts_doc": [
+    "BT-107"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-107"
+   ]
+  },
+  {
+   "id": "SUMALC11",
+   "path": "body/summary/allowances_and_charges/charge/charge_group",
+   "tag": "charge_group",
+   "name_cs": "Daňová skupina přirážky",
+   "name_en": "VAT group of charge",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cac:TaxCategory (BT-102 až BT-105) – Daňová kategorie přirážky je při použití přirážky povinná",
+   "bts_doc": [
+    "BT-102",
+    "BT-105"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": null,
+   "codelist": "Daňové skupiny",
+   "not_mapped": "Daňová skupina přirážky – BT-102/BT-103 se odvozují přes rozpis DPH.",
+   "bts": []
+  },
+  {
+   "id": "SUMALC12",
+   "path": "body/summary/allowances_and_charges/charge/charge_id",
+   "tag": "charge_id",
+   "name_cs": "Identifikace přirážky",
+   "name_en": "Charge identifier",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:AllowanceChargeReason nebo cbc:AllowanceChargeReasonCode (BT-104/BT-105) – Při dokumentové přirážce musí být uveden důvod nebo kód důvodu",
+   "bts_doc": [
+    "BT-104",
+    "BT-105"
+   ],
+   "length": 35,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-104"
+   ]
+  },
+  {
+   "id": "SUMALC13",
+   "path": "body/summary/allowances_and_charges/charge/charge_rate",
+   "tag": "charge_rate",
+   "name_cs": "Dodatečná přirážka na fakturu jako celek v %",
+   "name_en": "Charge rate",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Nepovinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:MultiplierFactorNumeric (BT-101)",
+   "bts_doc": [
+    "BT-101"
+   ],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-101"
+   ]
+  },
+  {
+   "id": "SUMALC14",
+   "path": "body/summary/allowances_and_charges/charge/charge_total",
+   "tag": "charge_total",
+   "name_cs": "Dodatečná přirážka na fakturu jako celek absolutně",
+   "name_en": "Charge amount (value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:Amount (BT-99) – Částka dokumentové přirážky je při použití skupiny povinná",
+   "bts_doc": [
+    "BT-99"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": null,
+   "bts": [
+    "BT-99"
+   ]
+  },
+  {
+   "id": "SUMALC15",
+   "path": "body/summary/allowances_and_charges/charge/calculation_sequence",
+   "tag": "calculation_sequence",
+   "name_cs": "Kalkulační stupeň",
+   "name_en": "Calculation sequence code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 1,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUMALC16",
+   "path": "body/summary/allowances_and_charges/charge/charge_code",
+   "tag": "charge_code",
+   "name_cs": "Kód přirážky",
+   "name_en": "Charge code",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:AllowanceCharge/cbc:AllowanceChargeReasonCode (BT-105) – Alternativa k textovému důvodu přirážky; alespoň důvod nebo kód musí být uveden",
+   "bts_doc": [
+    "BT-105"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/allowances_and_charges/charge",
+   "since": "3.1.2",
+   "bts": [
+    "BT-105"
+   ]
+  },
+  {
+   "id": "SUMALC19",
+   "path": "body/summary/allowances_and_charges/charge_rate_total",
+   "tag": "charge_rate_total",
+   "name_cs": "Celková dodatečná přirážka na fakturu jako celek v %",
+   "name_en": "Charge on invoice in percent",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 7,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": "SUMALC20",
+   "path": "body/summary/allowances_and_charges/charge_total",
+   "tag": "charge_total",
+   "name_cs": "Celková dodatečná přirážka na fakturu (absolutně)",
+   "name_en": "Charge amount on invoice (total value)",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:LegalMonetaryTotal/cbc:ChargeTotalAmount (BT-108) – Celková částka přirážek; uvádí se v návaznosti na dokumentové přirážky",
+   "bts_doc": [
+    "BT-108"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-108"
+   ]
+  },
+  {
+   "id": "SUMVAT01",
+   "path": "body/summary/tax_details/vat/vat_group",
+   "tag": "vat_group",
+   "name_cs": "Daňová skupina",
+   "name_en": "Identifier of the VAT group",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:ID (BT-118)",
+   "bts_doc": [
+    "BT-118"
+   ],
+   "length": 3,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "codelist": "Daňové skupiny",
+   "not_mapped": "Daňová skupina (0/1/1.2/2) není kategorie DPH – BT-118 se odvozuje.",
+   "bts": []
+  },
+  {
+   "id": "SUMVAT02",
+   "path": "body/summary/tax_details/vat/vat_basis",
+   "tag": "vat_basis",
+   "name_cs": "Základ daňové skupiny",
+   "name_en": "Basis of VAT in group",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount (BT-116)",
+   "bts_doc": [
+    "BT-116"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "bts": [
+    "BT-116"
+   ]
+  },
+  {
+   "id": "SUMVAT03",
+   "path": "body/summary/tax_details/vat/vat_rate",
+   "tag": "vat_rate",
+   "name_cs": "Sazba DPH skupiny",
+   "name_en": "VAT rate in group",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:TaxTotal/cac:TaxSubtotal/cac:TaxCategory/cbc:Percent (BT-119) – Sazba DPH; povinnost závisí na kategorii DPH",
+   "bts_doc": [
+    "BT-119"
+   ],
+   "length": 5,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "bts": [
+    "BT-119"
+   ]
+  },
+  {
+   "id": "SUMVAT04",
+   "path": "body/summary/tax_details/vat/vat_total",
+   "tag": "vat_total",
+   "name_cs": "DPH daňové skupiny",
+   "name_en": "VAT amount in group",
+   "mandatory": "yes",
+   "mandatory_raw": "Yes",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:TaxTotal/cac:TaxSubtotal/cbc:TaxAmount (BT-117)",
+   "bts_doc": [
+    "BT-117"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "bts": [
+    "BT-117"
+   ]
+  },
+  {
+   "id": "SUMVAT05",
+   "path": "body/summary/tax_details/vat/reverse_charge",
+   "tag": "reverse_charge",
+   "name_cs": "Přenesená daňová povinnost",
+   "name_en": "Reverse Charge mode",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "cac:TaxCategory/cbc:ID + TaxExemptionReason/Code (BT-118, BT-120, BT-121) – Reverse charge se vyjadřuje kategorií AE a důvodem, nikoli booleanem",
+   "bts_doc": [
+    "BT-118",
+    "BT-120",
+    "BT-121"
+   ],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "codelist": "A/N",
+   "not_mapped": "Přenesená daňová povinnost ve skupině DPH – použito pro odvození kategorie AE (BT-118).",
+   "bts": []
+  },
+  {
+   "id": "SUMVAT06",
+   "path": "body/summary/tax_details/vat/local_currency",
+   "tag": "local_currency",
+   "name_cs": "DPH v přepočtené (místní) měně",
+   "name_en": "VAT in local currency",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Podmíněně povinné",
+   "peppol_mapping": "druhý cac:TaxTotal/cbc:TaxAmount (BT-111) – Částka DPH v účetní měně je povinná, pokud je uvedena odlišná TaxCurrencyCode",
+   "bts_doc": [
+    "BT-111"
+   ],
+   "length": 1,
+   "decimals": null,
+   "type": "Char",
+   "occurrence": "0-1",
+   "group": "body/summary/tax_details/vat",
+   "since": null,
+   "codelist": "A/N",
+   "not_mapped": "Příznak DPH v místní měně – BT-111 ORION nenese jako částku.",
+   "bts": []
+  },
+  {
+   "id": "SUMVAT09",
+   "path": "body/summary/tax_details/vat_total",
+   "tag": "vat_total",
+   "name_cs": "DPH daň celkem",
+   "name_en": "VAT - total tax amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Povinné",
+   "peppol_mapping": "cac:TaxTotal/cbc:TaxAmount (BT-110)",
+   "bts_doc": [
+    "BT-110"
+   ],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": [
+    "BT-110"
+   ]
+  },
+  {
+   "id": "SUMVAT10",
+   "path": "body/summary/tax_details/excise_duty",
+   "tag": "excise_duty",
+   "name_cs": "Spotřební daň celkem",
+   "name_en": "Excise duty amount",
+   "mandatory": "no",
+   "mandatory_raw": "No",
+   "peppol": "Není v Peppol UBL",
+   "peppol_mapping": null,
+   "bts_doc": [],
+   "length": 13,
+   "decimals": null,
+   "type": "Num",
+   "occurrence": "0-1",
+   "group": null,
+   "since": null,
+   "bts": []
+  },
+  {
+   "id": null,
+   "path": "body/line_items/item/allowances_and_charges/charge/charge_sequence",
+   "tag": "charge_sequence",
+   "mandatory": "no",
+   "bts_doc": [],
+   "length": null,
+   "decimals": null,
+   "occurrence": "0-1",
+   "group": "body/line_items/item/allowances_and_charges/charge",
+   "type": "Num",
+   "since": "3.1.1",
+   "note": "jen v XSD 3.1.1",
+   "bts": []
+  }
+ ],
+ "codelists": {
+  "Druh dokladu": {
+   "name": "Druh dokladu",
+   "codes": {
+    "380": "Faktura",
+    "386": "Zálohová faktura",
+    "325": "Proforma faktura",
+    "381": "Dopropis - Celková cena je u dobropisu záporná",
+    "383": "Vrubopis",
+    "83": "Finanční dobropis (bonusy,…)"
+   },
+   "open": true,
+   "note": "Lze použít i jiné kódy, ale musí odpovídat číselníku EDIFACTu pro datový prvek 1001 !"
+  },
+  "Funkce zprávy": {
+   "name": "Funkce zprávy",
+   "codes": {
+    "9": "Originál - v ČR, SK se používá zatím výhradně tento kód",
+    "1": "Zrušení (storno)",
+    "5": "Náhrada",
+    "7": "Duplikát",
+    "31": "Kopie",
+    "43": "Dodatečný přenos"
+   },
+   "open": false
+  },
+  "Způsob úhrady": {
+   "name": "Způsob úhrady",
+   "codes": {
+    "42": "Úhrada na bankovní účet",
+    "10": "V hotovosti",
+    "21": "Bankovní směnka",
+    "23": "Bankovní šek",
+    "ZZZ": "Definováno vzájemně"
+   },
+   "open": true,
+   "note": "Lze použít i jiné kódy, ale musí odpovídat číselníku EDIFACTu pro datový prvek 4461"
+  },
+  "Země původu, Kód země": {
+   "name": "Země původu, Kód země",
+   "codes": {
+    "CZ": "Česká republika",
+    "SK": "Slovenská republika",
+    "PL": "Polsko",
+    "CN": "Čína"
+   },
+   "open": true,
+   "note": "Dle ISO 3166-1, 2 (2 znaky)"
+  },
+  "Význam referenčního čísla faktury": {
+   "name": "Význam referenčního čísla faktury",
+   "codes": {
+    "AAB": "číslo proforma (zálohové) faktury",
+    "IV": "číslo faktury"
+   },
+   "open": true,
+   "note": "Po dohodě je možno použít další kódy dle číselníku EDIFACTu pro datový prvek 1153"
+  },
+  "Speciální podmínky pro fakturu (kód). Vztahují se ke slevám a bonusům": {
+   "name": "Speciální podmínky pro fakturu (kód). Vztahují se ke slevám a bonusům",
+   "codes": {
+    "6": "Předmětem pro výpočet bonusu",
+    "15": "Není předmětem slevy",
+    "116": "Předmětem odložené slevy",
+    "141": "Předmětem pro výpočet ročního bonusu"
+   },
+   "open": false
+  },
+  "Kvalifikátor obchodního partnera": {
+   "name": "Kvalifikátor obchodního partnera",
+   "codes": {
+    "BY": "Kupující",
+    "OB": "Objednatel",
+    "SN": "Konenčné místo dodání (sklad/obchod je-li různý od DP)",
+    "UC": "Koncový spotřebitel",
+    "DP": "Místo dodání",
+    "IV": "Fakturační místo",
+    "SU": "Dodavatel",
+    "SE": "Prodávající",
+    "SF": "Distribuční sklad",
+    "II": "Vystavitel dokladu"
+   },
+   "open": true,
+   "note": "Dle číselníku EDIFACTu pro datový prvek 3035"
+  },
+  "Kód měny": {
+   "name": "Kód měny",
+   "codes": {
+    "CZK": "Koruna česká",
+    "EUR": "Euro",
+    "USD": "Americký dolar"
+   },
+   "open": true,
+   "note": "Třípísmený kód podle ISO 4217"
+  },
+  "Kód typu identifikace položky": {
+   "name": "Kód typu identifikace položky",
+   "codes": {
+    "SA": "Číslo zboží dodavatele",
+    "IN": "Číslo zboží kupujícího",
+    "PV": "Číslo zboží v promo akci",
+    "IB": "ISBN",
+    "IS": "ISSN",
+    "RVM": "Číslo zboží s proměnnou hmotností",
+    "NB": "Číslo šarže",
+    "SN": "Sériové číslo",
+    "AA": "Číslo verze",
+    "MF": "Výrobní číslo"
+   },
+   "open": true,
+   "note": "Možno použít i další kódy podle číselníku EDIFACTu pro datový prvek 7143"
+  },
+  "Typ položky": {
+   "name": "Typ položky",
+   "codes": {
+    "Z": "Zboží",
+    "O": "Obal",
+    "S": "Služba (tento kód je zatím používán neoficiálně)",
+    "TAN": "(jen v XSD)"
+   },
+   "open": false
+  },
+  "Měrné jednotky": {
+   "name": "Měrné jednotky",
+   "codes": {
+    "PCE": "kus",
+    "KGM": "kilogram",
+    "LTR": "litr",
+    "MTR": "metr",
+    "CT": "karton"
+   },
+   "open": true,
+   "note": "Možno použít i další kódy podle číselníku EDIFACTu pro datový prvek 6411"
+  },
+  "Daňové skupiny": {
+   "name": "Daňové skupiny",
+   "codes": {
+    "0": "Osvobozeno",
+    "1": "Snížená sazba DPH",
+    "1.2": "2. snížená sazba DPH",
+    "2": "Základní sazba DPH"
+   },
+   "open": false
+  },
+  "Testovací příznak": {
+   "name": "Testovací příznak",
+   "codes": {
+    "0": "ostrá",
+    "1": "testovací"
+   },
+   "open": false
+  },
+  "A/N": {
+   "name": "A/N",
+   "codes": {
+    "A": "ano",
+    "N": "ne"
+   },
+   "open": false
+  },
+  "Kód přirážky (UNCL 7161)": {
+   "name": "Kód přirážky (UNCL 7161)",
+   "codes": {
+    "AEO": "recyklační příspěvek",
+    "AEP": "autorský poplatek"
+   },
+   "open": true
+  },
+  "Typ zálohy": {
+   "name": "Typ zálohy",
+   "codes": {
+    "A": "záloha",
+    "C": "storno zálohy"
+   },
+   "open": false
+  }
+ },
+ "terms": {
+  "BT-1": [
+   {
+    "field": "HDR1"
+   }
+  ],
+  "BT-2": [
+   {
+    "field": "HDR4"
+   }
+  ],
+  "BT-3": [
+   {
+    "field": "HDR2",
+    "map": {
+     "83": "381",
+     "84": "383"
+    },
+    "note": "83/84 (finanční dobropis/vrubopis) převedeno na 381/383."
+   }
+  ],
+  "BT-5": [
+   {
+    "field": "HDR12"
+   }
+  ],
+  "BT-6": [
+   {
+    "field": "HDR13"
+   }
+  ],
+  "BT-7": [
+   {
+    "field": "HDR5"
+   }
+  ],
+  "BT-9": [
+   {
+    "field": "HDR10"
+   }
+  ],
+  "BT-12": [
+   {
+    "field": "HDR21"
+   }
+  ],
+  "BT-13": [
+   {
+    "field": "HDR22"
+   }
+  ],
+  "BT-14": [
+   {
+    "field": "HDR25"
+   }
+  ],
+  "BT-15": [
+   {
+    "field": "HDR31"
+   }
+  ],
+  "BT-16": [
+   {
+    "field": "HDR28"
+   }
+  ],
+  "BT-20": [
+   {
+    "derive": "payment_terms_text",
+    "note": "Skonto (HDR52–54, HDR67–68, sekce skonto) Peppol nese jen jako text platebních podmínek."
+   }
+  ],
+  "BT-22": [
+   {
+    "fields": [
+     "HDR18",
+     "HDR51",
+     "HDR55",
+     "HDR56",
+     "HDR57",
+     "HDR58",
+     "HDR59",
+     "HDR60",
+     "HDR61",
+     "HDR62",
+     "HDR63",
+     "HDR64"
+    ]
+   }
+  ],
+  "BT-23": [
+   {
+    "const": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+    "note": "Doplní konverze (Profile ID)."
+   }
+  ],
+  "BT-24": [
+   {
+    "const": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+    "note": "Doplní konverze (Customization ID)."
+   }
+  ],
+  "BT-25": [
+   {
+    "field": "HDR40"
+   }
+  ],
+  "BT-26": [
+   {
+    "field": "HDR41"
+   }
+  ],
+  "BT-27": [
+   {
+    "field": "HDRNAD4",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-29": [
+   {
+    "field": "HDRNAD2",
+    "party": "SE|SU",
+    "scheme": "0088"
+   }
+  ],
+  "BT-30": [
+   {
+    "field": "HDRNAD10",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-31": [
+   {
+    "field": "HDRNAD11",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-32": [
+   {
+    "field": "HDRNAD12",
+    "party": "SE|SU",
+    "note": "SK DIČ (vat_id) prodávajícího."
+   },
+   {
+    "derive": "sk_tax_id_from_vat",
+    "args": {
+     "party": "SE|SU"
+    },
+    "note": "SK DIČ chybí (vat_id); odvozeno z IČ DPH bez prefixu SK."
+   }
+  ],
+  "BT-33": [
+   {
+    "field": "HDR17",
+    "note": "Spisová značka (zápis v OR) – v Peppol 'Seller additional legal information'."
+   }
+  ],
+  "BT-34": [
+   {
+    "derive": "endpoint_from_party",
+    "args": {
+     "party": "SE|SU"
+    },
+    "note": "Peppol endpoint ORION nenese; odvozeno z GLN (0088). V SK se typicky používá DIČ (0245) – ověřte SMP."
+   }
+  ],
+  "BT-35": [
+   {
+    "field": "HDRNAD5",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-37": [
+   {
+    "field": "HDRNAD6",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-38": [
+   {
+    "field": "HDRNAD7",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-40": [
+   {
+    "field": "HDRNAD8",
+    "party": "SE|SU"
+   },
+   {
+    "derive": "country_from_vat",
+    "args": {
+     "party": "SE|SU"
+    },
+    "note": "Kód země chybí; odvozeno z prefixu DIČ."
+   }
+  ],
+  "BT-41": [
+   {
+    "field": "HDRNAD14",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-42": [
+   {
+    "field": "HDRNAD15",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-43": [
+   {
+    "field": "HDRNAD17",
+    "party": "SE|SU"
+   }
+  ],
+  "BT-44": [
+   {
+    "field": "HDRNAD4",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-46": [
+   {
+    "field": "HDRNAD2",
+    "party": "BY|IV",
+    "scheme": "0088"
+   }
+  ],
+  "BT-47": [
+   {
+    "field": "HDRNAD10",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-48": [
+   {
+    "field": "HDRNAD11",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-49": [
+   {
+    "derive": "endpoint_from_party",
+    "args": {
+     "party": "BY|IV"
+    },
+    "note": "Peppol endpoint ORION nenese; odvozeno z GLN (0088). Ověřte registraci kupujícího v SMP."
+   }
+  ],
+  "BT-50": [
+   {
+    "field": "HDRNAD5",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-52": [
+   {
+    "field": "HDRNAD6",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-53": [
+   {
+    "field": "HDRNAD7",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-55": [
+   {
+    "field": "HDRNAD8",
+    "party": "BY|IV"
+   },
+   {
+    "derive": "country_from_vat",
+    "args": {
+     "party": "BY|IV"
+    },
+    "note": "Kód země chybí; odvozeno z prefixu DIČ."
+   }
+  ],
+  "BT-56": [
+   {
+    "field": "HDRNAD14",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-57": [
+   {
+    "field": "HDRNAD15",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-58": [
+   {
+    "field": "HDRNAD17",
+    "party": "BY|IV"
+   }
+  ],
+  "BT-70": [
+   {
+    "field": "HDRNAD4",
+    "party": "DP"
+   }
+  ],
+  "BT-71": [
+   {
+    "field": "HDRNAD2",
+    "party": "DP",
+    "scheme": "0088"
+   }
+  ],
+  "BT-72": [
+   {
+    "field": "HDR7"
+   }
+  ],
+  "BT-73": [
+   {
+    "field": "HDR8"
+   }
+  ],
+  "BT-74": [
+   {
+    "field": "HDR9"
+   }
+  ],
+  "BT-75": [
+   {
+    "field": "HDRNAD5",
+    "party": "DP"
+   }
+  ],
+  "BT-77": [
+   {
+    "field": "HDRNAD6",
+    "party": "DP"
+   }
+  ],
+  "BT-78": [
+   {
+    "field": "HDRNAD7",
+    "party": "DP"
+   }
+  ],
+  "BT-80": [
+   {
+    "field": "HDRNAD8",
+    "party": "DP"
+   }
+  ],
+  "BT-81": [
+   {
+    "field": "HDR11"
+   }
+  ],
+  "BT-83": [
+   {
+    "field": "HDRNAD24",
+    "party": "SE|SU",
+    "note": "Variabilní symbol."
+   }
+  ],
+  "BT-84": [
+   {
+    "field": "HDRNAD21",
+    "party": "SE|SU"
+   },
+   {
+    "field": "HDRNAD18",
+    "party": "SE|SU",
+    "note": "Použito národní číslo účtu (ne IBAN) – pro kód úhrady 58 (SEPA) je vyžadován IBAN."
+   }
+  ],
+  "BT-86": [
+   {
+    "field": "HDRNAD22",
+    "party": "SE|SU"
+   },
+   {
+    "field": "HDRNAD19",
+    "party": "SE|SU",
+    "note": "Použit směrový kód banky (ne BIC/SWIFT)."
+   }
+  ],
+  "BT-92": [
+   {
+    "field": "SUMALC04"
+   }
+  ],
+  "BT-94": [
+   {
+    "field": "SUMALC03"
+   }
+  ],
+  "BT-95": [
+   {
+    "derive": "ac_category",
+    "args": {
+     "field": "SUMALC01"
+    },
+    "note": "ORION nese daňovou skupinu (0/1/1.2/2), ne kategorii DPH; odvozeno ze sazby skupiny."
+   }
+  ],
+  "BT-96": [
+   {
+    "derive": "ac_rate",
+    "args": {
+     "field": "SUMALC01"
+    },
+    "note": "Sazba převzata z rozpisu DPH dané daňové skupiny."
+   }
+  ],
+  "BT-97": [
+   {
+    "field": "SUMALC02"
+   }
+  ],
+  "BT-98": [
+   {
+    "field": "SUMALC06"
+   }
+  ],
+  "BT-99": [
+   {
+    "field": "SUMALC14"
+   }
+  ],
+  "BT-101": [
+   {
+    "field": "SUMALC13"
+   }
+  ],
+  "BT-102": [
+   {
+    "derive": "ac_category",
+    "args": {
+     "field": "SUMALC11"
+    },
+    "note": "ORION nese daňovou skupinu (0/1/1.2/2), ne kategorii DPH; odvozeno ze sazby skupiny."
+   }
+  ],
+  "BT-103": [
+   {
+    "derive": "ac_rate",
+    "args": {
+     "field": "SUMALC11"
+    },
+    "note": "Sazba převzata z rozpisu DPH dané daňové skupiny."
+   }
+  ],
+  "BT-104": [
+   {
+    "field": "SUMALC12"
+   }
+  ],
+  "BT-105": [
+   {
+    "field": "SUMALC16"
+   }
+  ],
+  "BT-106": [
+   {
+    "field": "SUM4"
+   }
+  ],
+  "BT-107": [
+   {
+    "field": "SUMALC10"
+   }
+  ],
+  "BT-108": [
+   {
+    "field": "SUMALC20"
+   }
+  ],
+  "BT-109": [
+   {
+    "field": "SUM5"
+   }
+  ],
+  "BT-110": [
+   {
+    "field": "SUMVAT09"
+   }
+  ],
+  "BT-112": [
+   {
+    "field": "SUM3"
+   }
+  ],
+  "BT-113": [
+   {
+    "field": "SUM8"
+   }
+  ],
+  "BT-114": [
+   {
+    "field": "SUM10"
+   }
+  ],
+  "BT-115": [
+   {
+    "field": "SUM9"
+   }
+  ],
+  "BT-116": [
+   {
+    "field": "SUMVAT02"
+   }
+  ],
+  "BT-117": [
+   {
+    "field": "SUMVAT04"
+   }
+  ],
+  "BT-118": [
+   {
+    "derive": "vat_category",
+    "note": "ORION nese daňovou skupinu a příznak přenesené povinnosti, ne kategorii DPH (UNCL5305); odvozeno: reverse_charge=A → AE, sazba > 0 → S, sazba 0 / skupina 0 → E (nejednoznačné)."
+   }
+  ],
+  "BT-119": [
+   {
+    "field": "SUMVAT03"
+   }
+  ],
+  "BT-121": [
+   {
+    "derive": "vat_exemption_code",
+    "note": "ORION nenese důvod osvobození; pro přenesenou daňovou povinnost (AE) konverze doplní VATEX-EU-AE."
+   }
+  ],
+  "BT-126": [
+   {
+    "field": "LIN1"
+   }
+  ],
+  "BT-129": [
+   {
+    "field": "LIN10"
+   }
+  ],
+  "BT-130": [
+   {
+    "field": "LIN19",
+    "map": {
+     "PCE": "H87",
+     "PCS": "H87",
+     "KS": "H87",
+     "KAR": "CT",
+     "CAR": "CT",
+     "KRT": "CT",
+     "BAL": "PK",
+     "PAL": "PF",
+     "KG": "KGM",
+     "L": "LTR",
+     "M": "MTR"
+    },
+    "note": "Jednotka převedena z EANCOM kódu na UN/ECE Rec 20."
+   }
+  ],
+  "BT-131": [
+   {
+    "field": "LIN15"
+   }
+  ],
+  "BT-132": [
+   {
+    "field": "LIN56"
+   }
+  ],
+  "BT-136": [
+   {
+    "field": "LINALC3"
+   }
+  ],
+  "BT-138": [
+   {
+    "field": "LINALC2"
+   }
+  ],
+  "BT-139": [
+   {
+    "field": "LINALC1"
+   }
+  ],
+  "BT-141": [
+   {
+    "field": "LINALC7"
+   }
+  ],
+  "BT-143": [
+   {
+    "field": "LINALC6"
+   }
+  ],
+  "BT-144": [
+   {
+    "field": "LINALC5"
+   }
+  ],
+  "BT-145": [
+   {
+    "field": "LINLAC9",
+    "note": "AEO = recyklační poplatek, AEP = autorský poplatek (UNCL7161)."
+   }
+  ],
+  "BT-146": [
+   {
+    "field": "LIN14"
+   }
+  ],
+  "BT-147": [
+   {
+    "field": "LIN13"
+   }
+  ],
+  "BT-148": [
+   {
+    "field": "LIN11"
+   }
+  ],
+  "BT-151": [
+   {
+    "derive": "line_vat_category",
+    "note": "Kategorie DPH řádku ORION nenese; odvozena ze sazby a příznaku přenesené povinnosti."
+   }
+  ],
+  "BT-152": [
+   {
+    "field": "LIN16"
+   }
+  ],
+  "BT-153": [
+   {
+    "field": "LIN8"
+   }
+  ],
+  "BT-155": [
+   {
+    "field": "LIN3"
+   },
+   {
+    "derive": "article_id_add",
+    "args": {
+     "type": "SA"
+    }
+   }
+  ],
+  "BT-156": [
+   {
+    "field": "LIN4"
+   },
+   {
+    "derive": "article_id_add",
+    "args": {
+     "type": "IN"
+    }
+   }
+  ],
+  "BT-157": [
+   {
+    "field": "LIN2",
+    "scheme": "0160"
+   }
+  ],
+  "BT-158": [
+   {
+    "field": "LIN57",
+    "scheme": "HS",
+    "note": "Celní sazebník (HS)."
+   }
+  ],
+  "BT-159": [
+   {
+    "field": "LIN25"
+   }
+  ]
+ },
+ "aux": {
+  "item_type": {
+   "group": "BG-25",
+   "rules": [
+    {
+     "field": "LIN9"
+    }
+   ]
+  }
+ }
+}

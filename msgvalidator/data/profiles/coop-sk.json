@@ -1,0 +1,11 @@
+{
+ "id": "coop-sk",
+ "name": "COOP Jednota SK (Peppol BIS 3.0 SK FMCG)",
+ "group": "Slovenská transpozice – rozšířené formáty",
+ "description": "Požiadavky COOP Jednota: súbor '2. COOP poziadavky PEPPOL-BIS3.0_SK_FMCG_version_v1.10.xlsx' je zhodný s príručkou GS1 SK FMCG v1.10 – COOP vyžaduje GS1 štandard bez vlastných odchýlok.",
+ "source": "2. COOP poziadavky PEPPOL-BIS3.0_SK_FMCG_version_v1.10.xlsx",
+ "extends": [
+  "gs1-sk-fmcg"
+ ],
+ "requirements": {}
+}

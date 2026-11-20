@@ -1,0 +1,385 @@
+# SAP IDoc INVOIC01 / INVOIC02 – slovník segmentů, polí a kvalifikátorů pro MsgValidator.
+#
+# Slouží k: pořadí polí (pozice pro mapování), typům (num/date – kontrola formátu) a českým popisům
+# v mapovacím editoru. Kódy označené (?) nejsou ověřené – jejich význam se u klientů liší podle
+# nastavení SAP; ověřujte proti PDF téže faktury. „ověřeno“ = sedí na reálných vzorcích klientů.
+#
+# Segmenty, které tu nejsou (např. zákaznické Z1…), validátor přijme jako „neznámé“ (info) a jejich
+# pole jsou v editoru k dispozici také – jen bez popisu.
+
+types:
+  num: [MENGE, BETRG, SUMME, MSATZ, MWSBT, MWSBS, WKURS, KRATE, KOBAS, NTGEW, BRGEW, KPERC, VPREI, PEINH,
+        NETWR, BRULO, NETLO, TAGE, PRZNT, UPRBS]
+  date: [DATUM, CREDAT, TXDAT]
+
+segments:
+  EDI_DC40:
+    label: Řídicí záznam IDocu (odesílatel, příjemce, typ)
+    fields:
+      TABNAM: Název tabulky
+      MANDT: Klient SAP
+      DOCNUM: Číslo IDocu
+      DOCREL: Verze SAP
+      STATUS: Stav
+      DIRECT: Směr (1 = odchozí)
+      IDOCTYP: Základní typ (INVOIC01 / INVOIC02)
+      CIMTYP: Rozšíření typu
+      MESTYP: Typ zprávy
+      SNDPOR: Port odesílatele
+      SNDPRT: Typ partnera odesílatele
+      SNDPRN: Číslo partnera odesílatele (systém SAP)
+      RCVPOR: Port příjemce
+      RCVPRT: Typ partnera příjemce
+      RCVPFC: Role partnera příjemce
+      RCVPRN: Číslo partnera příjemce
+      CREDAT: Datum vytvoření
+      CRETIM: Čas vytvoření
+      SERIAL: Sériové číslo
+
+  E1EDK01:
+    label: Záhlaví dokladu
+    fields:
+      BELNR: Číslo dokladu
+      BSART: Druh dokladu (INVO faktura, CRME dobropis)
+      CURCY: Měna dokladu
+      HWAER: Měna účetního okruhu
+      WKURS: Kurz
+      ZTERM: Klíč platebních podmínek
+      KUNDEUINR: IČ DPH odběratele
+      EIGENUINR: IČ DPH dodavatele
+      NTGEW: Hmotnost netto
+      BRGEW: Hmotnost brutto
+      GEWEI: Jednotka hmotnosti
+      FKART_RL: Druh fakturace (LR faktura, LG dobropis)
+      FKTYP: Typ fakturace
+      RECIPNT_NO: Číslo příjemce
+
+  E1EDKA1:
+    label: Partner dokladu
+    qualifier: PARVW
+    codes:
+      RS: Fakturující strana – dodavatel
+      AG: Objednatel (sold-to)
+      RE: Příjemce faktury – odběratel (bill-to)
+      RG: Plátce
+      WE: Příjemce zboží – místo dodání
+      LF: Dodavatel
+      BK: Účetní okruh dodavatele (?)
+      VE: Obchodní zástupce (?)
+      OZ: Zaměstnanec / referent (?)
+    fields:
+      PARVW: Role partnera
+      PARTN: Číslo partnera (v SAP dodavatele)
+      LIFNR: Číslo dodavatele u partnera
+      ILNNR: GLN partnera
+      NAME1: Název 1
+      NAME2: Název 2
+      NAME3: Název 3
+      NAME4: Název 4
+      STRAS: Ulice
+      STRS2: Ulice 2
+      HAUSN: Číslo domu
+      ORT01: Město
+      PSTLZ: PSČ
+      LAND1: Země
+      REGIO: Region
+      COUNC: Okres
+      TELF1: Telefon
+      TELF2: Telefon 2
+      TELFX: Fax
+      TELTX: Teletex (někdy GLN)
+      TELX1: Telex (někdy GLN)
+      SPRAS: Jazyk
+      SPRAS_ISO: Jazyk ISO
+      BNAME: Kontaktní osoba / uživatel
+      PAORG: Organizace partnera
+      PAGRU: Skupina partnera
+      ANRED: Oslovení
+      PARGE: Pohlaví
+      IHREZ: Vaše značka
+
+  E1EDK02:
+    label: Reference dokladu
+    qualifier: QUALF
+    codes:
+      "001": Objednávka zákazníka (ověřeno)
+      "002": Zakázka dodavatele (ověřeno)
+      "009": Faktura
+      "011": Předchozí doklad – u dobropisu původní faktura (?)
+      "012": Dodávka / dodací list
+      "017": Účetní doklad (?)
+      "087": Číslo dokladu (?)
+      "107": IČ DPH (?)
+    fields:
+      QUALF: Kvalifikátor reference
+      BELNR: Číslo
+      POSNR: Položka
+      DATUM: Datum
+      UZEIT: Čas
+
+  E1EDK03:
+    label: Data dokladu
+    qualifier: IDDAT
+    codes:
+      "001": Požadované datum dodání (?)
+      "011": Datum odeslání / vytvoření
+      "012": Datum vystavení (ověřeno)
+      "022": Datum objednávky
+      "024": Datum zaúčtování (?)
+      "026": Datum uskutečnění zdanitelného plnění (ověřeno)
+      "028": Datum splatnosti (ověřeno)
+      "048": Datum daňové povinnosti (?)
+    fields:
+      IDDAT: Kvalifikátor data
+      DATUM: Datum
+      UZEIT: Čas
+
+  E1EDK04:
+    label: Daň – záhlaví (rekapitulace DPH)
+    fields:
+      MWSKZ: Kód daně
+      MSATZ: Sazba DPH %
+      MWSBT: Částka DPH
+      MWSBS: Základ daně
+      KTEXT: Text
+
+  E1EDK05:
+    label: Podmínky záhlaví (slevy / přirážky / mezisoučty)
+    qualifier: ALCKZ
+    codes:
+      "+": Přirážka nebo mezisoučet
+      "-": Sleva
+    fields:
+      ALCKZ: Znaménko (+ / −)
+      KSCHL: Druh podmínky
+      KOTXT: Text podmínky
+      BETRG: Částka
+      KPERC: Procento
+      KRATE: Sazba
+      KOEIN: Měna
+      MWSKZ: Kód daně
+
+  E1EDK14:
+    label: Organizační údaje
+    qualifier: QUALF
+    codes:
+      "003": Účetní okruh (?)
+      "006": Divize (?)
+      "007": Distribuční cesta (?)
+      "008": Prodejní organizace (?)
+      "015": Druh fakturace (?)
+      "016": Prodejní kancelář / závod (?)
+      "021": (?)
+    fields:
+      QUALF: Kvalifikátor
+      ORGID: Hodnota
+
+  E1EDK17:
+    label: Dodací podmínky
+    qualifier: QUALF
+    codes:
+      "001": Incoterms
+      "002": Místo
+    fields:
+      QUALF: Kvalifikátor
+      LKOND: Kód
+      LKTEXT: Text
+
+  E1EDK18:
+    label: Platební podmínky
+    qualifier: QUALF
+    codes:
+      "001": Lhůta / skonto
+      "005": Text platebních podmínek
+    fields:
+      QUALF: Kvalifikátor
+      TAGE: Dní
+      PRZNT: Skonto %
+      ZTERM_TXT: Text
+
+  E1EDK28:
+    label: Bankovní spojení
+    fields:
+      BCOUN: Země banky
+      BRNUM: SWIFT / kód banky
+      BNAME: Banka
+      BALOC: Sídlo banky
+      ACNUM: Číslo účtu
+      ACNAM: Majitel účtu
+      BIBAN: IBAN
+
+  E1EDK29:
+    label: Zahraniční obchod (záhlaví)
+    fields:
+      EXNUM: Číslo
+      ALAND: Země odeslání
+      LAND1: Země určení
+      EXPVZ: Druh dopravy
+
+  E1EDKT1:
+    label: Text dokladu (záhlaví)
+    qualifier: TDID
+    fields:
+      TDID: Druh textu
+      TSSPRAS: Jazyk
+  E1EDKT2:
+    label: Řádek textu (záhlaví)
+    fields:
+      TDLINE: Text
+      TDFORMAT: Formát
+
+  E1EDP01:
+    label: Položka faktury
+    fields:
+      POSEX: Číslo položky
+      MENGE: Množství
+      MENEE: Měrná jednotka
+      PSTYV: Typ položky v SAP (TAN zboží, TAD služba, REN vratka)
+      VPREI: Cena
+      PEINH: Cenová jednotka
+      NETWR: Hodnota netto
+      NTGEW: Hmotnost netto
+      BRGEW: Hmotnost brutto
+      GEWEI: Jednotka hmotnosti
+      WERKS: Závod
+      MATNR_EXTERNAL: Číslo materiálu (externí)
+
+  E1EDP02:
+    label: Reference položky
+    qualifier: QUALF
+    codes:
+      "001": Objednávka zákazníka
+      "002": Zakázka dodavatele
+      "016": Dodávka (?)
+    fields:
+      QUALF: Kvalifikátor
+      BELNR: Číslo
+      ZEILE: Řádek
+      DATUM: Datum
+      BSARK: Druh objednávky
+
+  E1EDP03:
+    label: Data položky
+    qualifier: IDDAT
+    codes:
+      "011": Datum odeslání
+      "025": (?)
+      "027": Datum dodání (?)
+      "029": Datum objednávky (?)
+    fields:
+      IDDAT: Kvalifikátor data
+      DATUM: Datum
+
+  E1EDP04:
+    label: Daň položky
+    fields:
+      MWSKZ: Kód daně
+      MSATZ: Sazba DPH %
+      MWSBT: Částka DPH
+      TXDAT: Datum daně
+
+  E1EDP05:
+    label: Podmínky položky (cena, slevy, přirážky)
+    qualifier: ALCKZ
+    codes:
+      "+": Cena / přirážka / mezisoučet
+      "-": Sleva
+    fields:
+      ALCKZ: Znaménko (+ / −)
+      KSCHL: Druh podmínky
+      KOTXT: Text podmínky
+      BETRG: Částka
+      KPERC: Procento
+      KRATE: Sazba (cena za jednotku)
+      UPRBS: Cenová jednotka
+      MEAUN: Měrná jednotka
+      KOEIN: Měna
+      KOBAS: Základ
+      MWSKZ: Kód daně
+
+  E1EDP19:
+    label: Identifikace zboží
+    qualifier: QUALF
+    codes:
+      "001": Číslo zboží odběratele
+      "002": Číslo zboží dodavatele (KTEXT = název)
+      "003": EAN / GTIN
+      "010": (?)
+      "011": Země (?)
+    fields:
+      QUALF: Kvalifikátor
+      IDTNR: Identifikátor
+      KTEXT: Název
+      IDTNR_LONG: Identifikátor (dlouhý)
+
+  E1EDP26:
+    label: Částky položky
+    qualifier: QUALF
+    codes:
+      "001": Cena za jednotku (u některých klientů s DPH) (?)
+      "002": (?)
+      "003": Netto hodnota řádku (ověřeno)
+      "004": (?)
+      "010": Hodnota před slevami (?)
+      "011": (?)
+      "012": (?)
+      "013": (?)
+      "014": (?)
+      "015": Hodnota s DPH (?)
+    fields:
+      QUALF: Kvalifikátor
+      BETRG: Částka
+
+  E1EDPA1:
+    label: Partner položky
+    qualifier: PARVW
+    codes:
+      WE: Příjemce zboží – místo dodání
+    fields:
+      PARVW: Role partnera
+      PARTN: Číslo partnera
+      LIFNR: Číslo dodavatele u partnera
+      ILNNR: GLN partnera
+      NAME1: Název 1
+      NAME2: Název 2
+      STRAS: Ulice
+      ORT01: Město
+      PSTLZ: PSČ
+      LAND1: Země
+
+  E1EDP28:
+    label: Zahraniční obchod (položka)
+    fields:
+      HERKL: Země původu
+      EXART: Druh obchodu
+      WKREG: Region
+
+  E1EDPT1:
+    label: Text položky
+    qualifier: TDID
+    fields:
+      TDID: Druh textu
+      TSSPRAS: Jazyk
+  E1EDPT2:
+    label: Řádek textu (položka)
+    fields:
+      TDLINE: Text
+      TDFORMAT: Formát
+
+  E1EDS01:
+    label: Součty dokladu
+    qualifier: SUMID
+    codes:
+      "001": Počet položek
+      "005": DPH celkem (ověřeno)
+      "010": Netto celkem (ověřeno)
+      "011": Celkem s DPH (ověřeno)
+      "012": (?)
+      "030": Základ ve skupině DPH (?; SUNIT = sazba)
+      "031": Základ ve skupině DPH (?; SUNIT = sazba)
+      "032": Základ ve skupině DPH (?; SUNIT = sazba)
+    fields:
+      SUMID: Kvalifikátor součtu
+      SUMME: Částka
+      SUNIT: Jednotka / sazba
+      WAERQ: Měna

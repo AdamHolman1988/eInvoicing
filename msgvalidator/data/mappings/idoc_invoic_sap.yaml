@@ -1,0 +1,196 @@
+# SAP IDoc INVOIC01 / INVOIC02 (XML) -> sémantický model EN 16931 – STANDARDNÍ mapování.
+#
+# Pole se adresují jménem: segment[KVALIFIKÁTOR=hodnota] a název pole (NAME1, BETRG …).
+# Klienti používají pole SAP různě (např. GLN v LIFNR, číslo účtu v NAME1) – odchylky se NEpíšou sem,
+# ale do klientského mapování (editor „Mapování“ v aplikaci), které toto standardní mapování přepíše
+# po jednotlivých BT. Ověřeno na reálných vzorcích (INVOIC01, INVOIC02) proti PDF.
+
+id: idoc-invoic-sap
+format: SAP IDoc
+message: INVOIC
+
+groups:
+  BG-23: {scope: header, each: "E1EDK04", skip_if_missing: [BT-117, BT-119], label: "DPH {MSATZ} % (kód {MWSKZ})"}
+  BG-25: {scope: line, each: "E1EDP01", label: "řádek {POSEX}"}
+  BG-27: {scope: line, parent: BG-25, each: "E1EDP05[ALCKZ=-]", skip_if_missing: [BT-136]}
+
+terms:
+  # ---------------------------------------------------------------- záhlaví
+  BT-1:
+    - {path: "E1EDK01", value: BELNR}
+    - {path: "E1EDK02[QUALF=009]", value: BELNR}
+  BT-2:
+    - {path: "E1EDK03[IDDAT=012]", value: DATUM, date: "102"}
+    - {path: "E1EDK02[QUALF=009]", value: DATUM, date: "102"}
+  BT-3:
+    - {path: "E1EDK01", value: BSART, map: {INVO: "380", CRME: "381", DEBN: "383"},
+       note: "Druh dokladu SAP převeden na UNCL1001."}
+  BT-5:
+    - {path: "E1EDK01", value: CURCY}
+  BT-7:
+    - {path: "E1EDK03[IDDAT=026]", value: DATUM, date: "102"}
+    - {path: "E1EDK03[IDDAT=048]", value: DATUM, date: "102"}
+  BT-9:
+    - {path: "E1EDK03[IDDAT=028]", value: DATUM, date: "102"}
+  BT-13:
+    - {path: "E1EDK02[QUALF=001]", value: BELNR}
+  BT-14:
+    - {path: "E1EDK02[QUALF=002]", value: BELNR}
+  BT-16:
+    - {path: "E1EDK02[QUALF=012]", value: BELNR}
+  BT-20:
+    - {path: "E1EDK18[QUALF=005]", value: ZTERM_TXT}
+    - {path: "E1EDK18[QUALF=001]", value: ZTERM_TXT}
+  BT-23:
+    - {const: "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", note: "Doplní konverze (Profile ID)."}
+  BT-24:
+    - {const: "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", note: "Doplní konverze (Customization ID)."}
+  BT-25:
+    - {derive: ref_if_differs_at, args: {path: "E1EDK02[QUALF=011]", value: BELNR, other: BT-1},
+       note: "Předchozí doklad (E1EDK02 011), jen pokud se liší od čísla dokladu."}
+
+  # ---------------------------------------------------------------- prodávající (RS)
+  BT-27:
+    - {path: "E1EDKA1[PARVW=RS]", value: NAME1}
+  BT-31:
+    - {path: "E1EDK01", value: EIGENUINR}
+  BT-32:
+    - {derive: sk_tax_id_from_vat_at, args: {path: "E1EDK01", value: EIGENUINR}}
+  BT-34:
+    - {derive: gln_endpoint_at, args: {path: "E1EDKA1[PARVW=RS]", value: ILNNR}}
+    - {derive: sk_endpoint_from_vat_at, args: {path: "E1EDK01", value: EIGENUINR}}
+  BT-35:
+    - {path: "E1EDKA1[PARVW=RS]", value: STRAS}
+  BT-37:
+    - {path: "E1EDKA1[PARVW=RS]", value: ORT01}
+  BT-38:
+    - {path: "E1EDKA1[PARVW=RS]", value: PSTLZ}
+  BT-40:
+    - {derive: country_code_at, args: {path: "E1EDKA1[PARVW=RS]", value: LAND1}}
+    - {derive: country_from_vat_at, args: {path: "E1EDK01", value: EIGENUINR}}
+
+  # ---------------------------------------------------------------- kupující (RE, jinak AG)
+  BT-44:
+    - {path: "E1EDKA1[PARVW=RE]", value: NAME1}
+    - {path: "E1EDKA1[PARVW=AG]", value: NAME1}
+  BT-48:
+    - {path: "E1EDK01", value: KUNDEUINR}
+  BT-49:
+    - {derive: sk_endpoint_from_vat_at, args: {path: "E1EDK01", value: KUNDEUINR}}
+    - {derive: gln_endpoint_at, args: {path: "E1EDKA1[PARVW=RE]", value: ILNNR}}
+  BT-50:
+    - {path: "E1EDKA1[PARVW=RE]", value: STRAS}
+    - {path: "E1EDKA1[PARVW=AG]", value: STRAS}
+  BT-52:
+    - {path: "E1EDKA1[PARVW=RE]", value: ORT01}
+    - {path: "E1EDKA1[PARVW=AG]", value: ORT01}
+  BT-53:
+    - {path: "E1EDKA1[PARVW=RE]", value: PSTLZ}
+    - {path: "E1EDKA1[PARVW=AG]", value: PSTLZ}
+  BT-55:
+    - {derive: country_code_at, args: {path: "E1EDKA1[PARVW=RE]", value: LAND1}}
+    - {derive: country_code_at, args: {path: "E1EDKA1[PARVW=AG]", value: LAND1}}
+    - {derive: country_from_vat_at, args: {path: "E1EDK01", value: KUNDEUINR}}
+
+  # ---------------------------------------------------------------- dodání (WE – záhlaví, jinak 1. položka)
+  BT-70:
+    - {path: "E1EDKA1[PARVW=WE]", value: NAME1}
+    - {path: "E1EDP01 > E1EDPA1[PARVW=WE]", value: NAME1}
+  BT-71:
+    - {path: "E1EDKA1[PARVW=WE]", value: ILNNR, scheme: "0088"}
+  BT-75:
+    - {path: "E1EDKA1[PARVW=WE]", value: STRAS}
+    - {path: "E1EDP01 > E1EDPA1[PARVW=WE]", value: STRAS}
+  BT-77:
+    - {path: "E1EDKA1[PARVW=WE]", value: ORT01}
+    - {path: "E1EDP01 > E1EDPA1[PARVW=WE]", value: ORT01}
+  BT-78:
+    - {path: "E1EDKA1[PARVW=WE]", value: PSTLZ}
+    - {path: "E1EDP01 > E1EDPA1[PARVW=WE]", value: PSTLZ}
+  BT-80:
+    - {path: "E1EDKA1[PARVW=WE]", value: LAND1}
+    - {path: "E1EDP01 > E1EDPA1[PARVW=WE]", value: LAND1}
+
+  # ---------------------------------------------------------------- platba
+  BT-81:
+    - {derive: payment_means_from_account_at, args: {path: "E1EDK28", value: BIBAN}}
+    - {derive: payment_means_from_account_at, args: {path: "E1EDK28", value: ACNUM}}
+  BT-84:
+    - {path: "E1EDK28", value: BIBAN}
+    - {path: "E1EDK28", value: ACNUM}
+  BT-85:
+    - {path: "E1EDK28", value: ACNAM}
+  BT-86:
+    - {path: "E1EDK28", value: BRNUM}
+
+  # ---------------------------------------------------------------- součty (E1EDS01)
+  BT-106:
+    - {path: "E1EDS01[SUMID=010]", value: SUMME, scope: summary}
+  BT-109:
+    - {path: "E1EDS01[SUMID=010]", value: SUMME, scope: summary}
+  BT-110:
+    - {path: "E1EDS01[SUMID=005]", value: SUMME, scope: summary}
+  BT-112:
+    - {path: "E1EDS01[SUMID=011]", value: SUMME, scope: summary}
+  BT-115:
+    - {path: "E1EDS01[SUMID=011]", value: SUMME, scope: summary}
+
+  # ---------------------------------------------------------------- BG-23 rekapitulace DPH (E1EDK04)
+  BT-116:
+    - {path: "@", value: MWSBS}
+    - {derive: sum_lines_by_rate_at, args: {lines: "E1EDP01",
+        amount: {path: "@ > E1EDP26[QUALF=003]", value: BETRG},
+        line_rate: {path: "@ > E1EDP04", value: MSATZ},
+        line_code: {path: "@ > E1EDP04", value: MWSKZ},
+        group_code: {path: "@", value: MWSKZ}}}
+  BT-117:
+    - {path: "@", value: MWSBT}
+  BT-118:
+    - {derive: vat_category_from_rate_at, args: {path: "@", value: MSATZ},
+       note: "Kód daně SAP (MWSKZ) lze klientsky převést na kategorii (S/Z/E/AE/K/G/O)."}
+  BT-119:
+    - {path: "@", value: MSATZ}
+
+  # ---------------------------------------------------------------- BG-25 položky (E1EDP01)
+  BT-126:
+    - {path: "@", value: POSEX}
+  BT-129:
+    - {path: "@", value: MENGE}
+  BT-149:
+    - {path: "@", value: PEINH}
+  BT-130:
+    - {path: "@", value: MENEE, map: {PCE: H87, PCS: H87, ST: H87, KS: H87, PAL: PF, CAR: CT, KAR: CT},
+       note: "Jednotka SAP převedena na UN/ECE Rec 20."}
+  BT-131:
+    - {path: "@ > E1EDP26[QUALF=003]", value: BETRG}
+    - {path: "@", value: NETWR}
+  BT-146:
+    - {path: "@", value: VPREI}
+    - {derive: unit_price_from_line, args: {allowances: {path: "@ > E1EDP05[ALCKZ=-]", value: BETRG}}}
+  BT-151:
+    - {derive: vat_category_from_rate_at, args: {path: "@ > E1EDP04", value: MSATZ}}
+  BT-152:
+    - {path: "@ > E1EDP04", value: MSATZ}
+  BT-153:
+    - {path: "@ > E1EDP19[QUALF=002]", value: KTEXT}
+  BT-155:
+    - {path: "@ > E1EDP19[QUALF=002]", value: IDTNR}
+  BT-156:
+    - {path: "@ > E1EDP19[QUALF=001]", value: IDTNR}
+  BT-157:
+    - {path: "@ > E1EDP19[QUALF=003]", value: IDTNR, scheme: "0160"}
+  BT-159:
+    - {path: "@ > E1EDP28", value: HERKL}
+
+  # ---------------------------------------------------------------- BG-27 sleva na řádku (E1EDP05 ALCKZ=-)
+  BT-136:
+    - {path: "@", value: BETRG}
+  BT-139:
+    - {path: "@", value: KOTXT}
+
+# Pomocné údaje mimo EN 16931
+aux:
+  item_type:  # typ položky SAP: TAD = služba -> chybějící GTIN je jen varování
+    group: BG-25
+    rules:
+      - {path: "@", value: PSTYV, map: {TAD: S, TAN: Z, REN: Z}}

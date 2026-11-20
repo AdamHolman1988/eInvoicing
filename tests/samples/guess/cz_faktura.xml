@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Syntetický vzorek pro test ODHADU mapování (fiktivní data). -->
+<Doklad>
+  <Hlavicka>
+    <CisloFaktury>FV-2026-0815</CisloFaktury>
+    <DatumVystaveni>3.11.2026</DatumVystaveni>
+    <DatumSplatnosti>17.11.2026</DatumSplatnosti>
+    <DUZP>3.11.2026</DUZP>
+    <Mena>CZK</Mena>
+    <VariabilniSymbol>20260815</VariabilniSymbol>
+    <CisloObjednavky>OBJ-4711</CisloObjednavky>
+    <Poznamka>Fakturujeme Vám dodávku zboží.</Poznamka>
+  </Hlavicka>
+  <Dodavatel>
+    <Nazev>Vzorový dodavatel s.r.o.</Nazev>
+    <Ulice>Testovací 12</Ulice>
+    <Mesto>Brno</Mesto>
+    <PSC>602 00</PSC>
+    <Zeme>CZ</Zeme>
+    <ICO>12345678</ICO>
+    <DIC>CZ12345678</DIC>
+    <GLN>8594000000006</GLN>
+    <Email>fakturace@dodavatel.example</Email>
+    <Ucet>CZ6508000000192000145399</Ucet>
+  </Dodavatel>
+  <Odberatel>
+    <Nazev>Vzorový odběratel a.s.</Nazev>
+    <Ulice>Hlavní 1</Ulice>
+    <Mesto>Praha</Mesto>
+    <PSC>110 00</PSC>
+    <Zeme>CZ</Zeme>
+    <ICO>87654321</ICO>
+    <DIC>CZ87654321</DIC>
+  </Odberatel>
+  <Polozky>
+    <Polozka>
+      <Poradi>1</Poradi>
+      <EAN>8594000000013</EAN>
+      <Popis>Vzorové zboží A</Popis>
+      <Mnozstvi>2</Mnozstvi>
+      <MJ>ks</MJ>
+      <CenaMJ>500,00</CenaMJ>
+      <SazbaDPH>21</SazbaDPH>
+      <CenaCelkem>1 000,00</CenaCelkem>
+    </Polozka>
+    <Polozka>
+      <Poradi>2</Poradi>
+      <EAN>8594000000020</EAN>
+      <Popis>Vzorové zboží B</Popis>
+      <Mnozstvi>1</Mnozstvi>
+      <MJ>ks</MJ>
+      <CenaMJ>250,00</CenaMJ>
+      <SazbaDPH>21</SazbaDPH>
+      <CenaCelkem>250,00</CenaCelkem>
+    </Polozka>
+  </Polozky>
+  <RekapitulaceDPH>
+    <Sazba>21</Sazba>
+    <Zaklad>1 250,00</Zaklad>
+    <DPH>262,50</DPH>
+  </RekapitulaceDPH>
+  <Souhrn>
+    <CelkemBezDPH>1 250,00</CelkemBezDPH>
+    <DPHCelkem>262,50</DPHCelkem>
+    <CelkemSDPH>1 512,50</CelkemSDPH>
+  </Souhrn>
+</Doklad>

@@ -1,0 +1,2028 @@
+{
+ "message": "INVOIC",
+ "version": "D96A",
+ "source": "d96a.txt",
+ "full": [
+  {
+   "tag": "UNH",
+   "pos": "0010",
+   "name": "Message header",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "BGM",
+   "pos": "0020",
+   "name": "Beginning of message",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "DTM",
+   "pos": "0030",
+   "name": "Date/time/period",
+   "status": "M",
+   "max": 35
+  },
+  {
+   "tag": "PAI",
+   "pos": "0040",
+   "name": "Payment instructions",
+   "status": "C",
+   "max": 1
+  },
+  {
+   "tag": "ALI",
+   "pos": "0050",
+   "name": "Additional information",
+   "status": "C",
+   "max": 5
+  },
+  {
+   "tag": "IMD",
+   "pos": "0060",
+   "name": "Item description",
+   "status": "C",
+   "max": 1
+  },
+  {
+   "tag": "FTX",
+   "pos": "0070",
+   "name": "Free text",
+   "status": "C",
+   "max": 10
+  },
+  {
+   "group": "SG1",
+   "pos": "0080",
+   "status": "C",
+   "max": 99,
+   "children": [
+    {
+     "tag": "RFF",
+     "pos": "0090",
+     "name": "Reference",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "DTM",
+     "pos": "0100",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG2",
+   "pos": "0110",
+   "status": "C",
+   "max": 99,
+   "children": [
+    {
+     "tag": "NAD",
+     "pos": "0120",
+     "name": "Name and address",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "LOC",
+     "pos": "0130",
+     "name": "Place/location identification",
+     "status": "C",
+     "max": 25
+    },
+    {
+     "tag": "FII",
+     "pos": "0140",
+     "name": "Financial institution information",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "group": "SG3",
+     "pos": "0150",
+     "status": "C",
+     "max": 9999,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "0160",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0170",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG4",
+     "pos": "0180",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "DOC",
+       "pos": "0190",
+       "name": "Document/message details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0200",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG5",
+     "pos": "0210",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "CTA",
+       "pos": "0220",
+       "name": "Contact information",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "COM",
+       "pos": "0230",
+       "name": "Communication contact",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG6",
+   "pos": "0240",
+   "status": "C",
+   "max": 5,
+   "children": [
+    {
+     "tag": "TAX",
+     "pos": "0250",
+     "name": "Duty/tax/fee details",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "0260",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "LOC",
+     "pos": "0270",
+     "name": "Place/location identification",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG7",
+   "pos": "0280",
+   "status": "C",
+   "max": 5,
+   "children": [
+    {
+     "tag": "CUX",
+     "pos": "0290",
+     "name": "Currencies",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "DTM",
+     "pos": "0300",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG8",
+   "pos": "0310",
+   "status": "C",
+   "max": 10,
+   "children": [
+    {
+     "tag": "PAT",
+     "pos": "0320",
+     "name": "Payment terms basis",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "DTM",
+     "pos": "0330",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "PCD",
+     "pos": "0340",
+     "name": "Percentage details",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "0350",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "PAI",
+     "pos": "0360",
+     "name": "Payment instructions",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "FII",
+     "pos": "0370",
+     "name": "Financial institution information",
+     "status": "C",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG9",
+   "pos": "0380",
+   "status": "C",
+   "max": 10,
+   "children": [
+    {
+     "tag": "TDT",
+     "pos": "0390",
+     "name": "Details of transport",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "group": "SG10",
+     "pos": "0400",
+     "status": "C",
+     "max": 10,
+     "children": [
+      {
+       "tag": "LOC",
+       "pos": "0410",
+       "name": "Place/location identification",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0420",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG11",
+     "pos": "0430",
+     "status": "C",
+     "max": 9999,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "0440",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0450",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG12",
+   "pos": "0460",
+   "status": "C",
+   "max": 5,
+   "children": [
+    {
+     "tag": "TOD",
+     "pos": "0470",
+     "name": "Terms of delivery or transport",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "LOC",
+     "pos": "0480",
+     "name": "Place/location identification",
+     "status": "C",
+     "max": 2
+    }
+   ]
+  },
+  {
+   "group": "SG13",
+   "pos": "0490",
+   "status": "C",
+   "max": 1000,
+   "children": [
+    {
+     "tag": "PAC",
+     "pos": "0500",
+     "name": "Package",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "MEA",
+     "pos": "0510",
+     "name": "Measurements",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "group": "SG14",
+     "pos": "0520",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "PCI",
+       "pos": "0530",
+       "name": "Package identification",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RFF",
+       "pos": "0540",
+       "name": "Reference",
+       "status": "C",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0550",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "tag": "GIN",
+       "pos": "0560",
+       "name": "Goods identity number",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG15",
+   "pos": "0570",
+   "status": "C",
+   "max": 9999,
+   "children": [
+    {
+     "tag": "ALC",
+     "pos": "0580",
+     "name": "Allowance or charge",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "ALI",
+     "pos": "0590",
+     "name": "Additional information",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "group": "SG16",
+     "pos": "0600",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "0610",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "0620",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG17",
+     "pos": "0630",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "QTY",
+       "pos": "0640",
+       "name": "Quantity",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RNG",
+       "pos": "0650",
+       "name": "Range details",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG18",
+     "pos": "0660",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "PCD",
+       "pos": "0670",
+       "name": "Percentage details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RNG",
+       "pos": "0680",
+       "name": "Range details",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG19",
+     "pos": "0690",
+     "status": "C",
+     "max": 2,
+     "children": [
+      {
+       "tag": "MOA",
+       "pos": "0700",
+       "name": "Monetary amount",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RNG",
+       "pos": "0710",
+       "name": "Range details",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG20",
+     "pos": "0720",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "RTE",
+       "pos": "0730",
+       "name": "Rate details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RNG",
+       "pos": "0740",
+       "name": "Range details",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG21",
+     "pos": "0750",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "TAX",
+       "pos": "0760",
+       "name": "Duty/tax/fee details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "MOA",
+       "pos": "0770",
+       "name": "Monetary amount",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG22",
+   "pos": "0780",
+   "status": "C",
+   "max": 100,
+   "children": [
+    {
+     "tag": "RCS",
+     "pos": "0790",
+     "name": "Requirements and conditions",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "RFF",
+     "pos": "0800",
+     "name": "Reference",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "DTM",
+     "pos": "0810",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "FTX",
+     "pos": "0820",
+     "name": "Free text",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG23",
+   "pos": "0830",
+   "status": "C",
+   "max": 1,
+   "children": [
+    {
+     "tag": "AJT",
+     "pos": "0840",
+     "name": "Adjustment details",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "FTX",
+     "pos": "0850",
+     "name": "Free text",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG24",
+   "pos": "0860",
+   "status": "C",
+   "max": 1,
+   "children": [
+    {
+     "tag": "INP",
+     "pos": "0870",
+     "name": "Parties to instruction",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "FTX",
+     "pos": "0880",
+     "name": "Free text",
+     "status": "C",
+     "max": 5
+    }
+   ]
+  },
+  {
+   "group": "SG25",
+   "pos": "0890",
+   "status": "C",
+   "max": 9999999,
+   "children": [
+    {
+     "tag": "LIN",
+     "pos": "0900",
+     "name": "Line item",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "PIA",
+     "pos": "0910",
+     "name": "Additional product id",
+     "status": "C",
+     "max": 25
+    },
+    {
+     "tag": "IMD",
+     "pos": "0920",
+     "name": "Item description",
+     "status": "C",
+     "max": 10
+    },
+    {
+     "tag": "MEA",
+     "pos": "0930",
+     "name": "Measurements",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "QTY",
+     "pos": "0940",
+     "name": "Quantity",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "PCD",
+     "pos": "0950",
+     "name": "Percentage details",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "ALI",
+     "pos": "0960",
+     "name": "Additional information",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "tag": "DTM",
+     "pos": "0970",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 35
+    },
+    {
+     "tag": "GIN",
+     "pos": "0980",
+     "name": "Goods identity number",
+     "status": "C",
+     "max": 1000
+    },
+    {
+     "tag": "GIR",
+     "pos": "0990",
+     "name": "Related identification numbers",
+     "status": "C",
+     "max": 1000
+    },
+    {
+     "tag": "QVR",
+     "pos": "1000",
+     "name": "Quantity variances",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "EQD",
+     "pos": "1010",
+     "name": "Equipment details",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "FTX",
+     "pos": "1020",
+     "name": "Free text",
+     "status": "C",
+     "max": 5
+    },
+    {
+     "group": "SG26",
+     "pos": "1030",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "MOA",
+       "pos": "1040",
+       "name": "Monetary amount",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "CUX",
+       "pos": "1050",
+       "name": "Currencies",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG27",
+     "pos": "1060",
+     "status": "C",
+     "max": 10,
+     "children": [
+      {
+       "tag": "PAT",
+       "pos": "1070",
+       "name": "Payment terms basis",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "1080",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "tag": "PCD",
+       "pos": "1090",
+       "name": "Percentage details",
+       "status": "C",
+       "max": 1
+      },
+      {
+       "tag": "MOA",
+       "pos": "1100",
+       "name": "Monetary amount",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG28",
+     "pos": "1110",
+     "status": "C",
+     "max": 25,
+     "children": [
+      {
+       "tag": "PRI",
+       "pos": "1120",
+       "name": "Price details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "APR",
+       "pos": "1130",
+       "name": "Additional price information",
+       "status": "C",
+       "max": 1
+      },
+      {
+       "tag": "RNG",
+       "pos": "1140",
+       "name": "Range details",
+       "status": "C",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "1150",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG29",
+     "pos": "1160",
+     "status": "C",
+     "max": 10,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "1170",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "1180",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG30",
+     "pos": "1190",
+     "status": "C",
+     "max": 10,
+     "children": [
+      {
+       "tag": "PAC",
+       "pos": "1200",
+       "name": "Package",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "MEA",
+       "pos": "1210",
+       "name": "Measurements",
+       "status": "C",
+       "max": 10
+      },
+      {
+       "group": "SG31",
+       "pos": "1220",
+       "status": "C",
+       "max": 10,
+       "children": [
+        {
+         "tag": "PCI",
+         "pos": "1230",
+         "name": "Package identification",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "RFF",
+         "pos": "1240",
+         "name": "Reference",
+         "status": "C",
+         "max": 1
+        },
+        {
+         "tag": "DTM",
+         "pos": "1250",
+         "name": "Date/time/period",
+         "status": "C",
+         "max": 5
+        },
+        {
+         "tag": "GIN",
+         "pos": "1260",
+         "name": "Goods identity number",
+         "status": "C",
+         "max": 10
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "group": "SG32",
+     "pos": "1270",
+     "status": "C",
+     "max": 9999,
+     "children": [
+      {
+       "tag": "LOC",
+       "pos": "1280",
+       "name": "Place/location identification",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "QTY",
+       "pos": "1290",
+       "name": "Quantity",
+       "status": "C",
+       "max": 100
+      },
+      {
+       "tag": "DTM",
+       "pos": "1300",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG33",
+     "pos": "1310",
+     "status": "C",
+     "max": 99,
+     "children": [
+      {
+       "tag": "TAX",
+       "pos": "1320",
+       "name": "Duty/tax/fee details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "MOA",
+       "pos": "1330",
+       "name": "Monetary amount",
+       "status": "C",
+       "max": 1
+      },
+      {
+       "tag": "LOC",
+       "pos": "1340",
+       "name": "Place/location identification",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    },
+    {
+     "group": "SG34",
+     "pos": "1350",
+     "status": "C",
+     "max": 20,
+     "children": [
+      {
+       "tag": "NAD",
+       "pos": "1360",
+       "name": "Name and address",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "LOC",
+       "pos": "1370",
+       "name": "Place/location identification",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "group": "SG35",
+       "pos": "1380",
+       "status": "C",
+       "max": 5,
+       "children": [
+        {
+         "tag": "RFF",
+         "pos": "1390",
+         "name": "Reference",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "DTM",
+         "pos": "1400",
+         "name": "Date/time/period",
+         "status": "C",
+         "max": 5
+        }
+       ]
+      },
+      {
+       "group": "SG36",
+       "pos": "1410",
+       "status": "C",
+       "max": 5,
+       "children": [
+        {
+         "tag": "DOC",
+         "pos": "1420",
+         "name": "Document/message details",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "DTM",
+         "pos": "1430",
+         "name": "Date/time/period",
+         "status": "C",
+         "max": 5
+        }
+       ]
+      },
+      {
+       "group": "SG37",
+       "pos": "1440",
+       "status": "C",
+       "max": 5,
+       "children": [
+        {
+         "tag": "CTA",
+         "pos": "1450",
+         "name": "Contact information",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "COM",
+         "pos": "1460",
+         "name": "Communication contact",
+         "status": "C",
+         "max": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "group": "SG38",
+     "pos": "1470",
+     "status": "C",
+     "max": 15,
+     "children": [
+      {
+       "tag": "ALC",
+       "pos": "1480",
+       "name": "Allowance or charge",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "ALI",
+       "pos": "1490",
+       "name": "Additional information",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "tag": "DTM",
+       "pos": "1500",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "group": "SG39",
+       "pos": "1510",
+       "status": "C",
+       "max": 1,
+       "children": [
+        {
+         "tag": "QTY",
+         "pos": "1520",
+         "name": "Quantity",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "RNG",
+         "pos": "1530",
+         "name": "Range details",
+         "status": "C",
+         "max": 1
+        }
+       ]
+      },
+      {
+       "group": "SG40",
+       "pos": "1540",
+       "status": "C",
+       "max": 1,
+       "children": [
+        {
+         "tag": "PCD",
+         "pos": "1550",
+         "name": "Percentage details",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "RNG",
+         "pos": "1560",
+         "name": "Range details",
+         "status": "C",
+         "max": 1
+        }
+       ]
+      },
+      {
+       "group": "SG41",
+       "pos": "1570",
+       "status": "C",
+       "max": 2,
+       "children": [
+        {
+         "tag": "MOA",
+         "pos": "1580",
+         "name": "Monetary amount",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "RNG",
+         "pos": "1590",
+         "name": "Range details",
+         "status": "C",
+         "max": 1
+        }
+       ]
+      },
+      {
+       "group": "SG42",
+       "pos": "1600",
+       "status": "C",
+       "max": 1,
+       "children": [
+        {
+         "tag": "RTE",
+         "pos": "1610",
+         "name": "Rate details",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "RNG",
+         "pos": "1620",
+         "name": "Range details",
+         "status": "C",
+         "max": 1
+        }
+       ]
+      },
+      {
+       "group": "SG43",
+       "pos": "1630",
+       "status": "C",
+       "max": 5,
+       "children": [
+        {
+         "tag": "TAX",
+         "pos": "1640",
+         "name": "Duty/tax/fee details",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "MOA",
+         "pos": "1650",
+         "name": "Monetary amount",
+         "status": "C",
+         "max": 1
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "group": "SG44",
+     "pos": "1660",
+     "status": "C",
+     "max": 10,
+     "children": [
+      {
+       "tag": "TDT",
+       "pos": "1670",
+       "name": "Details of transport",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "group": "SG45",
+       "pos": "1680",
+       "status": "C",
+       "max": 10,
+       "children": [
+        {
+         "tag": "LOC",
+         "pos": "1690",
+         "name": "Place/location identification",
+         "status": "M",
+         "max": 1
+        },
+        {
+         "tag": "DTM",
+         "pos": "1700",
+         "name": "Date/time/period",
+         "status": "C",
+         "max": 5
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "group": "SG46",
+     "pos": "1710",
+     "status": "C",
+     "max": 5,
+     "children": [
+      {
+       "tag": "TOD",
+       "pos": "1720",
+       "name": "Terms of delivery or transport",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "LOC",
+       "pos": "1730",
+       "name": "Place/location identification",
+       "status": "C",
+       "max": 2
+      }
+     ]
+    },
+    {
+     "group": "SG47",
+     "pos": "1740",
+     "status": "C",
+     "max": 100,
+     "children": [
+      {
+       "tag": "RCS",
+       "pos": "1750",
+       "name": "Requirements and conditions",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "RFF",
+       "pos": "1760",
+       "name": "Reference",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "tag": "DTM",
+       "pos": "1770",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      },
+      {
+       "tag": "FTX",
+       "pos": "1780",
+       "name": "Free text",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "UNS",
+   "pos": "1790",
+   "name": "Section control",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "CNT",
+   "pos": "1800",
+   "name": "Control total",
+   "status": "C",
+   "max": 10
+  },
+  {
+   "group": "SG48",
+   "pos": "1810",
+   "status": "M",
+   "max": 100,
+   "children": [
+    {
+     "tag": "MOA",
+     "pos": "1820",
+     "name": "Monetary amount",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "group": "SG49",
+     "pos": "1830",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "1840",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "1850",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 5
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG50",
+   "pos": "1860",
+   "status": "C",
+   "max": 10,
+   "children": [
+    {
+     "tag": "TAX",
+     "pos": "1870",
+     "name": "Duty/tax/fee details",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "1880",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 2
+    }
+   ]
+  },
+  {
+   "group": "SG51",
+   "pos": "1890",
+   "status": "C",
+   "max": 15,
+   "children": [
+    {
+     "tag": "ALC",
+     "pos": "1900",
+     "name": "Allowance or charge",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "ALI",
+     "pos": "1910",
+     "name": "Additional information",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "1920",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 2
+    }
+   ]
+  },
+  {
+   "tag": "UNT",
+   "pos": "1930",
+   "name": "Message trailer",
+   "status": "M",
+   "max": 1
+  }
+ ],
+ "subset": [
+  {
+   "tag": "UNH",
+   "pos": "0010",
+   "name": "Message header",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "BGM",
+   "pos": "0020",
+   "name": "Beginning of message",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "DTM",
+   "pos": "0030",
+   "name": "Date/time/period",
+   "status": "M",
+   "max": 6
+  },
+  {
+   "tag": "PAI",
+   "pos": "0040",
+   "name": "Payment instructions",
+   "status": "C",
+   "max": 1
+  },
+  {
+   "tag": "FTX",
+   "pos": "0070",
+   "name": "Free text",
+   "status": "C",
+   "max": 3
+  },
+  {
+   "group": "SG1",
+   "pos": "0080",
+   "status": "C",
+   "max": 6,
+   "children": [
+    {
+     "tag": "RFF",
+     "pos": "0090",
+     "name": "Reference",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "DTM",
+     "pos": "0100",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG2",
+   "pos": "0110",
+   "status": "C",
+   "max": 6,
+   "children": [
+    {
+     "tag": "NAD",
+     "pos": "0120",
+     "name": "Name and address",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "FII",
+     "pos": "0140",
+     "name": "Financial institution information",
+     "status": "C",
+     "max": 2
+    },
+    {
+     "group": "SG3",
+     "pos": "0150",
+     "status": "C",
+     "max": 2,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "0160",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG6",
+   "pos": "0240",
+   "status": "C",
+   "max": 1,
+   "children": [
+    {
+     "tag": "TAX",
+     "pos": "0250",
+     "name": "Duty/tax/fee details",
+     "status": "M",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG7",
+   "pos": "0280",
+   "status": "C",
+   "max": 1,
+   "children": [
+    {
+     "tag": "CUX",
+     "pos": "0290",
+     "name": "Currencies",
+     "status": "M",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG8",
+   "pos": "0310",
+   "status": "C",
+   "max": 1,
+   "children": [
+    {
+     "tag": "PAT",
+     "pos": "0320",
+     "name": "Payment terms basis",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "DTM",
+     "pos": "0330",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG15",
+   "pos": "0570",
+   "status": "C",
+   "max": 10,
+   "children": [
+    {
+     "tag": "ALC",
+     "pos": "0580",
+     "name": "Allowance or charge",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "group": "SG18",
+     "pos": "0660",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "PCD",
+       "pos": "0670",
+       "name": "Percentage details",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG25",
+   "pos": "0890",
+   "status": "C",
+   "max": 10000,
+   "children": [
+    {
+     "tag": "LIN",
+     "pos": "0900",
+     "name": "Line item",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "PIA",
+     "pos": "0910",
+     "name": "Additional product id",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "IMD",
+     "pos": "0920",
+     "name": "Item description",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "QTY",
+     "pos": "0940",
+     "name": "Quantity",
+     "status": "C",
+     "max": 2
+    },
+    {
+     "tag": "DTM",
+     "pos": "0970",
+     "name": "Date/time/period",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "tag": "FTX",
+     "pos": "1020",
+     "name": "Free text",
+     "status": "C",
+     "max": 1
+    },
+    {
+     "group": "SG26",
+     "pos": "1030",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "MOA",
+       "pos": "1040",
+       "name": "Monetary amount",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG28",
+     "pos": "1110",
+     "status": "C",
+     "max": 2,
+     "children": [
+      {
+       "tag": "PRI",
+       "pos": "1120",
+       "name": "Price details",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG29",
+     "pos": "1160",
+     "status": "C",
+     "max": 4,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "1170",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "DTM",
+       "pos": "1180",
+       "name": "Date/time/period",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG30",
+     "pos": "1190",
+     "status": "C",
+     "max": 4,
+     "children": [
+      {
+       "tag": "PAC",
+       "pos": "1200",
+       "name": "Package",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG33",
+     "pos": "1310",
+     "status": "C",
+     "max": 2,
+     "children": [
+      {
+       "tag": "TAX",
+       "pos": "1320",
+       "name": "Duty/tax/fee details",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "tag": "MOA",
+       "pos": "1330",
+       "name": "Monetary amount",
+       "status": "C",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG34",
+     "pos": "1350",
+     "status": "C",
+     "max": 2,
+     "children": [
+      {
+       "tag": "NAD",
+       "pos": "1360",
+       "name": "Name and address",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    },
+    {
+     "group": "SG38",
+     "pos": "1470",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "ALC",
+       "pos": "1480",
+       "name": "Allowance or charge",
+       "status": "M",
+       "max": 1
+      },
+      {
+       "group": "SG40",
+       "pos": "1540",
+       "status": "C",
+       "max": 1,
+       "children": [
+        {
+         "tag": "PCD",
+         "pos": "1550",
+         "name": "Percentage details",
+         "status": "M",
+         "max": 1
+        }
+       ]
+      },
+      {
+       "group": "SG41",
+       "pos": "1570",
+       "status": "C",
+       "max": 1,
+       "children": [
+        {
+         "tag": "MOA",
+         "pos": "1580",
+         "name": "Monetary amount",
+         "status": "M",
+         "max": 1
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "tag": "UNS",
+   "pos": "1790",
+   "name": "Section control",
+   "status": "M",
+   "max": 1
+  },
+  {
+   "tag": "CNT",
+   "pos": "1800",
+   "name": "Control total",
+   "status": "C",
+   "max": 2
+  },
+  {
+   "group": "SG48",
+   "pos": "1810",
+   "status": "M",
+   "max": 7,
+   "children": [
+    {
+     "tag": "MOA",
+     "pos": "1820",
+     "name": "Monetary amount",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "group": "SG49",
+     "pos": "1830",
+     "status": "C",
+     "max": 1,
+     "children": [
+      {
+       "tag": "RFF",
+       "pos": "1840",
+       "name": "Reference",
+       "status": "M",
+       "max": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "group": "SG50",
+   "pos": "1860",
+   "status": "C",
+   "max": 9,
+   "children": [
+    {
+     "tag": "TAX",
+     "pos": "1870",
+     "name": "Duty/tax/fee details",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "1880",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "group": "SG51",
+   "pos": "1890",
+   "status": "C",
+   "max": 10,
+   "children": [
+    {
+     "tag": "ALC",
+     "pos": "1900",
+     "name": "Allowance or charge",
+     "status": "M",
+     "max": 1
+    },
+    {
+     "tag": "MOA",
+     "pos": "1920",
+     "name": "Monetary amount",
+     "status": "C",
+     "max": 1
+    }
+   ]
+  },
+  {
+   "tag": "UNT",
+   "pos": "1930",
+   "name": "Message trailer",
+   "status": "M",
+   "max": 1
+  }
+ ],
+ "qualifiers": {
+  "/CNT": [
+   "11",
+   "2"
+  ],
+  "/DTM": [
+   "11",
+   "137",
+   "325",
+   "35",
+   "90",
+   "91"
+  ],
+  "/FTX": [
+   "REG",
+   "ZZZ"
+  ],
+  "/UNS": [
+   "S"
+  ],
+  "SG1/DTM": [
+   "171"
+  ],
+  "SG1/RFF": [
+   "CT",
+   "DQ",
+   "ON",
+   "VN",
+   "ZZZ"
+  ],
+  "SG15/ALC": [
+   "A",
+   "C"
+  ],
+  "SG18/PCD": [
+   "1",
+   "2"
+  ],
+  "SG2/FII": [
+   "RB"
+  ],
+  "SG2/NAD": [
+   "BY",
+   "DP",
+   "IV",
+   "OB",
+   "SH",
+   "SU"
+  ],
+  "SG25/DTM": [
+   "35"
+  ],
+  "SG25/FTX": [
+   "ZZZ"
+  ],
+  "SG25/IMD": [
+   "F"
+  ],
+  "SG25/PIA": [
+   "1"
+  ],
+  "SG25/QTY": [
+   "47",
+   "59"
+  ],
+  "SG26/MOA": [
+   "203"
+  ],
+  "SG28/PRI": [
+   "AAA",
+   "AAB"
+  ],
+  "SG29/DTM": [
+   "171"
+  ],
+  "SG29/RFF": [
+   "DQ",
+   "ON",
+   "VN"
+  ],
+  "SG3/RFF": [
+   "GN",
+   "VA"
+  ],
+  "SG33/MOA": [
+   "124"
+  ],
+  "SG33/TAX": [
+   "7"
+  ],
+  "SG34/NAD": [
+   "DP",
+   "OB"
+  ],
+  "SG38/ALC": [
+   "A",
+   "C"
+  ],
+  "SG40/PCD": [
+   "1"
+  ],
+  "SG41/MOA": [
+   "204",
+   "8"
+  ],
+  "SG42/RTE": [
+   "2"
+  ],
+  "SG48/MOA": [
+   "113",
+   "125",
+   "165",
+   "74",
+   "79",
+   "86",
+   "9"
+  ],
+  "SG49/RFF": [
+   "ZZZ"
+  ],
+  "SG50/MOA": [
+   "124",
+   "176"
+  ],
+  "SG50/TAX": [
+   "7"
+  ],
+  "SG51/ALC": [
+   "A",
+   "C"
+  ],
+  "SG51/MOA": [
+   "8"
+  ],
+  "SG6/TAX": [
+   "7"
+  ],
+  "SG7/CUX": [
+   "2"
+  ],
+  "SG8/DTM": [
+   "13"
+  ],
+  "SG8/PAT": [
+   "1"
+  ]
+ }
+}

@@ -1,0 +1,17 @@
+# Obecné XML (formát, který validátor nezná) – VÝCHOZÍ prázdné mapování pro editor „Mapování klienta“.
+#
+# Každý element s podřízenými elementy je „segment“, listové elementy a atributy jsou jeho pole.
+# Cesty začínají kořenovým elementem (např. Faktura > Hlavicka > Dodavatel). Skupiny (řádky faktury BG-25,
+# rekapitulace DPH BG-23 …) a všechna BT si klient nastaví v editoru; zde jsou jen konstanty Peppolu.
+
+id: xml-generic
+format: XML
+message: INVOIC
+
+groups: {}
+
+terms:
+  BT-23:
+    - {const: "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", note: "Doplní konverze (Profile ID)."}
+  BT-24:
+    - {const: "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", note: "Doplní konverze (Customization ID)."}

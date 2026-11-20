@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic FatturaPA-like sample for the mapping GUESS arithmetic test (fictitious data).
+     Like FatturaPA it has a VAT breakdown and the grand total, but neither the total VAT nor the total net amount. -->
+<FatturaSemplice>
+  <DatiGeneraliDocumento>
+    <Divisa>EUR</Divisa>
+    <Data>2026-11-02</Data>
+    <Numero>FT-2026-12</Numero>
+    <ImportoTotaleDocumento>188.00</ImportoTotaleDocumento>
+  </DatiGeneraliDocumento>
+  <CedentePrestatore>
+    <Denominazione>Fittizia Fornitore S.r.l.</Denominazione>
+    <IdFiscaleIVA>IT01234567897</IdFiscaleIVA>
+    <Nazione>IT</Nazione>
+  </CedentePrestatore>
+  <CessionarioCommittente>
+    <Denominazione>Fittizio Cliente S.p.A.</Denominazione>
+    <IdFiscaleIVA>IT09876543217</IdFiscaleIVA>
+    <Nazione>IT</Nazione>
+  </CessionarioCommittente>
+  <DatiBeniServizi>
+    <DettaglioLinee>
+      <NumeroLinea>1</NumeroLinea>
+      <Descrizione>Consulenza</Descrizione>
+      <Quantita>2.00</Quantita>
+      <PrezzoUnitario>50.00</PrezzoUnitario>
+      <PrezzoTotale>100.00</PrezzoTotale>
+      <AliquotaIVA>22.00</AliquotaIVA>
+    </DettaglioLinee>
+    <DettaglioLinee>
+      <NumeroLinea>2</NumeroLinea>
+      <Descrizione>Libri</Descrizione>
+      <Quantita>3.00</Quantita>
+      <PrezzoUnitario>20.00</PrezzoUnitario>
+      <PrezzoTotale>60.00</PrezzoTotale>
+      <AliquotaIVA>10.00</AliquotaIVA>
+    </DettaglioLinee>
+    <DatiRiepilogo>
+      <AliquotaIVA>22.00</AliquotaIVA>
+      <ImponibileImporto>100.00</ImponibileImporto>
+      <Imposta>22.00</Imposta>
+    </DatiRiepilogo>
+    <DatiRiepilogo>
+      <AliquotaIVA>10.00</AliquotaIVA>
+      <ImponibileImporto>60.00</ImponibileImporto>
+      <Imposta>6.00</Imposta>
+    </DatiRiepilogo>
+  </DatiBeniServizi>
+</FatturaSemplice>

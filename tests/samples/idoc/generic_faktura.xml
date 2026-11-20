@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Faktura verze="2">
+ <Hlavicka><Cislo>F-2026-77</Cislo><Datum>2026-11-01</Datum><Mena>EUR</Mena>
+  <Dodavatel><Nazev>Firma Test s.r.o.</Nazev><DIC>SK2020000000</DIC></Dodavatel>
+  <Odberatel><Nazev>Zakaznik a.s.</Nazev><DIC>SK2021111111</DIC></Odberatel></Hlavicka>
+ <Polozky>
+  <Polozka><Popis>Zbozi A</Popis><Mnozstvi>2</Mnozstvi><Cena>5.00</Cena><Celkem>10.00</Celkem><Sazba>23</Sazba></Polozka>
+  <Polozka><Popis>Zbozi B</Popis><Mnozstvi>1</Mnozstvi><Cena>7.50</Cena><Celkem>7.50</Celkem><Sazba>23</Sazba></Polozka>
+ </Polozky>
+ <Souhrn><Zaklad>17.50</Zaklad><DPH>4.03</DPH><Celkem>21.53</Celkem></Souhrn>
+</Faktura>

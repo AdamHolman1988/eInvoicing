@@ -1,0 +1,345 @@
+{
+ "id": "billa-sk",
+ "name": "BILLA SK (Peppol BIS 3.0 SK FMCG)",
+ "description": "Požiadavky retailera nad rámec SK CIUS (stĺpec 'Požadované pre ...') – 1. Billa poziadavky - PEPPOL-BIS3.0_SK_FMCG_version_v1.10_BILLA_SK.xlsx",
+ "source": "1. Billa poziadavky - PEPPOL-BIS3.0_SK_FMCG_version_v1.10_BILLA_SK.xlsx",
+ "extends": [
+  "gs1-sk-fmcg"
+ ],
+ "requirements": {
+  "BT-3": {
+   "level": "required",
+   "note": null,
+   "var": "1-1",
+   "name_sk": "Druh dokladu - kód"
+  },
+  "BT-1": {
+   "level": "required",
+   "note": null,
+   "var": "1-2",
+   "name_sk": "Číslo faktúry (daňového dokladu)"
+  },
+  "BT-2": {
+   "level": "required",
+   "note": null,
+   "var": "1-4",
+   "name_sk": "Dátum vystavenia"
+  },
+  "BT-7": {
+   "level": "required",
+   "note": null,
+   "var": "1-6",
+   "name_sk": "Dátum dodania / prijatia platby (zdaniteľného plnenia)"
+  },
+  "BT-72": {
+   "level": "required",
+   "note": null,
+   "var": "1-8",
+   "name_sk": "Dátum dodania"
+  },
+  "BT-73": {
+   "level": "required",
+   "note": null,
+   "var": "1-9",
+   "name_sk": "Fakturácia od: (pre sumárnu faktúru)"
+  },
+  "BT-74": {
+   "level": "required",
+   "note": null,
+   "var": "1-10",
+   "name_sk": "Fakturácia do: (pre sumárnu faktúru)"
+  },
+  "BT-81": {
+   "level": "required",
+   "note": null,
+   "var": "1-12",
+   "name_sk": "Spôsob úhrady - kód"
+  },
+  "BT-13": {
+   "level": "conditional",
+   "note": "Podmienečne (pre vybraných dodávateľov)",
+   "var": "1-16",
+   "name_sk": "Číslo objednávky zákazníka"
+  },
+  "BT-16": {
+   "level": "required",
+   "note": null,
+   "var": "1-22",
+   "name_sk": "Číslo dodacieho listu"
+  },
+  "BT-25": {
+   "level": "conditional",
+   "note": "Podmienečne (povinné pri dobropise)",
+   "var": "1-33",
+   "name_sk": "Referenčné číslo faktúry",
+   "when": [
+    "CreditNote"
+   ]
+  },
+  "BT-84": {
+   "level": "required",
+   "note": null,
+   "var": "1-48",
+   "name_sk": "IBAN"
+  },
+  "BT-5": {
+   "level": "required",
+   "note": null,
+   "var": "1-57",
+   "name_sk": "Kód meny"
+  },
+  "BT-112": {
+   "level": "required",
+   "note": null,
+   "var": "1-68",
+   "name_sk": "Fakturované celkom"
+  },
+  "BT-106": {
+   "level": "required",
+   "note": null,
+   "var": "1-69",
+   "name_sk": "Cena za riadkové položky celkom"
+  },
+  "BT-109": {
+   "level": "required",
+   "note": null,
+   "var": "1-70",
+   "name_sk": "Cena bez DPH celkom"
+  },
+  "BT-110": {
+   "level": "required",
+   "note": null,
+   "var": "1-74",
+   "name_sk": "DPH daň celkom"
+  },
+  "BT-115": {
+   "level": "required",
+   "note": null,
+   "var": "1-75",
+   "name_sk": "Na úhradu (zostáva uhradiť)"
+  },
+  "BT-116": {
+   "level": "required",
+   "note": null,
+   "var": "1-77",
+   "name_sk": "Základ daňovej skupiny 0 (oslobodené)"
+  },
+  "BT-119": {
+   "level": "required",
+   "note": null,
+   "var": "1-80",
+   "name_sk": "Sadzba DPH skupiny 1"
+  },
+  "BT-117": {
+   "level": "required",
+   "note": null,
+   "var": "1-81",
+   "name_sk": "DPH daňovej skupiny 1"
+  },
+  "BT-92": {
+   "level": "required",
+   "note": null,
+   "var": "1-205",
+   "name_sk": "Zľava / prirážka (poplatok) na faktúru absolútne"
+  },
+  "BT-99": {
+   "level": "required",
+   "note": null,
+   "var": "1-205",
+   "name_sk": "Zľava / prirážka (poplatok) na faktúru absolútne"
+  },
+  "BT-95": {
+   "level": "required",
+   "note": null,
+   "var": "1-207",
+   "name_sk": "Daňová skupina DPH"
+  },
+  "BT-102": {
+   "level": "required",
+   "note": null,
+   "var": "1-207",
+   "name_sk": "Daňová skupina DPH"
+  },
+  "BT-46": {
+   "level": "required",
+   "note": null,
+   "var": "2-2",
+   "name_sk": "GLN kupujúceho - odberateľa"
+  },
+  "BT-44": {
+   "level": "required",
+   "note": null,
+   "var": "2-3",
+   "name_sk": "Kupujúci - obchodné meno - 1"
+  },
+  "BT-45": {
+   "level": "conditional",
+   "note": "Podmienečne (v prípade dlhého názvu)",
+   "var": "2-4",
+   "name_sk": "Kupujúci - obchodné meno - 2"
+  },
+  "BT-55": {
+   "level": "required",
+   "note": null,
+   "var": "2-14",
+   "name_sk": "Adresa - kód krajiny"
+  },
+  "BT-49": {
+   "level": "required",
+   "note": null,
+   "var": "2-17",
+   "name_sk": "DIČ odberateľa (bez SK prefix)"
+  },
+  "BT-71": {
+   "level": "required",
+   "note": null,
+   "var": "2-2",
+   "name_sk": "GLN miesta dodania (predajňa, sklad)"
+  },
+  "BT-80": {
+   "level": "required",
+   "note": null,
+   "var": "2-14",
+   "name_sk": "Adresa - kód krajiny"
+  },
+  "BT-29": {
+   "level": "required",
+   "note": null,
+   "var": "2-2",
+   "name_sk": "GLN dodávateľa"
+  },
+  "BT-27": {
+   "level": "required",
+   "note": null,
+   "var": "2-3",
+   "name_sk": "Dodávateľ - obchodné meno - 1"
+  },
+  "BT-28": {
+   "level": "conditional",
+   "note": "Podmienečne (v prípade dlhého názvu)",
+   "var": "2-4",
+   "name_sk": "Dodávateľ - obchodné meno - 2"
+  },
+  "BT-40": {
+   "level": "required",
+   "note": null,
+   "var": "2-14",
+   "name_sk": "Adresa - kód krajiny"
+  },
+  "BT-31": {
+   "level": "required",
+   "note": null,
+   "var": "2-15",
+   "name_sk": "IČ DPH dodávateľa (prefix SK)"
+  },
+  "BT-32": {
+   "level": "required",
+   "note": null,
+   "var": "2-15",
+   "name_sk": "IČ DPH dodávateľa (prefix SK)"
+  },
+  "BT-34": {
+   "level": "required",
+   "note": null,
+   "var": "2-17",
+   "name_sk": "DIČ dodávateľa (bez SK prefix)"
+  },
+  "BT-126": {
+   "level": "required",
+   "note": null,
+   "var": "3-1",
+   "name_sk": "Číslo riadku"
+  },
+  "BT-157": {
+   "level": "required",
+   "note": null,
+   "var": "3-2",
+   "name_sk": "Globálne číslo pre obchodnú položku - GTIN tovaru"
+  },
+  "BT-129": {
+   "level": "required",
+   "note": null,
+   "var": "3-8",
+   "name_sk": "Množstvo fakturované"
+  },
+  "BT-130": {
+   "level": "required",
+   "note": null,
+   "var": "3-9",
+   "name_sk": "Množstvo fakturované - merná jednotka"
+  },
+  "BT-161": {
+   "level": "required",
+   "note": null,
+   "var": "3-17",
+   "name_sk": "Dátum dodania"
+  },
+  "BT-131": {
+   "level": "required",
+   "note": null,
+   "var": "3-18",
+   "name_sk": "Celková cena za položku"
+  },
+  "BT-136": {
+   "level": "required",
+   "note": null,
+   "var": "3-21",
+   "name_sk": "Čiastka zľavy na jednotku (absolútne)"
+  },
+  "BT-147": {
+   "level": "required",
+   "note": null,
+   "var": "3-21",
+   "name_sk": "Čiastka zľavy na jednotku (absolútne)"
+  },
+  "BT-146": {
+   "level": "required",
+   "note": null,
+   "var": "3-22",
+   "name_sk": "Cena za jednotku po odčítaní zliav"
+  },
+  "BT-151": {
+   "level": "required",
+   "note": null,
+   "var": "3-23",
+   "name_sk": "Sadzba DPH"
+  },
+  "BT-153": {
+   "level": "required",
+   "note": null,
+   "var": "3-57",
+   "name_sk": "Názov produktu, špecifikácia"
+  },
+  "BT-139": {
+   "level": "required",
+   "note": null,
+   "var": "3-202",
+   "name_sk": "Identifikácia zľavy / prirážky (poplatku)"
+  },
+  "BT-144": {
+   "level": "required",
+   "note": null,
+   "var": "3-202",
+   "name_sk": "Identifikácia zľavy / prirážky (poplatku)"
+  },
+  "BT-138": {
+   "level": "required",
+   "note": null,
+   "var": "3-204",
+   "name_sk": "Zľava / prirážka (poplatok) na faktúru v percentách"
+  },
+  "BT-143": {
+   "level": "required",
+   "note": null,
+   "var": "3-204",
+   "name_sk": "Zľava / prirážka (poplatok) na faktúru v percentách"
+  },
+  "BT-141": {
+   "level": "required",
+   "note": null,
+   "var": "3-205",
+   "name_sk": "Zľava / prirážka (poplatok) na faktúru absolútne"
+  }
+ },
+ "group": "Slovenská transpozice – rozšířené formáty"
+}

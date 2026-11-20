@@ -1,0 +1,2754 @@
+{
+ "id": "orion_ccv_invoic",
+ "label": "ORION INVOIC – pevná délka (CCV, spec. 257)",
+ "family": "ORION-FLAT",
+ "message": "INVOIC",
+ "version": "2.5.7",
+ "source": "CCV_ORION_FORMAT_INVOIC_257.xls",
+ "encoding": "cp1250",
+ "tag": {
+  "start": 1,
+  "end": 3
+ },
+ "message_start": [
+  "HDR"
+ ],
+ "ref_field": [
+  "HDR",
+  "HDR3"
+ ],
+ "structure": [
+  {
+   "tag": "HDR",
+   "min": 1,
+   "max": 1
+  },
+  {
+   "tag": "LIN",
+   "min": 0,
+   "max": 999999,
+   "children": [
+    {
+     "tag": "LAC",
+     "min": 0,
+     "max": 20
+    }
+   ]
+  },
+  {
+   "tag": "TXT",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "tag": "REG",
+   "min": 0,
+   "max": 1
+  },
+  {
+   "tag": "AAW",
+   "min": 0,
+   "max": 1
+  },
+  {
+   "tag": "SUM",
+   "min": 1,
+   "max": 1,
+   "summary": true
+  }
+ ],
+ "records": {
+  "HDR": {
+   "label": "Faktura - Hlavička",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "uvození „HDR\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "HDR2",
+     "label": "Identifikace adresáta (EAN)",
+     "type": "Char",
+     "start": 4,
+     "end": 18,
+     "req": true,
+     "cond": false,
+     "note": "EAN partnera, kterému je zpráva odeslána"
+    },
+    {
+     "n": 3,
+     "name": "HDR3",
+     "label": "Číslo dokladu (daňového dokladu)",
+     "type": "Char",
+     "start": 19,
+     "end": 33,
+     "req": true,
+     "cond": false,
+     "note": "Číslo dokladu pro zobrazení, hledání atd."
+    },
+    {
+     "n": 4,
+     "name": "HDR4",
+     "label": "Referenční číslo zprávy",
+     "type": "Char",
+     "start": 34,
+     "end": 47,
+     "req": false,
+     "cond": false,
+     "note": "Unikátní referenční číslo zprávy (např. interní ID z IS), plní odesilatel zprávy nebo doplní Orion (EDIFACT: DE 0062)"
+    },
+    {
+     "n": 5,
+     "name": "HDR5",
+     "label": "Druh dokladu (název) - kód",
+     "type": "Char",
+     "start": 48,
+     "end": 50,
+     "req": true,
+     "cond": false,
+     "note": "Např. 380 pro fa atd. viz.poznámky na konci listu"
+    },
+    {
+     "n": 6,
+     "name": "HDR6",
+     "label": "Funkce zprávy (kód)",
+     "type": "Char",
+     "start": 51,
+     "end": 53,
+     "req": false,
+     "cond": false,
+     "note": "Např. 9 pro originál, 1 pro zrušení, viz. poznámka na konci listu (EDIFACT: DE1225). Obvykle 9."
+    },
+    {
+     "n": 7,
+     "name": "HDR7",
+     "label": "Datum vystavení",
+     "type": "Date",
+     "start": 54,
+     "end": 61,
+     "req": true,
+     "cond": false,
+     "note": "Datum vystavení dokladu",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 8,
+     "name": "HDR8",
+     "label": "Datum uskutečnění zdanitelného plnění",
+     "type": "Date",
+     "start": 62,
+     "end": 69,
+     "req": true,
+     "cond": false,
+     "note": "Datum uskutečnění zdanitelného plnění",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 9,
+     "name": "HDR9",
+     "label": "Datum vyskladnění",
+     "type": "Date",
+     "start": 70,
+     "end": 77,
+     "req": false,
+     "cond": false,
+     "note": "Datum vyskladnění zboží. Obvykle požadováno u spotřební daně.",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 10,
+     "name": "HDR10",
+     "label": "Datum dodání",
+     "type": "Date",
+     "start": 78,
+     "end": 85,
+     "req": false,
+     "cond": false,
+     "note": "Datum dodání odběrateli. Pokud fa obsahuje zboží dodané v různých dnech, je toto zapsáno v LIN25.",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 11,
+     "name": "HDR11",
+     "label": "Fakturace od: (pro sumární fakturu)",
+     "type": "Date",
+     "start": 86,
+     "end": 93,
+     "req": false,
+     "cond": false,
+     "note": "Datum (dodání), od kterého (včetně) se dělá tato sumární faktura",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 12,
+     "name": "HDR12",
+     "label": "Fakturace do: (pro sumární fakturu)",
+     "type": "Date",
+     "start": 94,
+     "end": 101,
+     "req": false,
+     "cond": false,
+     "note": "Datum (dodání), do kterého (včetně) se dělá tato sumární faktura",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 13,
+     "name": "HDR13",
+     "label": "Datum splatnosti",
+     "type": "Date",
+     "start": 102,
+     "end": 109,
+     "req": false,
+     "cond": true,
+     "note": "Datum splatnosti faktury",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 14,
+     "name": "HDR14",
+     "label": "Kód způsobu úhrady",
+     "type": "Char",
+     "start": 110,
+     "end": 112,
+     "req": false,
+     "cond": false,
+     "note": "Např. 42 pro příkaz k úhradě atd. viz.poznámky na konci listu"
+    },
+    {
+     "n": 15,
+     "name": "HDR15",
+     "label": "Číslo smlouvy",
+     "type": "Char",
+     "start": 113,
+     "end": 127,
+     "req": false,
+     "cond": false,
+     "note": "Číslo hospodářské smlouvy, podle které je fa vystavena"
+    },
+    {
+     "n": 16,
+     "name": "HDR16",
+     "label": "Číslo objednávky odběratele",
+     "type": "Char",
+     "start": 128,
+     "end": 142,
+     "req": false,
+     "cond": true,
+     "note": "Číslo objednávky, která je tímto dokladem fakturována. Pokud fa obsahuje zboží objednané různými objednávkami, je toto zapsáno v LIN26-27."
+    },
+    {
+     "n": 17,
+     "name": "HDR17",
+     "label": "Datum vystavení objednávky",
+     "type": "Date",
+     "start": 143,
+     "end": 150,
+     "req": false,
+     "cond": false,
+     "note": "Datum, kdy byla objednávka vystavena. Pokud fa obsahuje zboží objednané různými objednávkami, je toto zapsáno v LIN26-27.",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 18,
+     "name": "HDR18",
+     "label": "Číslo objednávky u dodavatele",
+     "type": "Char",
+     "start": 151,
+     "end": 165,
+     "req": false,
+     "cond": false,
+     "note": "Číslo objednávky u dodavatele (dodavatelská řada). Pokud fa obsahuje zboží zapsané u dodavatele pod různými čísly, je toto zapsáno v LIN28."
+    },
+    {
+     "n": 19,
+     "name": "HDR19",
+     "label": "Datum přijetí objednávky u dodavatele",
+     "type": "Date",
+     "start": 166,
+     "end": 173,
+     "req": false,
+     "cond": false,
+     "note": "Datum, kdy dodavatel obdržel objednávku od objednávajícícho. Pokud fa obsahuje zboží objednané v různých dnech, je toto zapsáno v LIN25.",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 20,
+     "name": "HDR20",
+     "label": "Číslo dodacího listu",
+     "type": "Char",
+     "start": 174,
+     "end": 188,
+     "req": false,
+     "cond": true,
+     "note": "Číslo dodavatelského dodacího listu. Pokud fa obsahuje zboží z více DL, je toto zapsáno v LIN26-27."
+    },
+    {
+     "n": 21,
+     "name": "HDR21",
+     "label": "Datum vystavení dodacího listu",
+     "type": "Date",
+     "start": 189,
+     "end": 196,
+     "req": false,
+     "cond": true,
+     "note": "Datum vystavení dodacího listu dodavatelem.  Pokud fa obsahuje zboží z více DL, je toto zapsáno v LIN29-30.",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 22,
+     "name": "HDR22",
+     "label": "Význam refer. čísla faktury",
+     "type": "Char",
+     "start": 197,
+     "end": 199,
+     "req": false,
+     "cond": true,
+     "note": "Např. AAB pro číslo zálohové fa atd. viz.poznámky na konci listu"
+    },
+    {
+     "n": 23,
+     "name": "HDR23",
+     "label": "Referenční číslo faktury (zálohové f. apod.)",
+     "type": "Char",
+     "start": 200,
+     "end": 214,
+     "req": false,
+     "cond": true,
+     "note": "Vztažné číslo na např.zálohovou fakturu. Plní se pro případ, že se celá fa vztahuje na tuto jedinou zálohovou fa. V opačném případě se plní pole LIN32-34"
+    },
+    {
+     "n": 24,
+     "name": "HDR24",
+     "label": "Datum vztahující se k ref. číslu faktury",
+     "type": "Date",
+     "start": 215,
+     "end": 222,
+     "req": false,
+     "cond": false,
+     "note": "Datum vystavení nebo zdan.plnění zálohové fa",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 25,
+     "name": "HDR25",
+     "label": "Typ rozlišení odběratele - kupujícího (BY)",
+     "type": "Char",
+     "start": 223,
+     "end": 225,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 26,
+     "name": "HDR26",
+     "label": "Rozlišení (kód, EAN, atd.) odběratele",
+     "type": "Char",
+     "start": 226,
+     "end": 242,
+     "req": true,
+     "cond": false,
+     "note": "Vlastní kód nebo EAN odběratele. Odběratel je ten, kdo obdrží tuto fakturu."
+    },
+    {
+     "n": 27,
+     "name": "HDR27",
+     "label": "IČO odběratele",
+     "type": "Char",
+     "start": 243,
+     "end": 257,
+     "req": true,
+     "cond": false,
+     "note": "IČO odběratele"
+    },
+    {
+     "n": 28,
+     "name": "HDR28",
+     "label": "DIČ odběratele",
+     "type": "Char",
+     "start": 258,
+     "end": 272,
+     "req": false,
+     "cond": true,
+     "note": "DIČ odběratele. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 29,
+     "name": "HDR29",
+     "label": "Název odběratele",
+     "type": "Char",
+     "start": 273,
+     "end": 342,
+     "req": false,
+     "cond": true,
+     "note": "Obchodní jméno odběratele (dle obch.rejstříku). Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 30,
+     "name": "HDR30",
+     "label": "Adresa místa odběratele - řádek 1 Ulice",
+     "type": "Char",
+     "start": 343,
+     "end": 412,
+     "req": false,
+     "cond": true,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, PSČ… Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 31,
+     "name": "HDR31",
+     "label": "Adresa místa odběratele - řádek 2 Místo",
+     "type": "Char",
+     "start": 413,
+     "end": 447,
+     "req": false,
+     "cond": true,
+     "note": "Místo"
+    },
+    {
+     "n": 32,
+     "name": "HDR32",
+     "label": "Adresa místa odběratele - řádek 3 Psč",
+     "type": "Char",
+     "start": 448,
+     "end": 456,
+     "req": false,
+     "cond": true,
+     "note": "PSČ"
+    },
+    {
+     "n": 33,
+     "name": "HDR33",
+     "label": "Adresa místa odběratele - řádek 4",
+     "type": "Char",
+     "start": 457,
+     "end": 491,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 34,
+     "name": "HDR34",
+     "label": "Typ rozlišení příjemce (objednatele) (OB)",
+     "type": "Char",
+     "start": 492,
+     "end": 494,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 35,
+     "name": "HDR35",
+     "label": "Rozlišení (kód, EAN, atd.) příjemce",
+     "type": "Char",
+     "start": 495,
+     "end": 511,
+     "req": false,
+     "cond": false,
+     "note": "Vlastní kód nebo EAN příjemce zboží. Příjemce je subjekt, který obdržel od odběratele fakturované zboží (např.při tranzitech to může být frančíza)."
+    },
+    {
+     "n": 36,
+     "name": "HDR36",
+     "label": "IČO příjemce",
+     "type": "Char",
+     "start": 512,
+     "end": 526,
+     "req": false,
+     "cond": false,
+     "note": "IČO příjemce zboží"
+    },
+    {
+     "n": 37,
+     "name": "HDR37",
+     "label": "DIČ příjemce",
+     "type": "Char",
+     "start": 527,
+     "end": 541,
+     "req": false,
+     "cond": false,
+     "note": "DIČ příjemce zboží"
+    },
+    {
+     "n": 38,
+     "name": "HDR38",
+     "label": "Název příjemce",
+     "type": "Char",
+     "start": 542,
+     "end": 611,
+     "req": false,
+     "cond": false,
+     "note": "Obchodní jméno příjemce zboží (dle obch.rejstříku)"
+    },
+    {
+     "n": 39,
+     "name": "HDR39",
+     "label": "Adresa místa příjemce - řádek 1",
+     "type": "Char",
+     "start": 612,
+     "end": 681,
+     "req": false,
+     "cond": false,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, psč…"
+    },
+    {
+     "n": 40,
+     "name": "HDR40",
+     "label": "Adresa místa příjemce - řádek 2",
+     "type": "Char",
+     "start": 682,
+     "end": 716,
+     "req": false,
+     "cond": false,
+     "note": "Místo"
+    },
+    {
+     "n": 41,
+     "name": "HDR41",
+     "label": "Adresa místa příjemce - řádek 3",
+     "type": "Char",
+     "start": 717,
+     "end": 725,
+     "req": false,
+     "cond": false,
+     "note": "PSČ"
+    },
+    {
+     "n": 42,
+     "name": "HDR42",
+     "label": "Adresa místa příjemce - řádek 4",
+     "type": "Char",
+     "start": 726,
+     "end": 760,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 43,
+     "name": "HDR43",
+     "label": "Typ rozlišení místa dodání (DP)",
+     "type": "Char",
+     "start": 761,
+     "end": 763,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 44,
+     "name": "HDR44",
+     "label": "Rozlišení (kód, EAN, atd.) místa dodání",
+     "type": "Char",
+     "start": 764,
+     "end": 780,
+     "req": false,
+     "cond": false,
+     "note": "Vlastní kód nebo EAN místa dodání zboží. Místo dodání je místo, kam bylo fyzicky fakturované zboží dodáno, např.stavba. Pokud fa obsahuje zboží dodané na více míst dodání, je naplněno pole LIN23 a LIN24."
+    },
+    {
+     "n": 45,
+     "name": "HDR45",
+     "label": "Název místa dodání",
+     "type": "Char",
+     "start": 781,
+     "end": 850,
+     "req": false,
+     "cond": false,
+     "note": "Název místa dodání"
+    },
+    {
+     "n": 46,
+     "name": "HDR46",
+     "label": "Adresa místa dodání - řádek 1",
+     "type": "Char",
+     "start": 851,
+     "end": 920,
+     "req": false,
+     "cond": false,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, psč…"
+    },
+    {
+     "n": 47,
+     "name": "HDR47",
+     "label": "Adresa místa dodání - řádek 2",
+     "type": "Char",
+     "start": 921,
+     "end": 955,
+     "req": false,
+     "cond": false,
+     "note": "Místo"
+    },
+    {
+     "n": 48,
+     "name": "HDR48",
+     "label": "Adresa místa dodání - řádek 3",
+     "type": "Char",
+     "start": 956,
+     "end": 964,
+     "req": false,
+     "cond": false,
+     "note": "PSČ"
+    },
+    {
+     "n": 49,
+     "name": "HDR49",
+     "label": "Adresa místa dodání - řádek 4",
+     "type": "Char",
+     "start": 965,
+     "end": 999,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 50,
+     "name": "HDR50",
+     "label": "Typ rozlišení Fakturačního místa (IV)",
+     "type": "Char",
+     "start": 1000,
+     "end": 1002,
+     "req": false,
+     "cond": false,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 51,
+     "name": "HDR51",
+     "label": "Rozlišení (kód, EAN, atd.) fakturačního místa",
+     "type": "Char",
+     "start": 1003,
+     "end": 1019,
+     "req": false,
+     "cond": false,
+     "note": "Vlastní kód nebo EAN fakturačního místa. Fakturační míst je místo, kam bude fyzicky doručena faktura, např. účtárna"
+    },
+    {
+     "n": 52,
+     "name": "HDR52",
+     "label": "Název fakturačního místa",
+     "type": "Char",
+     "start": 1020,
+     "end": 1089,
+     "req": false,
+     "cond": false,
+     "note": "Název fakturačního místa"
+    },
+    {
+     "n": 53,
+     "name": "HDR53",
+     "label": "Adresa fakturačního místa - řádek 1",
+     "type": "Char",
+     "start": 1090,
+     "end": 1159,
+     "req": false,
+     "cond": false,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, psč…"
+    },
+    {
+     "n": 54,
+     "name": "HDR54",
+     "label": "Adresa fakturačního místa - řádek 2",
+     "type": "Char",
+     "start": 1160,
+     "end": 1194,
+     "req": false,
+     "cond": false,
+     "note": "Místo"
+    },
+    {
+     "n": 55,
+     "name": "HDR55",
+     "label": "Adresa fakturačního místa - řádek 3",
+     "type": "Char",
+     "start": 1195,
+     "end": 1203,
+     "req": false,
+     "cond": false,
+     "note": "PSČ"
+    },
+    {
+     "n": 56,
+     "name": "HDR56",
+     "label": "Adresa fakturačního místa - řádek 4",
+     "type": "Char",
+     "start": 1204,
+     "end": 1238,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 57,
+     "name": "HDR57",
+     "label": "Typ rozlišení dodavatele (SU)",
+     "type": "Char",
+     "start": 1239,
+     "end": 1241,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 58,
+     "name": "HDR58",
+     "label": "Rozlišení (kód, EAN, atd.) dodavatele",
+     "type": "Char",
+     "start": 1242,
+     "end": 1258,
+     "req": true,
+     "cond": false,
+     "note": "Vlastní kód nebo EAN dodavatele. Dodavatel je ten, od kterého zboží odešlo a ten, který tento doklad vystavuje."
+    },
+    {
+     "n": 59,
+     "name": "HDR59",
+     "label": "IČO dodavatele",
+     "type": "Char",
+     "start": 1259,
+     "end": 1273,
+     "req": true,
+     "cond": false,
+     "note": "IČO dodavatele"
+    },
+    {
+     "n": 60,
+     "name": "HDR60",
+     "label": "DIČ dodavatele",
+     "type": "Char",
+     "start": 1274,
+     "end": 1288,
+     "req": false,
+     "cond": true,
+     "note": "DIČ dodavatele. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 61,
+     "name": "HDR61",
+     "label": "Název dodavatele",
+     "type": "Char",
+     "start": 1289,
+     "end": 1358,
+     "req": false,
+     "cond": true,
+     "note": "Obchodní jméno dodavatele (dle obch.rejstříku). Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 62,
+     "name": "HDR62",
+     "label": "Adresa místa dodavatele - řádek 1 Ulice",
+     "type": "Char",
+     "start": 1359,
+     "end": 1428,
+     "req": false,
+     "cond": true,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, PSČ… Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 63,
+     "name": "HDR63",
+     "label": "Adresa místa dodavatele - řádek 2 Místo",
+     "type": "Char",
+     "start": 1429,
+     "end": 1463,
+     "req": false,
+     "cond": true,
+     "note": "Místo"
+    },
+    {
+     "n": 64,
+     "name": "HDR64",
+     "label": "Adresa místa dodavatele - řádek 3 PSČ",
+     "type": "Char",
+     "start": 1464,
+     "end": 1472,
+     "req": false,
+     "cond": true,
+     "note": "PSČ"
+    },
+    {
+     "n": 65,
+     "name": "HDR65",
+     "label": "Adresa místa dodavatele - řádek 4",
+     "type": "Char",
+     "start": 1473,
+     "end": 1507,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 66,
+     "name": "HDR66",
+     "label": "Typ rozlišení distr.skladu dodavatele (SH)",
+     "type": "Char",
+     "start": 1508,
+     "end": 1510,
+     "req": false,
+     "cond": false,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 67,
+     "name": "HDR67",
+     "label": "Rozlišení distribučního skladu dodavatele",
+     "type": "Char",
+     "start": 1511,
+     "end": 1527,
+     "req": false,
+     "cond": false,
+     "note": "Např.dodavatelovo interní číslo skladu"
+    },
+    {
+     "n": 68,
+     "name": "HDR68",
+     "label": "Adresa distribučního skladu dodavatele - řádek 1",
+     "type": "Char",
+     "start": 1528,
+     "end": 1597,
+     "req": false,
+     "cond": false,
+     "note": "Ulice a číslo popisné, je-li adresa v jednom údaji, tak včetně místa, psč…"
+    },
+    {
+     "n": 69,
+     "name": "HDR69",
+     "label": "Adresa distribučního skladu dodavatele - řádek 2",
+     "type": "Char",
+     "start": 1598,
+     "end": 1632,
+     "req": false,
+     "cond": false,
+     "note": "Místo"
+    },
+    {
+     "n": 70,
+     "name": "HDR70",
+     "label": "Adresa distribučního skladu dodavatele - řádek 3",
+     "type": "Char",
+     "start": 1633,
+     "end": 1641,
+     "req": false,
+     "cond": false,
+     "note": "PSČ"
+    },
+    {
+     "n": 71,
+     "name": "HDR71",
+     "label": "Adresa distribučního skladu dodavatele - řádek 4",
+     "type": "Char",
+     "start": 1642,
+     "end": 1676,
+     "req": false,
+     "cond": false,
+     "note": "Např. stát"
+    },
+    {
+     "n": 72,
+     "name": "HDR72",
+     "label": "Číslo bank. účtu dodavatele",
+     "type": "Char",
+     "start": 1677,
+     "end": 1693,
+     "req": false,
+     "cond": true,
+     "note": "Primární číslo bank.účtu dodavatele (účet, na kterém očekává platbu za tuto fa)"
+    },
+    {
+     "n": 73,
+     "name": "HDR73",
+     "label": "Směrový kód banky",
+     "type": "Char",
+     "start": 1694,
+     "end": 1697,
+     "req": false,
+     "cond": true,
+     "note": "Směrový kód banky, např. 0100 pro Komerční banku"
+    },
+    {
+     "n": 74,
+     "name": "HDR74",
+     "label": "Název peněžního ústavu",
+     "type": "Char",
+     "start": 1698,
+     "end": 1767,
+     "req": false,
+     "cond": false,
+     "note": "Název peněžního ústavu, např. Komerční banka Brno"
+    },
+    {
+     "n": 75,
+     "name": "HDR75",
+     "label": "Konstantní symbol platby",
+     "type": "Char",
+     "start": 1768,
+     "end": 1771,
+     "req": false,
+     "cond": false,
+     "note": "Konstantní symbol platby, např.0308"
+    },
+    {
+     "n": 76,
+     "name": "HDR76",
+     "label": "Variabilní symbol platby",
+     "type": "Char",
+     "start": 1772,
+     "end": 1786,
+     "req": false,
+     "cond": true,
+     "note": "Variabilní symbol platby, zpravidla číslo fa = HDR3"
+    },
+    {
+     "n": 77,
+     "name": "HDR77",
+     "label": "Specifický symbol platby",
+     "type": "Char",
+     "start": 1787,
+     "end": 1801,
+     "req": false,
+     "cond": false,
+     "note": "Specifický symbol platby"
+    },
+    {
+     "n": 78,
+     "name": "HDR78",
+     "label": "Kód měny - fakturační měna",
+     "type": "Char",
+     "start": 1802,
+     "end": 1804,
+     "req": false,
+     "cond": true,
+     "note": "např. \"CZK\""
+    },
+    {
+     "n": 79,
+     "name": "HDR79",
+     "label": "Kurz",
+     "type": "Num",
+     "start": 1805,
+     "end": 1816,
+     "req": false,
+     "cond": true,
+     "dec": 3,
+     "note": "Kurz KČ k fakturované měně"
+    },
+    {
+     "n": 80,
+     "name": "HDR80",
+     "label": "Množství Kurzu",
+     "type": "Num",
+     "start": 1817,
+     "end": 1822,
+     "req": false,
+     "cond": true,
+     "note": "Množství kurzu"
+    },
+    {
+     "n": 81,
+     "name": "HDR81",
+     "label": "Datum kurzu",
+     "type": "Date",
+     "start": 1823,
+     "end": 1830,
+     "req": false,
+     "cond": false,
+     "note": "Datum kurzu",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 82,
+     "name": "HDR82",
+     "label": "Rozlišení dodavatele u kupujiciho",
+     "type": "Char",
+     "start": 1831,
+     "end": 1847,
+     "req": false,
+     "cond": false,
+     "note": "odběratelský kód dodavatele - pomocné rozlišení dodavatele"
+    },
+    {
+     "n": 83,
+     "name": "HDR83",
+     "label": "IBAN",
+     "type": "Char",
+     "start": 1848,
+     "end": 1882,
+     "req": false,
+     "cond": true,
+     "note": "Povinné pro SK"
+    },
+    {
+     "n": 84,
+     "name": "HDR84",
+     "label": "SWIFT",
+     "type": "Char",
+     "start": 1883,
+     "end": 1893,
+     "req": false,
+     "cond": true,
+     "note": "Povinné pro SK"
+    },
+    {
+     "n": 85,
+     "name": "HDR85",
+     "label": "Číslo příjemky",
+     "type": "Char",
+     "start": 1894,
+     "end": 1909,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 86,
+     "name": "HDR86",
+     "label": "Datum vystavení příjemky",
+     "type": "Date",
+     "start": 1910,
+     "end": 1917,
+     "req": false,
+     "cond": false,
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 87,
+     "name": "HDR87",
+     "label": "Příznak přenesení daňové povinnosti (PDP)",
+     "type": "Char",
+     "start": 1918,
+     "end": 1918,
+     "req": false,
+     "cond": false,
+     "note": "Je-li na faktuře relevantní, vyplnit příznak \"1\". 1=na faktuře je aspoň 1 položka v režimu PDP"
+    },
+    {
+     "n": 88,
+     "name": "HDR88",
+     "label": "INCOTERMS",
+     "type": "Char",
+     "start": 1919,
+     "end": 1921,
+     "req": false,
+     "cond": false,
+     "note": "Kód, který popisuje dodací a přepravní podmínky (segment TOD)"
+    },
+    {
+     "n": 89,
+     "name": "HDR89",
+     "label": "Kód měny - místní měna DPH",
+     "type": "Char",
+     "start": 1922,
+     "end": 1924,
+     "req": false,
+     "cond": true,
+     "note": "např. \"CZK\""
+    },
+    {
+     "n": 90,
+     "name": "HDR90",
+     "label": "Identifikace systému, z kterého doklad vznikl",
+     "type": "Char",
+     "start": 1925,
+     "end": 1932,
+     "req": false,
+     "cond": false,
+     "note": "např. \"OIF\" - faktura ze systému OIF, \"POHODA\", apod."
+    },
+    {
+     "n": 92,
+     "name": "HDR92",
+     "label": "IČ DPH odběratele",
+     "type": "Char",
+     "start": 1933,
+     "end": 1947,
+     "req": false,
+     "cond": true,
+     "note": "Povinné pro SK"
+    },
+    {
+     "n": 93,
+     "name": "HDR93",
+     "label": "IČ DPH dodavatele",
+     "type": "Char",
+     "start": 1948,
+     "end": 1962,
+     "req": false,
+     "cond": true,
+     "note": "Povinné pro SK"
+    }
+   ]
+  },
+  "LIN": {
+   "label": "Faktura - položky",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození „LIN“",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "LIN2",
+     "label": "Číslo řádku",
+     "type": "Num",
+     "start": 4,
+     "end": 9,
+     "req": true,
+     "cond": false,
+     "note": "pořadové číslo"
+    },
+    {
+     "n": 3,
+     "name": "LIN3",
+     "label": "Typ rozlišení zboží 1",
+     "type": "Char",
+     "start": 10,
+     "end": 12,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 4,
+     "name": "LIN4",
+     "label": "Rozlišení (vnitřní kód, EAN, atd.) zboží 1",
+     "type": "Char",
+     "start": 13,
+     "end": 37,
+     "req": true,
+     "cond": false,
+     "note": "Vlastní rozlišení zboží"
+    },
+    {
+     "n": 5,
+     "name": "LIN5",
+     "label": "Typ rozlišení zboží 2",
+     "type": "Char",
+     "start": 38,
+     "end": 40,
+     "req": false,
+     "cond": true,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský"
+    },
+    {
+     "n": 6,
+     "name": "LIN6",
+     "label": "Rozlišení (vnitřní kód, EAN, atd.) zboží 2",
+     "type": "Char",
+     "start": 41,
+     "end": 65,
+     "req": false,
+     "cond": false,
+     "note": "Vlastní rozlišení zboží"
+    },
+    {
+     "n": 7,
+     "name": "LIN7",
+     "label": "Název zboží",
+     "type": "Char",
+     "start": 66,
+     "end": 135,
+     "req": false,
+     "cond": false,
+     "note": "Název zboží"
+    },
+    {
+     "n": 8,
+     "name": "LIN8",
+     "label": "Typ položky",
+     "type": "Char",
+     "start": 136,
+     "end": 138,
+     "req": false,
+     "cond": false,
+     "note": "Z - zboží, O -  obaly, S - služby"
+    },
+    {
+     "n": 9,
+     "name": "LIN9",
+     "label": "Množství",
+     "type": "Num",
+     "start": 139,
+     "end": 150,
+     "req": true,
+     "cond": false,
+     "dec": 3,
+     "note": "Množství fakturační měrné jednotky (viz.LIN14)"
+    },
+    {
+     "n": 10,
+     "name": "LIN10",
+     "label": "Cena za jednotku před odečtením slev",
+     "type": "Num",
+     "start": 151,
+     "end": 162,
+     "req": true,
+     "cond": false,
+     "dec": 2,
+     "note": "Základní cena fakturační měrné jednotky v měně dle HDR72. Jednotková cena je vždy nezáporná."
+    },
+    {
+     "n": 11,
+     "name": "LIN11",
+     "label": "Sleva na položce (procentní)",
+     "type": "Num",
+     "start": 163,
+     "end": 169,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Sleva v procentech, která snižuje cenu. Cena MJ po slevě LIN13 = LIN10 * (100-LIN11)/100"
+    },
+    {
+     "n": 12,
+     "name": "LIN12",
+     "label": "Částka slevy na jednotku (absolutně)",
+     "type": "Num",
+     "start": 170,
+     "end": 181,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Sleva v měně, která snižuje cenu MJ. Cena MJ po slevě LIN13 = LIN10-LIN12"
+    },
+    {
+     "n": 13,
+     "name": "LIN13",
+     "label": "Cena za jednotku po odečtení slev",
+     "type": "Num",
+     "start": 182,
+     "end": 193,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Cena za fakturační MJ po slevách (viz. popis LIN11 a LIN12). Jednotková cena je vždy nezáporná."
+    },
+    {
+     "n": 14,
+     "name": "LIN14",
+     "label": "Celková cena za položku",
+     "type": "Num",
+     "start": 194,
+     "end": 205,
+     "req": true,
+     "cond": false,
+     "dec": 2,
+     "note": "Celková cena v měně za řádek faktury. LIN14=LIN9*LIN13"
+    },
+    {
+     "n": 15,
+     "name": "LIN15",
+     "label": "Sazba DPH",
+     "type": "Num",
+     "start": 206,
+     "end": 210,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Sazba DPH zboží na řádku v procentech. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 16,
+     "name": "LIN16",
+     "label": "Fakturační měrná jednotka",
+     "type": "Char",
+     "start": 211,
+     "end": 213,
+     "req": false,
+     "cond": false,
+     "note": "Měrná jednotka, ve které je množství na LIN9"
+    },
+    {
+     "n": 17,
+     "name": "LIN17",
+     "label": "Počet spotřebitelských jedn. ve fakt. jedn.",
+     "type": "Num",
+     "start": 214,
+     "end": 225,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Převodní poměr mezi spotřebitelskými (tj.maloobchodními) jednotkami a fakturačními."
+    },
+    {
+     "n": 18,
+     "name": "LIN18",
+     "label": "Skupina spotřební daně-kód",
+     "type": "Char",
+     "start": 226,
+     "end": 240,
+     "req": false,
+     "cond": false,
+     "note": "Kód skupiny pro spotřební daň."
+    },
+    {
+     "n": 19,
+     "name": "LIN19",
+     "label": "Základ pro spotřební daň (množství)",
+     "type": "Num",
+     "start": 241,
+     "end": 252,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Množství fakturační měrné jednotky pro základ spotřební daně"
+    },
+    {
+     "n": 20,
+     "name": "LIN20",
+     "label": "Částka spotřební daně",
+     "type": "Num",
+     "start": 253,
+     "end": 264,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Částka spotřební daně za řádek faktury"
+    },
+    {
+     "n": 21,
+     "name": "LIN21",
+     "label": "Typ rozlišení objednatele",
+     "type": "Char",
+     "start": 265,
+     "end": 267,
+     "req": false,
+     "cond": false,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský. Pokud je objednatel společný, je naplněn v HDR43-48"
+    },
+    {
+     "n": 22,
+     "name": "LIN22",
+     "label": "Rozlišení (kód, EAN, atd.) objednatele",
+     "type": "Char",
+     "start": 268,
+     "end": 284,
+     "req": false,
+     "cond": false,
+     "note": "Vlastní rozlišení objednateleí"
+    },
+    {
+     "n": 23,
+     "name": "LIN23",
+     "label": "Typ rozlišení místa dodání",
+     "type": "Char",
+     "start": 285,
+     "end": 287,
+     "req": false,
+     "cond": false,
+     "note": "EAN=EAN kód, INT=odběratelský, SUP=dodavatelský. Pokud je místo dodání společné, je naplněno v HDR43-49"
+    },
+    {
+     "n": 24,
+     "name": "LIN24",
+     "label": "Rozlišení (kód, EAN, atd.) místa dodání",
+     "type": "Char",
+     "start": 288,
+     "end": 304,
+     "req": false,
+     "cond": true,
+     "note": "Vlastní rozlišení místa dodání"
+    },
+    {
+     "n": 25,
+     "name": "LIN25",
+     "label": "Datum dodání",
+     "type": "Date",
+     "start": 305,
+     "end": 312,
+     "req": false,
+     "cond": false,
+     "note": "Datum dodání zboží. Může se lišit od HDR10 (společné pro fa)",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 26,
+     "name": "LIN26",
+     "label": "Číslo objednávky odběratele",
+     "type": "Char",
+     "start": 313,
+     "end": 327,
+     "req": false,
+     "cond": false,
+     "note": "Číslo objednávky odběratele. Může se lišit od HDR16 (společné pro fa)"
+    },
+    {
+     "n": 27,
+     "name": "LIN27",
+     "label": "Datum vystavení objednávky",
+     "type": "Date",
+     "start": 328,
+     "end": 335,
+     "req": false,
+     "cond": false,
+     "note": "Datum vystavení objednávky odběratele. Může se lišit od HDR17 (společné pro fa)",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 28,
+     "name": "LIN28",
+     "label": "Číslo objednávky u dodavatele",
+     "type": "Char",
+     "start": 336,
+     "end": 350,
+     "req": false,
+     "cond": false,
+     "note": "Číslo objednávky u dodavatele (dodavatelská řada). Může se lišit od HDR18 (společné pro fa)"
+    },
+    {
+     "n": 29,
+     "name": "LIN29",
+     "label": "Datum přijetí objednávky u dodavatele",
+     "type": "Date",
+     "start": 351,
+     "end": 358,
+     "req": false,
+     "cond": false,
+     "note": "Datum, kdy dodavatel obdržel objednávku od objednávajícícho.Může se lišit od HDR19 (společné pro fa)",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 30,
+     "name": "LIN30",
+     "label": "Číslo dodacího listu",
+     "type": "Char",
+     "start": 359,
+     "end": 373,
+     "req": false,
+     "cond": true,
+     "note": "Číslo dodavatelského dodacího listu. Může se lišit od HDR20 (společné pro fa)"
+    },
+    {
+     "n": 31,
+     "name": "LIN31",
+     "label": "Datum vystavení dodacího listu",
+     "type": "Date",
+     "start": 374,
+     "end": 381,
+     "req": false,
+     "cond": true,
+     "note": "Datum vystavení dodacího listu dodavatelem. Může se lišit od HDR21 (společné pro fa)",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 32,
+     "name": "LIN32",
+     "label": "Význam ref. čísla faktury",
+     "type": "Char",
+     "start": 382,
+     "end": 384,
+     "req": false,
+     "cond": false,
+     "note": "Např. AAB pro číslo zálohové fa atd. viz.poznámky na konci listu. Může se lišit od HDR22 (společné pro fa)"
+    },
+    {
+     "n": 33,
+     "name": "LIN33",
+     "label": "Referenční číslo faktury (zálohové apod.)",
+     "type": "Char",
+     "start": 385,
+     "end": 399,
+     "req": false,
+     "cond": false,
+     "note": "Vztažné číslo na např.zálohovou fakturu. Může se lišit od HDR23 (společné pro fa)"
+    },
+    {
+     "n": 34,
+     "name": "LIN34",
+     "label": "Datum vztahující se k ref. číslu faktury",
+     "type": "Date",
+     "start": 400,
+     "end": 407,
+     "req": false,
+     "cond": false,
+     "note": "Datum vystavení nebo zdan.plnění zálohové fa. Může se lišit od HDR24 (společné pro fa)",
+     "format": "YYYYMMDD"
+    },
+    {
+     "n": 35,
+     "name": "LIN35",
+     "label": "Stav salda vratných obalů za danou cenu",
+     "type": "Num",
+     "start": 408,
+     "end": 415,
+     "req": false,
+     "cond": false,
+     "note": "Saldo obalů jednoho typu s danou výší zálohy. Má význam pouze pro  LIN8=O (obal)"
+    },
+    {
+     "n": 36,
+     "name": "LIN36",
+     "label": "Obaly dodané",
+     "type": "Num",
+     "start": 416,
+     "end": 423,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 37,
+     "name": "LIN37",
+     "label": "Obaly vrácené",
+     "type": "Num",
+     "start": 424,
+     "end": 431,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 38,
+     "name": "LIN38",
+     "label": "Stav salda vrat. obalů jednoho typu celkem",
+     "type": "Num",
+     "start": 432,
+     "end": 439,
+     "req": false,
+     "cond": false,
+     "note": "Saldo obalů jednoho typu celkem tj. i s rozdílnou výší zálohy. Má význam pouze pro  LIN8=O (obal)"
+    },
+    {
+     "n": 39,
+     "name": "LIN39",
+     "label": "Dodatečná specifikace - volný text",
+     "type": "Char",
+     "start": 440,
+     "end": 509,
+     "req": false,
+     "cond": false,
+     "note": "Text k řádku faktury"
+    },
+    {
+     "n": 40,
+     "name": "LIN40",
+     "label": "Číslo příjemky",
+     "type": "Char",
+     "start": 510,
+     "end": 525,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 41,
+     "name": "LIN41",
+     "label": "Datum vystavení příjemky",
+     "type": "Date",
+     "start": 526,
+     "end": 533,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 42,
+     "name": "LIN42",
+     "label": "Číslo řádku objednávky zákazníka",
+     "type": "Char",
+     "start": 534,
+     "end": 539,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 43,
+     "name": "LIN43",
+     "label": "Číslo zboží podle kupujícího",
+     "type": "Char",
+     "start": 540,
+     "end": 564,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 44,
+     "name": "LIN44",
+     "label": "Číslo zboží podle celního sazebníku",
+     "type": "Char",
+     "start": 565,
+     "end": 589,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 45,
+     "name": "LIN45",
+     "label": "Částka DPH na řádku",
+     "type": "Num",
+     "start": 590,
+     "end": 601,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 46,
+     "name": "LIN46",
+     "label": "Celková částka za položku s DPH",
+     "type": "Num",
+     "start": 602,
+     "end": 613,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 47,
+     "name": "LIN47",
+     "label": "Celková částka slevy na řádku",
+     "type": "Num",
+     "start": 614,
+     "end": 625,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 48,
+     "name": "LIN48",
+     "label": "Volný text - doplňkové informace",
+     "type": "Char",
+     "start": 626,
+     "end": 975,
+     "req": false,
+     "cond": false,
+     "note": "Použití pro Gienger"
+    },
+    {
+     "n": 49,
+     "name": "LIN49",
+     "label": "Příznak přenesení daňové povinnosti (PDP)",
+     "type": "Char",
+     "start": 976,
+     "end": 976,
+     "req": false,
+     "cond": false,
+     "note": "Je-li položka v režimu PDP, vyplnit příznak \"1\"."
+    },
+    {
+     "n": 50,
+     "name": "LIN50",
+     "label": "Hmotnost 1 jednotky množství",
+     "type": "Num",
+     "start": 977,
+     "end": 994,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 51,
+     "name": "LIN51",
+     "label": "Jednotka hmotnosti",
+     "type": "Char",
+     "start": 995,
+     "end": 997,
+     "req": false,
+     "cond": false
+    },
+    {
+     "n": 52,
+     "name": "LIN52",
+     "label": "Země původu",
+     "type": "Char",
+     "start": 998,
+     "end": 1000,
+     "req": false,
+     "cond": false,
+     "note": "Dvoumístný kód země dle ISO 3166"
+    },
+    {
+     "n": 53,
+     "name": "LIN53",
+     "label": "Recyklační příspěvek za jednotku",
+     "type": "Num",
+     "start": 1001,
+     "end": 1012,
+     "req": false,
+     "cond": false,
+     "dec": 4,
+     "note": "Částka recyklačního příspěvku za jednotku množství v měně faktury"
+    },
+    {
+     "n": 54,
+     "name": "LIN54",
+     "label": "Autorský poplatek za jednotku",
+     "type": "Num",
+     "start": 1013,
+     "end": 1024,
+     "req": false,
+     "cond": false,
+     "dec": 4,
+     "note": "Částka autorského poplatku za jednotku množství v měně faktury"
+    },
+    {
+     "n": 55,
+     "name": "LIN55",
+     "label": "Číslo řádku dodacího listu",
+     "type": "Char",
+     "start": 1025,
+     "end": 1030,
+     "req": false,
+     "cond": false
+    }
+   ]
+  },
+  "LAC": {
+   "label": "Slevy a přirážky na řádku",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození „LAC\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "LAC2",
+     "label": "Označení slevy/přirážky",
+     "type": "Char",
+     "start": 4,
+     "end": 6,
+     "req": true,
+     "cond": false,
+     "note": "\"A\" = sleva, \"C\" = prirážka (poplatek)"
+    },
+    {
+     "n": 3,
+     "name": "LAC3",
+     "label": "Popis (identifikace) slevy / přirážky (poplatku)",
+     "type": "Char",
+     "start": 7,
+     "end": 41,
+     "req": false,
+     "cond": false,
+     "note": "Např. \"Recyklační příspěvek\", nebo \"Autorský poplatek\""
+    },
+    {
+     "n": 4,
+     "name": "LAC4",
+     "label": "Kód pro slevu / přirážky (poplatek)",
+     "type": "Char",
+     "start": 42,
+     "end": 44,
+     "req": false,
+     "cond": false,
+     "note": "AEO = Recyklační příspěvek, AEP = Autorský poplatek"
+    },
+    {
+     "n": 5,
+     "name": "LAC5",
+     "label": "Kalkulační stupeň",
+     "type": "Char",
+     "start": 45,
+     "end": 47,
+     "req": false,
+     "cond": false,
+     "note": "Postupné uplatnení slev, poradí od 1, krok 1"
+    },
+    {
+     "n": 6,
+     "name": "LAC6",
+     "label": "Sleva / přirážka (poplatek) na položku v procentech",
+     "type": "Num",
+     "start": 48,
+     "end": 54,
+     "req": false,
+     "cond": false,
+     "dec": 3
+    },
+    {
+     "n": 7,
+     "name": "LAC7",
+     "label": "Sleva / přirážka (poplatek) na položku absolutně",
+     "type": "Num",
+     "start": 55,
+     "end": 66,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 8,
+     "name": "LAC8",
+     "label": "Sleva / přirážka (poplatek) za jednotku",
+     "type": "Num",
+     "start": 67,
+     "end": 78,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    }
+   ]
+  },
+  "TXT": {
+   "label": "Obecné textové údaje - nepovinný řádek",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození „TXT\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "TXT2",
+     "label": "Číslo řádku",
+     "type": "Num",
+     "start": 4,
+     "end": 9,
+     "req": true,
+     "cond": false,
+     "note": "Pořadové číslo textové poznámky"
+    },
+    {
+     "n": 3,
+     "name": "TXT3",
+     "label": "Volný text 1",
+     "type": "Char",
+     "start": 10,
+     "end": 79,
+     "req": false,
+     "cond": true,
+     "note": "Kontaktní osoba, telefon a jiné nestrukturované poznámky - 1. blok musí v ČR obsahovat odkaz na zápis v obchodním rejstříku (5x70 znaků)"
+    },
+    {
+     "n": 4,
+     "name": "TXT4",
+     "label": "Volný text 2",
+     "type": "Char",
+     "start": 80,
+     "end": 149,
+     "req": false,
+     "cond": false,
+     "note": "Kontaktní osoba, telefon a jiné nestrukturované poznámky"
+    },
+    {
+     "n": 5,
+     "name": "TXT5",
+     "label": "Volný text 3",
+     "type": "Char",
+     "start": 150,
+     "end": 219,
+     "req": false,
+     "cond": false,
+     "note": "Kontaktní osoba, telefon a jiné nestrukturované poznámky"
+    },
+    {
+     "n": 6,
+     "name": "TXT6",
+     "label": "Volný text 4",
+     "type": "Char",
+     "start": 220,
+     "end": 289,
+     "req": false,
+     "cond": false,
+     "note": "Kontaktní osoba, telefon a jiné nestrukturované poznámky"
+    },
+    {
+     "n": 7,
+     "name": "TXT7",
+     "label": "Volný text 5",
+     "type": "Char",
+     "start": 290,
+     "end": 359,
+     "req": false,
+     "cond": false,
+     "note": "Kontaktní osoba, telefon a jiné nestrukturované poznámky"
+    }
+   ]
+  },
+  "REG": {
+   "label": "Textové údaje povinné ze zákona o DPH. Nepovinný řádek, nejsou-li texty pro fakturu relevantní",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození \"REG\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "REG2",
+     "label": "Volné texty požadované ze zákona o DPH",
+     "type": "Char",
+     "start": 4,
+     "end": 515,
+     "req": true,
+     "cond": false,
+     "note": "např. \"Daň odvede zákazník\" pro faktury s přenesenou daňovou povinností"
+    }
+   ]
+  },
+  "AAW": {
+   "label": "Důvod vystavení opravného daňového dokladu. Řádek povinný pouze pro opravené daňové doklady (druh dokladu 381)",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození \"AAW\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "AAW2",
+     "label": "Volný text - zdůvodnění vystavení ODD",
+     "type": "Char",
+     "start": 4,
+     "end": 515,
+     "req": true,
+     "cond": false,
+     "note": "např. \"Oprava množství\", \"Oprava ceny\", \"Vratka obalů\", atp."
+    }
+   ]
+  },
+  "SUM": {
+   "label": "Faktura - sumární položky",
+   "fields": [
+    {
+     "n": 1,
+     "name": "TAG",
+     "label": "Uvození „SUM\"",
+     "type": "Char",
+     "start": 1,
+     "end": 3,
+     "req": true,
+     "cond": false
+    },
+    {
+     "n": 2,
+     "name": "SUM2",
+     "label": "Základ daňové skupiny 0 (osvobozeno) v měně faktury",
+     "type": "Num",
+     "start": 4,
+     "end": 15,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Základ daňové skupiny 0 (osvobozeno). Pro daňový doklad vyžadováno. SUM2=(součet LIN14 za daňovou skupinu 0)-SUM15+SUM23"
+    },
+    {
+     "n": 3,
+     "name": "SUM3",
+     "label": "Základ daňové skupiny 1 (snížená) v měně faktury",
+     "type": "Num",
+     "start": 16,
+     "end": 27,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Základ daňové skupiny 1 (snížená). Pro daňový doklad vyžadováno. SUM3=(součet LIN14 za daňovou skupinu 1)-SUM17+SUM25"
+    },
+    {
+     "n": 4,
+     "name": "SUM4",
+     "label": "Základ daňové skupiny 2 (základní) v měně faktury",
+     "type": "Num",
+     "start": 28,
+     "end": 39,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Základ daňové skupiny 2 (základní). Pro daňový doklad vyžadováno. SUM4=(součet LIN14 za daňovou skupinu 2)-SUM19+SUM27"
+    },
+    {
+     "n": 5,
+     "name": "SUM5",
+     "label": "Cena bez DPH celkem",
+     "type": "Num",
+     "start": 40,
+     "end": 51,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Cena bez DPH celkem = SUM2+SUM3+SUM4+SUM45. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 6,
+     "name": "SUM6",
+     "label": "Sazba DPH skupiny 1",
+     "type": "Num",
+     "start": 52,
+     "end": 56,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Snížená sazba v %. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 7,
+     "name": "SUM7",
+     "label": "Sazba DPH skupiny 2",
+     "type": "Num",
+     "start": 57,
+     "end": 61,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Základní sazba v %. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 8,
+     "name": "SUM8",
+     "label": "DPH daň. skupiny 1 v měně faktury",
+     "type": "Num",
+     "start": 62,
+     "end": 73,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Částka snížené sazby DPH v měně. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 9,
+     "name": "SUM9",
+     "label": "DPH daň. skupiny 2 v měně faktury",
+     "type": "Num",
+     "start": 74,
+     "end": 85,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Částka základní sazby DPH v měně. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 10,
+     "name": "SUM10",
+     "label": "DPH daň celkem v měně faktury",
+     "type": "Num",
+     "start": 86,
+     "end": 97,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "SUM8+SUM9+SUM47. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 11,
+     "name": "SUM11",
+     "label": "Spotřební daň celkem (Kč)",
+     "type": "Num",
+     "start": 98,
+     "end": 109,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Celková spotřební daň"
+    },
+    {
+     "n": 12,
+     "name": "SUM12",
+     "label": "Sum Množství celkem",
+     "type": "Num",
+     "start": 110,
+     "end": 121,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Součet množství (suma LIN9)"
+    },
+    {
+     "n": 13,
+     "name": "SUM13",
+     "label": "Sum Cena celkem",
+     "type": "Num",
+     "start": 122,
+     "end": 133,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Součet cen (suma LIN14)"
+    },
+    {
+     "n": 14,
+     "name": "SUM14",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 0 v %",
+     "type": "Num",
+     "start": 134,
+     "end": 140,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná sleva v % ke skupině DPH 0 (buď SUM14 nebo SUM15). Faktura může obsahovat jen dodatečnou slevu nebo jen dodatečnou přirážku SUM14-21 nebo SUM22-29)"
+    },
+    {
+     "n": 15,
+     "name": "SUM15",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 0 abs.",
+     "type": "Num",
+     "start": 141,
+     "end": 152,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná sleva v měně ke skupině DPH 0. Dodatečná sleva se udává v absolutní hodnotě, tj. nezáporná."
+    },
+    {
+     "n": 16,
+     "name": "SUM16",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 1 v %",
+     "type": "Num",
+     "start": 153,
+     "end": 159,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná sleva v % ke skupině DPH 1 (buď SUM16 nebo SUM17)"
+    },
+    {
+     "n": 17,
+     "name": "SUM17",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 1 abs.",
+     "type": "Num",
+     "start": 160,
+     "end": 171,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná sleva v měně ke skupině DPH 1. Dodatečná sleva se udává v absolutní hodnotě, tj. nezáporná."
+    },
+    {
+     "n": 18,
+     "name": "SUM18",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 2 v %",
+     "type": "Num",
+     "start": 172,
+     "end": 178,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná sleva v % ke skupině DPH 2 (buď SUM18 nebo SUM19)"
+    },
+    {
+     "n": 19,
+     "name": "SUM19",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 2 abs.",
+     "type": "Num",
+     "start": 179,
+     "end": 190,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná sleva v měně ke skupině DPH 2. Dodatečná sleva se udává v absolutní hodnotě, tj. nezáporná."
+    },
+    {
+     "n": 20,
+     "name": "SUM20",
+     "label": "Dodatečná sleva na fakturu jako celek v %",
+     "type": "Num",
+     "start": 191,
+     "end": 197,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Sleva v % na fa jako celek"
+    },
+    {
+     "n": 21,
+     "name": "SUM21",
+     "label": "Dodatečná sleva na fa. (absolutně)",
+     "type": "Num",
+     "start": 198,
+     "end": 209,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Sleva v měně na fa jako celek. SUM21=SUM15+SUM17+SUM19+SUM49"
+    },
+    {
+     "n": 22,
+     "name": "SUM22",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 0 v %",
+     "type": "Num",
+     "start": 210,
+     "end": 216,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná přirážka v % ke skupině DPH 0 (buď SUM22 nebo SUM23)."
+    },
+    {
+     "n": 23,
+     "name": "SUM23",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 0 abs.",
+     "type": "Num",
+     "start": 217,
+     "end": 228,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná přirážka v měně ke skupině DPH 0."
+    },
+    {
+     "n": 24,
+     "name": "SUM24",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 1 v %",
+     "type": "Num",
+     "start": 229,
+     "end": 235,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná přirážka v % ke skupině DPH 1 (buď SUM24 nebo SUM25)"
+    },
+    {
+     "n": 25,
+     "name": "SUM25",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 1 abs.",
+     "type": "Num",
+     "start": 236,
+     "end": 247,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná přirážka v měně ke skupině DPH 1"
+    },
+    {
+     "n": 26,
+     "name": "SUM26",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 2 v %",
+     "type": "Num",
+     "start": 248,
+     "end": 254,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná přirážka v % ke skupině DPH 2 (buď SUM26 nebo SUM27)"
+    },
+    {
+     "n": 27,
+     "name": "SUM27",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 2 abs.",
+     "type": "Num",
+     "start": 255,
+     "end": 266,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná přirážka v měně ke skupině DPH 2"
+    },
+    {
+     "n": 28,
+     "name": "SUM28",
+     "label": "Dodatečná přirážka na fakturu jako celek v %",
+     "type": "Num",
+     "start": 267,
+     "end": 273,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Přirážka v % na fa jako celek."
+    },
+    {
+     "n": 29,
+     "name": "SUM29",
+     "label": "Dodatečná přirážka na fa. (absolutně)",
+     "type": "Num",
+     "start": 274,
+     "end": 285,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přirážka v měně na fa jako celek. SUM29=SUM23+SUM25+SUM27+SUM51"
+    },
+    {
+     "n": 30,
+     "name": "SUM30",
+     "label": "Fakturováno celkem",
+     "type": "Num",
+     "start": 286,
+     "end": 297,
+     "req": true,
+     "cond": false,
+     "dec": 2,
+     "note": "Částka na fa celkem bez záloh, včetně DPH. SUM30=SUM2+SUM3+SUM4+SUM8+SUM9+SUM35"
+    },
+    {
+     "n": 31,
+     "name": "SUM31",
+     "label": "Procento zálohové platby",
+     "type": "Num",
+     "start": 298,
+     "end": 304,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Záloha v % již zaplacená (buď SUM31 nebo SUM32)"
+    },
+    {
+     "n": 32,
+     "name": "SUM32",
+     "label": "Částka zálohové platby",
+     "type": "Num",
+     "start": 305,
+     "end": 316,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Záloha v měně již zaplacená (buď SUM31 nebo SUM32)"
+    },
+    {
+     "n": 33,
+     "name": "SUM33",
+     "label": "Zaplacené zálohy celkem",
+     "type": "Num",
+     "start": 317,
+     "end": 328,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "SUM31 nebo SUM32, a to  v měně"
+    },
+    {
+     "n": 34,
+     "name": "SUM34",
+     "label": "K úhradě (zbývá uhradit)",
+     "type": "Num",
+     "start": 329,
+     "end": 340,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Částka na fa celkem i se zálohami. SUM34=SUM30-SUM33"
+    },
+    {
+     "n": 35,
+     "name": "SUM35",
+     "label": "Rozdíl zaokrouhlení",
+     "type": "Num",
+     "start": 341,
+     "end": 352,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Částka zaokrouhlení v měně. K úhradě se očekává SUM34-SUM35"
+    },
+    {
+     "n": 36,
+     "name": "SUM36",
+     "label": "Počet řádků (LIN) v dokumentu",
+     "type": "Num",
+     "start": 353,
+     "end": 358,
+     "req": false,
+     "cond": false,
+     "note": "Počet řádků v sekci LIN"
+    },
+    {
+     "n": 37,
+     "name": "SUM37",
+     "label": "Počet řádků (TXT) v dokumentu",
+     "type": "Num",
+     "start": 359,
+     "end": 364,
+     "req": false,
+     "cond": false,
+     "note": "Počet řádků v sekci TXT"
+    },
+    {
+     "n": 38,
+     "name": "SUM38",
+     "label": "Základ daňové skupiny 0 (osvobozeno) v místní měně",
+     "type": "Num",
+     "start": 365,
+     "end": 376,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 39,
+     "name": "SUM39",
+     "label": "Základ daňové skupiny 1 (snížená sazba) v místní měně",
+     "type": "Num",
+     "start": 377,
+     "end": 388,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 40,
+     "name": "SUM40",
+     "label": "Základ daňové skupiny 2 (základní sazba) v místní měně",
+     "type": "Num",
+     "start": 389,
+     "end": 400,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 41,
+     "name": "SUM41",
+     "label": "DPH daň. skupiny 1 (snížená sazba) v místní měně",
+     "type": "Num",
+     "start": 401,
+     "end": 412,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 42,
+     "name": "SUM42",
+     "label": "DPH daň. skupiny 2 (základní sazba) v místní měně",
+     "type": "Num",
+     "start": 413,
+     "end": 424,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 43,
+     "name": "SUM43",
+     "label": "Základ daňové skupiny 1.2 v místní měně",
+     "type": "Num",
+     "start": 425,
+     "end": 436,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 44,
+     "name": "SUM44",
+     "label": "DPH daň. skupiny 1.2 v místní měně",
+     "type": "Num",
+     "start": 437,
+     "end": 448,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 45,
+     "name": "SUM45",
+     "label": "Základ daňové skupiny 1.2 v měně faktury",
+     "type": "Num",
+     "start": 449,
+     "end": 460,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Základ daňové skupiny 1.2 (druhá snížená). Pro daňový doklad vyžadováno. SUM38=(součet LIN14 za daňovou skupinu 1)-SUM42+SUM44"
+    },
+    {
+     "n": 46,
+     "name": "SUM46",
+     "label": "Sazba DPH skupiny 1.2 (2. snížená sazba)",
+     "type": "Num",
+     "start": 461,
+     "end": 465,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Druhá snížená sazba v %. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 47,
+     "name": "SUM47",
+     "label": "DPH daň. skupiny 1.2 v měně faktury",
+     "type": "Num",
+     "start": 466,
+     "end": 477,
+     "req": false,
+     "cond": true,
+     "dec": 2,
+     "note": "Částka druhé snížené sazby DPH v měně. Pro daňový doklad vyžadováno."
+    },
+    {
+     "n": 48,
+     "name": "SUM48",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 1.2 v %",
+     "type": "Num",
+     "start": 478,
+     "end": 484,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná sleva v % ke skupině DPH 1.2 (buď SUM48 nebo SUM49)"
+    },
+    {
+     "n": 49,
+     "name": "SUM49",
+     "label": "Dodat. sl. na fa. jako celek v daň. sk. 1.2 abs.",
+     "type": "Num",
+     "start": 485,
+     "end": 496,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná sleva v měně ke skupině DPH 1.2 Dodatečná sleva se udává v absolutní hodnotě, tj. nezáporná."
+    },
+    {
+     "n": 50,
+     "name": "SUM50",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 1.2 v %",
+     "type": "Num",
+     "start": 497,
+     "end": 503,
+     "req": false,
+     "cond": false,
+     "dec": 3,
+     "note": "Dodatečná přirážka v % ke skupině DPH 1.2 (buď SUM50 nebo SUM51)"
+    },
+    {
+     "n": 51,
+     "name": "SUM51",
+     "label": "Dodat. přir. na fa. jako celek v daň. sk. 1.2 abs.",
+     "type": "Num",
+     "start": 504,
+     "end": 515,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Dodatečná přirážka v měně ke skupině DPH 1.2"
+    },
+    {
+     "n": 52,
+     "name": "SUM52",
+     "label": "Základ daňové skupiny 1 -  PDP v měně faktury",
+     "type": "Num",
+     "start": 516,
+     "end": 527,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 53,
+     "name": "SUM53",
+     "label": "Základ daňové skupiny 1.2 - PDP v měně faktury",
+     "type": "Num",
+     "start": 528,
+     "end": 539,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 54,
+     "name": "SUM54",
+     "label": "Základ daňové skupiny 2 - PDP v měně faktury",
+     "type": "Num",
+     "start": 540,
+     "end": 551,
+     "req": false,
+     "cond": false,
+     "dec": 2
+    },
+    {
+     "n": 55,
+     "name": "SUM55",
+     "label": "Základ daňové skupiny 1 -  PDP v místní měně",
+     "type": "Num",
+     "start": 552,
+     "end": 563,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 56,
+     "name": "SUM56",
+     "label": "Základ daňové skupiny 1.2 - PDP v místní měně",
+     "type": "Num",
+     "start": 564,
+     "end": 575,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    },
+    {
+     "n": 57,
+     "name": "SUM57",
+     "label": "Základ daňové skupiny 2 - PDP v místní měně",
+     "type": "Num",
+     "start": 576,
+     "end": 587,
+     "req": false,
+     "cond": false,
+     "dec": 2,
+     "note": "Přepočet z měny faktury do místní měny (pro tuzemské faktury v cizí měně)"
+    }
+   ]
+  }
+ },
+ "unpivot": {
+  "VAT": {
+   "from": "SUM",
+   "label": "rekapitulace DPH (ze SUM)",
+   "fields": [
+    "SKUPINA",
+    "ZAKLAD",
+    "SAZBA",
+    "DAN",
+    "KATEGORIE"
+   ],
+   "rows": [
+    {
+     "SKUPINA": "=0",
+     "ZAKLAD": "SUM2",
+     "SAZBA": "=0",
+     "DAN": "=0",
+     "KATEGORIE": "="
+    },
+    {
+     "SKUPINA": "=1",
+     "ZAKLAD": "SUM3",
+     "SAZBA": "SUM6",
+     "DAN": "SUM8",
+     "KATEGORIE": "="
+    },
+    {
+     "SKUPINA": "=1.2",
+     "ZAKLAD": "SUM45",
+     "SAZBA": "SUM46",
+     "DAN": "SUM47",
+     "KATEGORIE": "="
+    },
+    {
+     "SKUPINA": "=2",
+     "ZAKLAD": "SUM4",
+     "SAZBA": "SUM7",
+     "DAN": "SUM9",
+     "KATEGORIE": "="
+    },
+    {
+     "SKUPINA": "=1 PDP",
+     "ZAKLAD": "SUM52",
+     "SAZBA": "=0",
+     "DAN": "=0",
+     "KATEGORIE": "=AE"
+    },
+    {
+     "SKUPINA": "=1.2 PDP",
+     "ZAKLAD": "SUM53",
+     "SAZBA": "=0",
+     "DAN": "=0",
+     "KATEGORIE": "=AE"
+    },
+    {
+     "SKUPINA": "=2 PDP",
+     "ZAKLAD": "SUM54",
+     "SAZBA": "=0",
+     "DAN": "=0",
+     "KATEGORIE": "=AE"
+    }
+   ],
+   "skip_if_zero": [
+    "ZAKLAD",
+    "DAN"
+   ]
+  },
+  "DAC": {
+   "from": "SUM",
+   "label": "sleva/přirážka dokladu (ze SUM)",
+   "fields": [
+    "KOD",
+    "SKUPINA",
+    "PROCENTO",
+    "CASTKA",
+    "SAZBA"
+   ],
+   "rows": [
+    {
+     "KOD": "=A",
+     "SKUPINA": "=0",
+     "PROCENTO": "SUM14",
+     "CASTKA": "SUM15",
+     "SAZBA": "=0"
+    },
+    {
+     "KOD": "=A",
+     "SKUPINA": "=1",
+     "PROCENTO": "SUM16",
+     "CASTKA": "SUM17",
+     "SAZBA": "SUM6"
+    },
+    {
+     "KOD": "=A",
+     "SKUPINA": "=2",
+     "PROCENTO": "SUM18",
+     "CASTKA": "SUM19",
+     "SAZBA": "SUM7"
+    },
+    {
+     "KOD": "=A",
+     "SKUPINA": "=1.2",
+     "PROCENTO": "SUM48",
+     "CASTKA": "SUM49",
+     "SAZBA": "SUM46"
+    },
+    {
+     "KOD": "=C",
+     "SKUPINA": "=0",
+     "PROCENTO": "SUM22",
+     "CASTKA": "SUM23",
+     "SAZBA": "=0"
+    },
+    {
+     "KOD": "=C",
+     "SKUPINA": "=1",
+     "PROCENTO": "SUM24",
+     "CASTKA": "SUM25",
+     "SAZBA": "SUM6"
+    },
+    {
+     "KOD": "=C",
+     "SKUPINA": "=2",
+     "PROCENTO": "SUM26",
+     "CASTKA": "SUM27",
+     "SAZBA": "SUM7"
+    },
+    {
+     "KOD": "=C",
+     "SKUPINA": "=1.2",
+     "PROCENTO": "SUM50",
+     "CASTKA": "SUM51",
+     "SAZBA": "SUM46"
+    }
+   ],
+   "skip_if_zero": [
+    "CASTKA",
+    "PROCENTO"
+   ]
+  }
+ }
+}

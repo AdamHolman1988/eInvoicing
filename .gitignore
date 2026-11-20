@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+/build/
+/dist/
+*.egg-info/
+.pytest_cache/
+.venv/
+
+# real customer samples – never commit
+/samples_local/
+/MsgValidator.spec
+/.claude/

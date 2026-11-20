@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "msgvalidator"
+dynamic = ["version"]
+description = "Lokální validátor a gap analýza e-fakturačních zpráv (EDIFACT, Peppol BIS 3, SK CIUS)"
+requires-python = ">=3.11"
+dependencies = ["lxml>=5", "PyYAML>=6", "pypdf>=4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pyinstaller>=6", "openpyxl>=3.1", "pdfplumber>=0.11"]
+
+[project.scripts]
+msgvalidator = "msgvalidator.__main__:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "msgvalidator.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["msgvalidator*"]
+
+[tool.setuptools.package-data]
+msgvalidator = ["data/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

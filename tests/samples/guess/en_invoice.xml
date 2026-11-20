@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic sample for the mapping GUESS test (fictitious data). -->
+<ErpInvoice version="4">
+  <InvoiceNo>INV-77001</InvoiceNo>
+  <InvoiceDate>2026-11-05</InvoiceDate>
+  <DueDate>2026-12-05</DueDate>
+  <Currency>EUR</Currency>
+  <PONumber>PO-99812</PONumber>
+  <Seller>
+    <CompanyName>Sample Supplier GmbH</CompanyName>
+    <Street>Musterstrasse 5</Street>
+    <City>Wien</City>
+    <PostCode>1010</PostCode>
+    <Country>AT</Country>
+    <VatNumber>ATU12345678</VatNumber>
+  </Seller>
+  <BillTo>
+    <CompanyName>Sample Buyer s.r.o.</CompanyName>
+    <Street>Mlynská 3</Street>
+    <City>Bratislava</City>
+    <PostCode>81101</PostCode>
+    <Country>SK</Country>
+    <VatNumber>SK2020123456</VatNumber>
+  </BillTo>
+  <Bank><IBAN>AT611904300234573201</IBAN><BIC>BKAUATWW</BIC></Bank>
+  <Lines>
+    <Line><LineNo>1</LineNo><ItemCode>A-100</ItemCode><Description>Widget</Description><Qty>10</Qty><UOM>PCE</UOM><UnitPrice>12.50</UnitPrice><VatRate>20</VatRate><Amount>125.00</Amount></Line>
+    <Line><LineNo>2</LineNo><ItemCode>B-200</ItemCode><Description>Gadget</Description><Qty>3</Qty><UOM>PCE</UOM><UnitPrice>25.00</UnitPrice><VatRate>20</VatRate><Amount>75.00</Amount></Line>
+  </Lines>
+  <Totals><NetAmount>200.00</NetAmount><TaxAmount>40.00</TaxAmount><GrandTotal>240.00</GrandTotal></Totals>
+</ErpInvoice>

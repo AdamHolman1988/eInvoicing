@@ -1,0 +1,268 @@
+# EDITEL INHOUSE INVOIC D01B (2012, pevná délka) -> sémantický model EN 16931 (BT/BG)
+#
+# Pole se adresují JMÉNEM z layoutu data/flat/editel_inhouse_invoic_d01b.json (proměnné MIG, např. VAT_IC).
+# Syntaxe pravidel je stejná jako u EDIFACT (viz edifact_invoic_eancom.yaml), jen místo "15.1" lze psát název pole:
+#   path:  "NAD[PARTNER_KVALIF=SU]"        value: "VAT_IC"        join: [OBCH_JM_1, OBCH_JM_2]
+#   date:  "102"  – hodnota je datum YYYYMMDD (bez kvalifikátoru);  format_at: KVALIF_… – formát z jiného pole
+# Virtuální záznamy (layout 'unpivot'):
+#   VAT – rekapitulace DPH vzniklá rozpadem SUM na skupiny 0/1/2 (pole SKUPINA, ZAKLAD, SAZBA, DAN)
+#   LFE – recyklační / autorský poplatek z polí LIN (KOD AEO/AEP, CASTKA, NA_JEDNOTKU, MJ, TYP)
+
+id: flat-editel-inhouse-invoic-d01b
+layout: editel_inhouse_invoic_d01b
+format: EDITEL INHOUSE
+message: INVOIC
+versions: [D01B]
+
+groups:
+  BG-20: {scope: header, each: "ALC[KOD_SLEVY_POPL=A]", skip_if_missing: [BT-92, BT-94]}
+  BG-21: {scope: header, each: "ALC[KOD_SLEVY_POPL=C]", skip_if_missing: [BT-99, BT-101]}
+  BG-23: {scope: summary, each: "VAT", skip_if_missing: [BT-116, BT-117]}
+  BG-25: {scope: line, each: "LIN"}
+  BG-28: {scope: line, parent: BG-25, each: "LFE"}
+
+terms:
+  # ---------------------------------------------------------------- záhlaví (HDR)
+  BT-1:
+    - {path: "HDR", value: CIS_DOKL}
+  BT-2:
+    - {path: "HDR", value: DAT_VYST, format_at: KVALIF_DAT_VYST, date: "102"}
+  BT-3:
+    - path: "HDR"
+      value: DRUH_DOKL
+      map: {"83": "381", "84": "383"}
+  BT-5:
+    - {path: "HDR", value: KOD_MENY}
+  BT-6:
+    - {path: "HDR", value: KOD_MENY_PREPOCTU}
+  BT-7:
+    - {path: "HDR", value: DAT_UZP, date: "102"}
+  BT-9:
+    - {path: "HDR", value: DAT_SPLAT, date: "102"}
+  BT-12:
+    - {path: "HDR", value: CIS_SML}
+  BT-13:
+    - {path: "HDR", value: CIS_OBJ_ZAK}
+  BT-14:
+    - {path: "HDR", value: CIS_OBJ_DODAV}
+  BT-15:
+    - {path: "HDR", value: CIS_PRIJM}
+  BT-16:
+    - {path: "HDR", value: DOD_AVIZO}
+    - {path: "HDR", value: CIS_DOD_LIST, note: "Použito číslo dodacího listu (DOD_AVIZO prázdné)."}
+  BT-22:
+    - {path: "AAI", value: DOD_ZAPIS_OR_A_DALSI_ZE_ZAKONA}
+    - {path: "SUR", value: VOL_TXT_DOD}
+    - {path: "ZZZ", join: [VOL_TXT_1, VOL_TXT_2]}
+    - {path: "AAW", value: DUVOD_OPR_DOKL}
+  BT-23:
+    - {const: "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", note: "Doplní konverze (Profile ID)."}
+  BT-24:
+    - {const: "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", note: "Doplní konverze (Customization ID)."}
+  BT-25:
+    - {path: "HDR[VYZN_REF_CIS_FKT=IV|OI]", value: REF_CIS_FKT}
+    - {path: "HDR", value: REF_CIS_FKT}
+  BT-26:
+    - {path: "HDR", value: DAT_REF_CIS_FKT, format_at: KVALIF_DAT_REF_CIS_FKT, date: "102"}
+
+  # ---------------------------------------------------------------- BG-4 prodávající (NAD SU)
+  BT-27:
+    - {path: "NAD[PARTNER_KVALIF=SU]", join: [OBCH_JM_1, OBCH_JM_2, OBCH_JM_3, OBCH_JM_4, OBCH_JM_5]}
+  BT-29:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: GLN_CIS, scheme: "0088"}
+  BT-30:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ICO, note: "IČO."}
+  BT-31:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: VAT_IC}
+  BT-32:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: SK_DIC}
+    - {derive: sk_tax_id_from_vat_at, args: {path: "NAD[PARTNER_KVALIF=SU]", value: VAT_IC}, note: "SK DIČ chybí; odvozeno z IČ DPH bez prefixu SK."}
+  BT-33:
+    - {path: "AAI", value: DOD_ZAPIS_OR_A_DALSI_ZE_ZAKONA, note: "Zápis v obchodním rejstříku (AAI)."}
+  BT-34:
+    - derive: gln_endpoint_at
+      args: {path: "NAD[PARTNER_KVALIF=SU]", value: GLN_CIS}
+      note: "Peppol endpoint není ve formátu; odvozeno z GLN (0088). V SK se jako endpoint typicky používá DIČ (0245) – ověřte registraci v Peppol SMP."
+  BT-35:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ADR_UL_1}
+  BT-36:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ADR_UL_2}
+  BT-37:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ADR_MISTO}
+  BT-38:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ADR_PSC}
+  BT-40:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: ADR_ZEME}
+    - {derive: country_from_vat_at, args: {path: "NAD[PARTNER_KVALIF=SU]", value: VAT_IC}, note: "Kód země chybí v NAD; odvozeno z prefixu DIČ."}
+  BT-41:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: KONT}
+  BT-42:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: KONT_TEL}
+  BT-43:
+    - {path: "NAD[PARTNER_KVALIF=SU]", value: KONT_E-MAIL}
+
+  # ---------------------------------------------------------------- BG-7 kupující (NAD BY)
+  BT-44:
+    - {path: "NAD[PARTNER_KVALIF=BY]", join: [OBCH_JM_1, OBCH_JM_2, OBCH_JM_3, OBCH_JM_4, OBCH_JM_5]}
+  BT-46:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: GLN_CIS, scheme: "0088"}
+  BT-47:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ICO}
+  BT-48:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: VAT_IC}
+  BT-49:
+    - derive: gln_endpoint_at
+      args: {path: "NAD[PARTNER_KVALIF=BY]", value: GLN_CIS}
+      note: "Peppol endpoint není ve formátu; odvozeno z GLN (0088). Ověřte registraci kupujícího v Peppol SMP."
+  BT-50:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ADR_UL_1}
+  BT-51:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ADR_UL_2}
+  BT-52:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ADR_MISTO}
+  BT-53:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ADR_PSC}
+  BT-55:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: ADR_ZEME}
+    - {derive: country_from_vat_at, args: {path: "NAD[PARTNER_KVALIF=BY]", value: VAT_IC}, note: "Kód země chybí v NAD; odvozeno z prefixu DIČ."}
+  BT-56:
+    - {path: "NAD[PARTNER_KVALIF=BY]", value: KONT}
+
+  # ---------------------------------------------------------------- BG-13 dodání (NAD DP)
+  BT-70:
+    - {path: "NAD[PARTNER_KVALIF=DP]", join: [OBCH_JM_1, OBCH_JM_2, OBCH_JM_3, OBCH_JM_4, OBCH_JM_5]}
+  BT-71:
+    - {path: "NAD[PARTNER_KVALIF=DP]", value: GLN_CIS, scheme: "0088"}
+  BT-72:
+    - {path: "HDR", value: DAT_DOD, date: "102"}
+  BT-75:
+    - {path: "NAD[PARTNER_KVALIF=DP]", value: ADR_UL_1}
+  BT-77:
+    - {path: "NAD[PARTNER_KVALIF=DP]", value: ADR_MISTO}
+  BT-78:
+    - {path: "NAD[PARTNER_KVALIF=DP]", value: ADR_PSC}
+  BT-80:
+    - {path: "NAD[PARTNER_KVALIF=DP]", value: ADR_ZEME}
+
+  # ---------------------------------------------------------------- BG-14 období fakturace
+  BT-73:
+    - {path: "HDR", value: FKT_OD_DAT, date: "102"}
+  BT-74:
+    - {path: "HDR", value: FKT_DO_DAT, date: "102"}
+
+  # ---------------------------------------------------------------- BG-16 platební instrukce
+  BT-81:
+    - {path: "HDR", value: ZPUS_UHR}
+  BT-83:
+    - {path: "HDR", value: VAR_SYMB_PLAT, note: "Variabilní symbol."}
+  BT-84:
+    - {path: "HDR", value: IBAN}
+    - {path: "HDR", value: CIS_BNK_UCT_DOD, note: "Použito národní číslo účtu (ne IBAN) – pro kód úhrady 58 (SEPA) je vyžadován IBAN."}
+  BT-86:
+    - {path: "HDR", value: SWIFT}
+
+  # ---------------------------------------------------------------- BG-20 / BG-21 slevy a přirážky dokladu (ALC)
+  BT-92:
+    - {path: "@", value: SL_POPL_ABS}
+  BT-94:
+    - {path: "@", value: SL_POPL_PROC}
+  BT-95:
+    - {derive: vat_category_from_rate_at, args: {path: "@", value: SL_SAZBA_DPH}, note: "Kategorie DPH chybí; odvozeno ze sazby."}
+  BT-96:
+    - {path: "@", value: SL_SAZBA_DPH}
+  BT-97:
+    - {path: "@", value: ID_SLEVY_POPL}
+  BT-99:
+    - {path: "@", value: SL_POPL_ABS}
+  BT-101:
+    - {path: "@", value: SL_POPL_PROC}
+  BT-102:
+    - {derive: vat_category_from_rate_at, args: {path: "@", value: SL_SAZBA_DPH}, note: "Kategorie DPH chybí; odvozeno ze sazby."}
+  BT-103:
+    - {path: "@", value: SL_SAZBA_DPH}
+  BT-104:
+    - {path: "@", value: ID_SLEVY_POPL}
+
+  # ---------------------------------------------------------------- BG-22 součty (SUM)
+  BT-106:
+    - {path: "SUM", value: CEN_RADK_POL_CELK, scope: summary}
+  BT-109:
+    - {path: "SUM", value: CENA_BEZ_DPH_CELK, scope: summary}
+  BT-110:
+    - {path: "SUM", value: DAN_DPH_CELK, scope: summary}
+  BT-112:
+    - {path: "SUM", value: FAKT_CELK, scope: summary}
+  BT-113:
+    - {path: "SUM", value: ZAPL_ZAL_CELK, scope: summary}
+  BT-114:
+    - {path: "SUM", value: ROZD_ZAOKR, scope: summary}
+  BT-115:
+    - {path: "SUM", value: K_UHRADE, scope: summary}
+
+  # ---------------------------------------------------------------- BG-23 rozpis DPH (virtuální VAT ze SUM)
+  BT-116:
+    - {path: "@", value: ZAKLAD}
+  BT-117:
+    - {path: "@", value: DAN}
+    - {derive: zero_tax_amount, note: "Částka DPH chybí; pro kategorii AE/E/Z/O (nebo sazbu 0 %) konverze doplní 0."}
+  BT-118:
+    - derive: vat_category_from_rate_at
+      args: {path: "@", value: SAZBA, flag_path: "HDR", flag: PRENES_DPH}
+      note: "Kategorie DPH ve formátu není; odvozeno ze sazby / příznaku přenesení daňové povinnosti (S pro sazbu > 0, u 0 % nejednoznačné Z/E/O)."
+  BT-119:
+    - {path: "@", value: SAZBA}
+
+  # ---------------------------------------------------------------- BG-25 řádky (LIN)
+  BT-126:
+    - {path: "@", value: L_CIS_R}
+  BT-129:
+    - {path: "@", value: L_MNOZSTV_FKT}
+  BT-130:
+    - path: "@"
+      value: L_MER_JEDN_FKT
+      map: {PCE: H87, PCS: H87, KS: H87, KAR: CT, CAR: CT, KRT: CT, BAL: PK, PAL: PF, KG: KGM, L: LTR, M: MTR}
+      note: "Jednotka převedena na UN/ECE Rec 20."
+  BT-131:
+    - {path: "@", value: L_CELK_CEN_ZA_POL}
+  BT-132:
+    - {path: "@", value: L_CIS_OBJ_ZAK}
+  BT-146:
+    - {path: "@", value: L_CEN_JEDN_PO_SL}
+  BT-147:
+    - {path: "@", value: L_SLV_JEDN_ABS}
+    - {derive: price_discount, note: "Sleva z ceny = cena před slevou − cena po slevě."}
+  BT-148:
+    - {path: "@", value: L_CEN_JEDN_PRED_SL}
+  BT-151:
+    - derive: vat_category_from_rate_at
+      args: {path: "@", value: L_SAZB_DPH, flag_path: "@", flag: L_PRENES_DPH}
+      note: "Kategorie DPH ve formátu není; odvozeno ze sazby / příznaku AE."
+  BT-152:
+    - {path: "@", value: L_SAZB_DPH}
+  BT-153:
+    - {path: "@", value: L_DOD_SPEC}
+  BT-155:
+    - {path: "@[L_TYP_CIS_ZBO=SA]", value: L_CIS_ZBO}
+    - {path: "@[L_TYP_CIS_ZBO_DOPL=SA]", value: L_CIS_ZBO_DOPL}
+  BT-156:
+    - {path: "@[L_TYP_CIS_ZBO=IN]", value: L_CIS_ZBO}
+    - {path: "@[L_TYP_CIS_ZBO_DOPL=IN]", value: L_CIS_ZBO_DOPL}
+  BT-157:
+    - {path: "@", value: L_GTIN_ZBO, scheme: "0160"}
+  BT-159:
+    - {path: "@", value: L_ZEM_PUV}
+
+  # ---------------------------------------------------------------- BG-28 řádkové přirážky (recyklační / autorský poplatek)
+  BT-141:
+    - {path: "@", value: CASTKA}
+  BT-144:
+    - {path: "@", value: TYP}
+  BT-145:
+    - {path: "@", value: KOD, note: "AEO = recyklační poplatek, AEP = autorský poplatek (UNCL7161)."}
+
+# Pomocné údaje mimo EN 16931 (kontrola je použije, do UBL se nepřenáší)
+aux:
+  item_type:  # Z = zboží, O = obal (spec. S neuvádí, ale přijmeme) -> u služeb je chybějící GTIN jen varování
+    group: BG-25
+    rules:
+      - {path: "@", value: L_TYP_POL}

@@ -1,0 +1,156 @@
+# Slovník pro ODHAD mapování neznámého formátu (msgvalidator/guess).
+#
+# Všechny výrazy se porovnávají normalizovaně: malá písmena, bez diakritiky, bez mezer / _ / - / teček
+# ("Datum vystavení" = "datum_vystaveni" = "DatumVystaveni" = "datumvystaveni").
+# Shoda celého názvu pole = nejsilnější, výraz na začátku / konci názvu = slabší, výraz uvnitř (min. 4 znaky) = nejslabší.
+# Přidávejte klidně další synonyma – nic dalšího se měnit nemusí.
+
+# Role stran: slova v názvech nadřazených prvků (nebo v názvu pole) určují, ke komu údaj patří.
+roles:
+  seller: [dodavatel, dodavatele, dodavatelsky, dodavatelska, dodavatelfirma, dodavatelia, dodavatela, dodavatelsubjekt,
+           predavajuci, predavajici, prodavajici, prodejce, vystavovatel, supplier, seller, vendor, accountingsupplierparty,
+           sellerparty, supplierparty, lieferant, verkaufer, verkaeufer, rechnungssteller, issuer, dodavateľ, fakturujuci, billfrom, billfromparty,
+           cedenteprestatore, fornitore]
+  buyer: [odberatel, odberatele, odberatela, odberatelsky, kupujici, kupujuci, zakaznik, zakaznika, customer, buyer,
+          accountingcustomerparty, buyerparty, customerparty, kaufer, kaeufer, kunde, rechnungsempfanger, rechnungsempfaenger,
+          prijemce, platce, odbiorca, billto, invoicee, payer, payerparty, cessionariocommittente, committente,
+          cliente]
+  delivery: [mistododani, miestododania, konecnyprijemce, dodacimisto, dodaciadresa, dodacia, prijemcezbozi, delivery,
+             deliveryparty, deliverylocation, shipto, consignee, lieferadresse, lieferanschrift, warenempfanger, warenempfaenger,
+             pobocka, provozovna, prevadzka, sklad, store, productrecipient, shiptoparty, shiptolocation,
+             luogoconsegna]
+  payee: [prijemceplatby, payee, beneficiary, zahlungsempfanger]
+
+# Skupiny: slova v názvu opakujícího se prvku.
+groups:
+  BG-25: [polozka, polozky, radek, radky, riadok, riadky, line, lines, item, items, invoiceline, position, positionen, posten,
+          pos, detail, details, row, rows, zbozi, artikl, product, produkt, lineitem, fakturacniradek,
+          dettagliolinee, linee, riga, righe]
+  BG-23: [rekapitulace, rekapitulacedph, rekapitulaciadph, souhrndph, dph, vat, vatbreakdown, taxsubtotal, taxsummary, tax,
+          sazbydph, rozpisdph, vatsummary, mwst, steuer, ust, taxtotal, vatgroup, datiriepilogo, riepilogo,
+          taxsummaryline]
+
+# Údaje strany – stejné pro dodavatele, odběratele, místo dodání; BT podle role.
+party:
+  name:
+    bt: {seller: BT-27, buyer: BT-44, delivery: BT-70, payee: BT-59}
+    words: [nazev, nazov, jmeno, meno, name, firma, nazevfirmy, obchodninazev, obchodnimeno, obchodnemeno, companyname,
+            registrationname, partyname, bezeichnung, firmenname, organizace, spolecnost, denominazione,
+            organisationformattedname, organizationname]
+  street:
+    bt: {seller: BT-35, buyer: BT-50, delivery: BT-75}
+    words: [ulice, ulica, ulicecp, street, streetname, adresa, adresa1, address, address1, addressline1, line1, strasse,
+            ulicaacislo, ulicecislo, streetandnumber, indirizzo]
+  street2:
+    bt: {seller: BT-36, buyer: BT-51, delivery: BT-76}
+    words: [adresa2, address2, addressline2, line2, additionalstreetname, ulice2]
+  city:
+    bt: {seller: BT-37, buyer: BT-52, delivery: BT-77}
+    words: [mesto, obec, misto, city, cityname, town, ort, stadt, mestoobec, comune]
+  zip:
+    bt: {seller: BT-38, buyer: BT-53, delivery: BT-78}
+    words: [psc, zip, zipcode, postcode, postalcode, postalzone, plz, postovnismerovacicislo, cap, streetpostalcode]
+  country:
+    bt: {seller: BT-40, buyer: BT-55, delivery: BT-80}
+    words: [zeme, stat, krajina, country, countrycode, kodzeme, land, landcode, identificationcode, nazione]
+  vat:
+    bt: {seller: BT-31, buyer: BT-48}
+    words: [dic, icdph, vatid, vat, vatnumber, vatno, vatregistration, ustid, ustidnr, uidnummer, dicdph, danoveidentifikacnicislo,
+            taxid, vatidentifier]
+  company:
+    bt: {seller: BT-30, buyer: BT-47}
+    words: [ico, ic, icoorg, companyid, regno, registrationnumber, legalid, crn, identifikacnicislo, firmennummer, handelsregister,
+            legalnumber, legalregistration, codicefiscale]
+  gln:
+    bt: {seller: BT-29, buyer: BT-46, delivery: BT-71}
+    words: [gln, ean, iln, eanfirmy, glnfirmy, globallocationnumber, partyid, partyidentification, iln_nr]
+  contact:
+    bt: {seller: BT-41, buyer: BT-56}
+    words: [kontakt, kontaktniosoba, kontaktnaosoba, contact, contactname, contactperson, vyrizuje, ansprechpartner, referent]
+  phone:
+    bt: {seller: BT-42, buyer: BT-57}
+    words: [telefon, tel, phone, telephone, mobil, mobile]
+  endpoint:
+    bt: {seller: BT-34, buyer: BT-49}
+    words: [electronicaddress, endpoint, endpointid, peppolid, peppolparticipant, participantid, elektronickaadresa]
+  email:
+    bt: {seller: BT-43, buyer: BT-58}
+    words: [email, mail, emailadresa, electronicmail]
+
+# Údaje dokladu (záhlaví a souhrn).
+document:
+  BT-1: [cislo, cislofaktury, cislodokladu, cislofakturace, invoicenumber, invoiceno, invoiceid, docnumber, documentnumber,
+         documentid, number, nr, "no", id, rechnungsnummer, rechnungsnr, belegnummer, cislofa, fakturacislo, evidencnicislo, numero, invoiceid]
+  BT-2: [datumvystaveni, datumvystavenia, vystaveno, datum, date, issuedate, invoicedate, datefaktury, datumfaktury,
+         rechnungsdatum, belegdatum, datumdokladu, dokladdatum, issue, data]
+  BT-3: [typdokladu, druhdokladu, typfaktury, doctype, documenttype, invoicetype, invoicetypecode, belegart, rechnungsart, typ]
+  BT-5: [mena, menadokladu, currency, currencycode, documentcurrency, documentcurrencycode, waehrung, wahrung, curr, mena_kod, divisa]
+  BT-7: [duzp, datumduzp, datumzdanitelnehoplneni, datumuskutecneniplneni, taxpointdate, taxpoint, leistungsdatum, dzp]
+  BT-9: [datumsplatnosti, splatnost, splatno, duedate, paymentduedate, faelligkeit, faelligkeitsdatum, zahlungsziel, datumsplatnost, datascadenzapagamento, invoicepaymentduedate]
+  BT-10: [buyerreference, referencekupujiciho, leitwegid, referenceodberatele]
+  BT-12: [smlouva, cislosmlouvy, zmluva, cislozmluvy, contract, contractno, contractnumber, vertrag, vertragsnummer]
+  BT-13: [objednavka, cisloobjednavky, objednavkacislo, objednavky, orderno, ordernumber, orderref, orderreference, order,
+          purchaseorder, po, ponumber, bestellung, bestellnummer, cisloobjednavkyodberatele]
+  BT-14: [cisloobjednavkydodavatele, salesorder, salesorderid, auftragsnummer, zakazka, cislozakazky]
+  BT-15: [prijemka, cisloprijemky, receivingadvice, recadv, receiptreference]
+  BT-16: [dodacilist, cislodl, dl, cislododacihlistu, dodacilistcislo, deliverynote, deliverynoteno, despatchadvice, desadv,
+          lieferschein, lieferscheinnummer, dodaci_list]
+  BT-20: [platebnipodminky, platobnepodmienky, paymentterms, zahlungsbedingungen, podminkyplatby]
+  BT-22: [poznamka, poznamky, note, notes, text, bemerkung, hinweis, popis, komentar, comment, causale]
+  BT-25: [puvodnifaktura, opravovanydoklad, opravovanafaktura, odkaznafakturu, precedinginvoice, originalinvoice,
+          invoicereference, referencefaktury, cislopuvodnifaktury, bezugsrechnung, korigovanydoklad, puvodnidoklad]
+  BT-72: [datumdodani, datumdodania, dodano, deliverydate, actualdeliverydate, lieferdatum, datumdodavky]
+  BT-73: [obdobiod, fakturacniobdobiod, periodstart, startdate, zeitraumvon, od]
+  BT-74: [obdobido, fakturacniobdobido, periodend, enddate, zeitraumbis, do]
+  BT-81: [zpusobuhrady, formauhrady, zpusobplatby, sposobuhrady, paymentmeans, paymentmeanscode, paymentmethod, zahlungsart, platba]
+  BT-83: [variabilnisymbol, vs, varsymbol, variabilny, variabilnysymbol, paymentreference, paymentid, remittanceinformation,
+          verwendungszweck, symbol]
+  BT-84: [iban, ucet, cisloctu, cislouctu, bankovniucet, bankaccount, account, accountnumber, accountno, konto, kontonummer,
+          payeefinancialaccount, bankovyucet]
+  BT-85: [nazevuctu, accountname, kontoinhaber, majitelucet]
+  BT-86: [bic, swift, swiftcode, bankcode, bicswift]
+  BT-106: [sumaradku, souctradku, celkemradky, celkempolozky, linetotal, lineextensionamount, sumlines, linesum, sumapolozek,
+           zakladpolozek, summepositionen]
+  BT-107: [slevycelkem, sumaslev, allowancetotal, allowancetotalamount, rabattsumme]
+  BT-108: [poplatkycelkem, prirazkycelkem, chargetotal, chargetotalamount, zuschlagsumme]
+  BT-109: [zaklad, zakladcelkem, celkembezdph, celkemzaklad, totalnet, netamount, nettoamount, netto, taxexclusive,
+           taxexclusiveamount, bezdph, sumabezdph, zakladdane, celkovyzaklad, nettobetrag, nettosumme, totalwithoutvat,
+           zakladdph, subtotal]
+  BT-110: [dph, dphcelkem, celkemdph, castkadph, dan, dancelkem, vat, vatamount, vattotal, taxamount, totalvat, taxtotal,
+           taxtotalamount, mwst, mwstbetrag, steuerbetrag, ust, sumadph]
+  BT-112: [celkemsdph, celkem, celkovacastka, total, totalamount, grandtotal, taxinclusive, taxinclusiveamount, brutto,
+           bruttobetrag, sdph, sumasdph, castka, suma, celkovasuma, gesamtbetrag, gesamt, rechnungsbetrag, totalwithvat,
+           invoicetotal, amount, gross, grossamount, totalgross, totalgrossamount, importototaledocumento, totalinvoiceamount]
+  BT-113: [zaplaceno, uhrazeno, zalohy, zaloha, zaplacenazaloha, odpoctenazaloha, prepaid, prepaidamount, anzahlung, uhradenezalohy]
+  BT-114: [zaokrouhleni, zaokruhlenie, rounding, roundingamount, payableroundingamount, rundung]
+  BT-115: [kuhrade, kuhradie, kzaplaceni, kzaplateniu, zaplatit, uhradit, payable, payableamount, amountdue, totaldue, duesum,
+           zbyvauhradit, doplatit, zahlbetrag, zuzahlen, zahlbar, castkakuhrade]
+
+# Údaje řádku (uvnitř opakujícího se prvku řádku faktury).
+line:
+  BT-126: [cislo, cisloradku, poradi, poradove, poradovecislo, radek, lineid, linenumber, lineno, pos, position, posnr, numerolinea,
+           positionsnummer, id, nr, poradie, cislopolozky]
+  BT-153: [nazev, nazov, nazevpolozky, nazevzbozi, popis, popispolozky, text, description, name, itemname, itemdescription,
+           zbozi, bezeichnung, artikelbezeichnung, artikeltext, produktnazev, oznaceni, descrizione]
+  BT-129: [mnozstvi, mnozstvo, pocet, pocetks, qty, quantity, invoicedquantity, creditedquantity, menge, anzahl, mn, ks, quantita]
+  BT-130: [jednotka, mj, merna, mernajednotka, unit, uom, unitcode, unitofmeasure, einheit, me, mernajednotka_kod, unitamisura]
+  BT-146: [cena, jednotkovacena, cenazamj, cenazajednotku, cenamj, cenabezdph, jedncena, price, unitprice, priceamount, netprice,
+           preis, einzelpreis, stueckpreis, nettopreis, cenazakus, prezzounitario]
+  BT-131: [celkem, cenacelkem, celkembezdph, castka, castkabezdph, linetotal, lineamount, lineextensionamount, netamount,
+           zaklad, zakladradku, bezdph, total, gesamt, gesamtpreis, betrag, nettobetrag, suma, sumabezdph, amount, cenaspolu, prezzototale]
+  BT-152: [sazba, sazbadph, dphsazba, dphprocento, vatrate, taxrate, rate, percent, procento, mwstsatz, steuersatz, dphproc,
+           sadzba, sadzbadph, aliquotaiva]
+  BT-151: [kategoriedph, kategoriadph, vatcategory, taxcategory, kodsazby, kodsazbydph, steuerkategorie, steuerschluessel]
+  BT-155: [kod, kodzbozi, kodpolozky, artikl, artiklcislo, cislozbozi, katalogovecislo, katcislo, sku, itemcode, productcode,
+           articlenumber, articleno, artikelnummer, materialnummer, sellersitemidentification, plu, regcislo]
+  BT-156: [kododberatele, kodzakaznika, buyersitem, buyersitemidentification, customeritem, kundenartikelnummer]
+  BT-157: [ean, gtin, carovykod, carkod, barcode, eankod, eancode, standarditemidentification]
+  BT-159: [zemepuvodu, krajinaovodu, origincountry, countryoforigin, ursprungsland]
+  BT-128: [objednavkaradek, radekobjednavky, orderlinereference, orderline]
+
+# Rekapitulace DPH (uvnitř opakujícího se prvku DPH).
+vat:
+  BT-119: [sazba, sazbadph, rate, vatrate, taxrate, percent, procento, mwstsatz, steuersatz, sadzba, aliquotaiva]
+  BT-116: [zaklad, zakladdane, zakladdph, base, taxableamount, taxable, netto, nettobetrag, bemessungsgrundlage, bezdph, castkabezdph, imponibileimporto]
+  BT-117: [dph, dan, castkadph, taxamount, vat, vatamount, tax, mwst, mwstbetrag, steuerbetrag, sumadph, dan_castka, imposta]
+  BT-118: [kategorie, kategoriedph, category, vatcategory, taxcategory, kod, kodsazby, steuerkategorie]

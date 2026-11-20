@@ -1,0 +1,1289 @@
+{
+ "id": "sk-cius",
+ "name": "SK CIUS – transpozícia Peppol BIS 3.0",
+ "description": "Slovenská transpozícia Peppol BIS Billing 3.0 (Verzia dokumentu: v 1.13), stĺpec 'Povinná náležitosť faktúry'.",
+ "source": "2026.10.29_Peppol_Bis3_v1_13.xlsx",
+ "extends": [
+  "peppol-bis3"
+ ],
+ "requirements": {
+  "BT-1": {
+   "level": "required",
+   "name_sk": "Číslo faktúry",
+   "note": "§ 74 ods. 1 písm. c)",
+   "extension": false
+  },
+  "BT-2": {
+   "level": "required",
+   "name_sk": "Dátum vystavenia faktúry",
+   "note": "§ 74 ods. 1 písm. e)",
+   "extension": false
+  },
+  "BT-3": {
+   "level": "required",
+   "name_sk": "Kód typu faktúry",
+   "note": "nebude doplnené do § 74 bude riešené v podzákonnej norme",
+   "extension": false
+  },
+  "BT-5": {
+   "level": "required",
+   "name_sk": "",
+   "note": "nebude doplnené do § 74 bude riešené v podzákonnej norme",
+   "extension": false
+  },
+  "BT-6": {
+   "level": "conditional",
+   "name_sk": "Kód účtovnej meny DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-7": {
+   "level": "conditional",
+   "name_sk": "Dátum uskutočnenia zdaniteľného plnenia",
+   "note": "§ 74 ods. 1 písm. d)",
+   "extension": false
+  },
+  "BT-8": {
+   "level": "optional",
+   "name_sk": "Kód dátumu uskutočnenia zdaniteľného plnenia",
+   "note": null,
+   "extension": false
+  },
+  "BT-9": {
+   "level": "optional",
+   "name_sk": "Dátum splatnosti",
+   "note": null,
+   "extension": false
+  },
+  "BT-10": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-11": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie projektu",
+   "note": null,
+   "extension": false
+  },
+  "BT-12": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie zmluvy",
+   "note": null,
+   "extension": false
+  },
+  "BT-13": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie objednávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-14": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie predajnej zákazky",
+   "note": null,
+   "extension": false
+  },
+  "BT-15": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie potvrdenia príjmu tovaru",
+   "note": null,
+   "extension": false
+  },
+  "BT-16": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie avíza o odoslaní tovaru",
+   "note": null,
+   "extension": false
+  },
+  "BT-17": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie ponuky (pozor zmena: označenie VO sme dali radšej BT-12 - v zmysle UBL2.1 Faktúry)",
+   "note": null,
+   "extension": false
+  },
+  "BT-18": {
+   "level": "optional",
+   "name_sk": "Identifikátor fakturovaného predmetu",
+   "note": null,
+   "extension": false
+  },
+  "BT-18-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-19": {
+   "level": "optional",
+   "name_sk": "Referencia pre zaúčtovanie kupujúcemu",
+   "note": null,
+   "extension": false
+  },
+  "BT-20": {
+   "level": "optional",
+   "name_sk": "Platobné podmienky",
+   "note": null,
+   "extension": false
+  },
+  "BG-1": {
+   "level": "optional",
+   "name_sk": "POZNÁMKA K FAKTÚRE",
+   "note": null,
+   "extension": false
+  },
+  "BT-21": {
+   "level": "optional",
+   "name_sk": "Kód subjektu poznámky k faktúre",
+   "note": null,
+   "extension": false
+  },
+  "BT-22": {
+   "level": "optional",
+   "name_sk": "Poznámka k faktúre",
+   "note": null,
+   "extension": false
+  },
+  "BG-2": {
+   "level": "required",
+   "name_sk": "RIADENIE PROCESOV",
+   "note": null,
+   "extension": false
+  },
+  "BT-23": {
+   "level": "optional",
+   "name_sk": "Typ obchodného procesu",
+   "note": null,
+   "extension": false
+  },
+  "BT-24": {
+   "level": "required",
+   "name_sk": "Identifikátor špecifikácie",
+   "note": null,
+   "extension": false
+  },
+  "BG-3": {
+   "level": "optional",
+   "name_sk": "REFERENČNÉ OZNAČENIE PREDCHÁDZAJÚCEJ FAKTÚRY",
+   "note": null,
+   "extension": false
+  },
+  "BT-25": {
+   "level": "optional",
+   "name_sk": "Referenčné označenie predchádzajúcej faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-26": {
+   "level": "optional",
+   "name_sk": "Dátum vystavenia predchádzajúcej faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BG-4": {
+   "level": "required",
+   "name_sk": "PREDÁVAJÚCI",
+   "note": null,
+   "extension": false
+  },
+  "BT-27": {
+   "level": "required",
+   "name_sk": "Meno/názov predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-28": {
+   "level": "optional",
+   "name_sk": "Obchodné meno/názov predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-29": {
+   "level": "optional",
+   "name_sk": "Identifikátor predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-29-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-30": {
+   "level": "conditional",
+   "name_sk": "Identifikátor zákonnej registrácie predávajúceho",
+   "note": "vyžaduje sa, ak bolo IČO subjektu pridelené",
+   "extension": false
+  },
+  "BT-30-1": {
+   "level": "conditional",
+   "name_sk": "Identifikátor schémy",
+   "note": "vyžaduje sa, ak bolo IČO subjektu pridelené",
+   "extension": false
+  },
+  "BT-31": {
+   "level": "conditional",
+   "name_sk": "Identifikátor predávajúceho na účely DPH",
+   "note": "vyžaduje sa, ak bolo IČ DPH subjektu pridelené",
+   "extension": false
+  },
+  "BT-32": {
+   "level": "optional",
+   "name_sk": "Identifikátor daňovej registrácie predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-33": {
+   "level": "conditional",
+   "name_sk": "Dodatočné právne údaje predávajúceho - Právna forma",
+   "note": "§3a obchodného zákonníka: Každý podnikateľ je povinný na svojich obchodných listoch a objednávkach vyhotovených v písomnej alebo elektronickej forme (ďalej len „obchodné dokumenty“) uvádzať obchodné meno, sídlo alebo miesto podnikania, právnu formu právnickej osoby a identifikačné číslo, ak je pridelené. Podnikatelia zapísaní v obchodnom registri alebo v inej evidencii podnikateľov uvádzajú aj označenie registra, ktorý podnikateľa zapísal, a číslo zápisu. Ak podnikateľ na svojich obchodných dokumentoch uvádza výšku základného imania, musí uviesť aj rozsah jeho splatenia.",
+   "extension": false
+  },
+  "BT-34": {
+   "level": "required",
+   "name_sk": "Elektronická adresa predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-34-1": {
+   "level": "required",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BG-5": {
+   "level": "required",
+   "name_sk": "POŠTOVÁ ADRESA PREDÁVAJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-35": {
+   "level": "required",
+   "name_sk": "Adresa predávajúceho riadok 1",
+   "note": "§ 74 ods. 1 písm. a)",
+   "extension": false
+  },
+  "BT-36": {
+   "level": "optional",
+   "name_sk": "Adresa predávajúceho riadok 2",
+   "note": null,
+   "extension": false
+  },
+  "BT-162": {
+   "level": "optional",
+   "name_sk": "Adresa predávajúceho riadok 3",
+   "note": null,
+   "extension": false
+  },
+  "BT-37": {
+   "level": "required",
+   "name_sk": "Mesto predávajúceho",
+   "note": "§ 74 ods. 1 písm. a)",
+   "extension": false
+  },
+  "BT-38": {
+   "level": "required",
+   "name_sk": "PSČ predávajúceho",
+   "note": "§ 74 ods. 1 písm. a)",
+   "extension": false
+  },
+  "BT-39": {
+   "level": "optional",
+   "name_sk": "Nižší správny celok krajiny predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-40": {
+   "level": "required",
+   "name_sk": "Kód krajiny predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BG-6": {
+   "level": "optional",
+   "name_sk": "KONTAKTNÉ ÚDAJE PREDÁVAJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-41": {
+   "level": "optional",
+   "name_sk": "Kontaktné miesto predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-42": {
+   "level": "optional",
+   "name_sk": "Kontaktné telefónne číslo predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-43": {
+   "level": "optional",
+   "name_sk": "Kontaktná e-mailová adresa predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BG-7": {
+   "level": "required",
+   "name_sk": "KUPUJÚCI",
+   "note": null,
+   "extension": false
+  },
+  "BT-44": {
+   "level": "required",
+   "name_sk": "Meno/názov kupujúceho",
+   "note": "§ 74 ods. 1 písm. b)",
+   "extension": false
+  },
+  "BT-45": {
+   "level": "optional",
+   "name_sk": "Obchodné meno/názov kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-46": {
+   "level": "optional",
+   "name_sk": "Identifikátor kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-46-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-47": {
+   "level": "conditional",
+   "name_sk": "Identifikátor zákonnej registrácie kupujúceho",
+   "note": "vyžaduje sa, ak bolo IČO subjektu pridelené",
+   "extension": false
+  },
+  "BT-47-1": {
+   "level": "conditional",
+   "name_sk": "Identifikátor schémy",
+   "note": "vyžaduje sa, ak bolo IČO subjektu pridelené",
+   "extension": false
+  },
+  "BT-48": {
+   "level": "conditional",
+   "name_sk": "Identifikátor kupujúceho na účely DPH",
+   "note": "vyžaduje sa, ak bolo IČ DPH subjektu pridelené",
+   "extension": false
+  },
+  "BT-49": {
+   "level": "required",
+   "name_sk": "Elektronická adresa kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-49-1": {
+   "level": "required",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BG-8": {
+   "level": "required",
+   "name_sk": "POŠTOVÁ ADRESA KUPUJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-50": {
+   "level": "required",
+   "name_sk": "Adresa kupujúceho riadok 1",
+   "note": "§ 74 ods. 1 písm. b)",
+   "extension": false
+  },
+  "BT-51": {
+   "level": "optional",
+   "name_sk": "Adresa kupujúceho riadok 2",
+   "note": null,
+   "extension": false
+  },
+  "BT-163": {
+   "level": "optional",
+   "name_sk": "Adresa kupujúceho riadok 3",
+   "note": null,
+   "extension": false
+  },
+  "BT-52": {
+   "level": "required",
+   "name_sk": "Mesto kupujúceho",
+   "note": "§ 74 ods. 1 písm. b)",
+   "extension": false
+  },
+  "BT-53": {
+   "level": "required",
+   "name_sk": "PSČ kupujúceho",
+   "note": "§ 74 ods. 1 písm. b)",
+   "extension": false
+  },
+  "BT-54": {
+   "level": "optional",
+   "name_sk": "Nižší správny celok krajiny kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-55": {
+   "level": "required",
+   "name_sk": "Kód krajiny kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BG-9": {
+   "level": "optional",
+   "name_sk": "KONTAKTNÉ ÚDAJE KUPUJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-56": {
+   "level": "optional",
+   "name_sk": "Kontaktné miesto kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-57": {
+   "level": "optional",
+   "name_sk": "Kontaktné telefónne číslo kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-58": {
+   "level": "optional",
+   "name_sk": "Kontaktná e-mailová adresa kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BG-10": {
+   "level": "optional",
+   "name_sk": "PRÍJEMCA PLATBY",
+   "note": null,
+   "extension": false
+  },
+  "BT-59": {
+   "level": "required",
+   "name_sk": "Meno/názov príjemcu platby",
+   "note": null,
+   "extension": false
+  },
+  "BT-60": {
+   "level": "optional",
+   "name_sk": "Identifikátor príjemcu platby",
+   "note": null,
+   "extension": false
+  },
+  "BT-60-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-61": {
+   "level": "optional",
+   "name_sk": "Identifikátor zákonnej registrácie príjemcu platby",
+   "note": null,
+   "extension": false
+  },
+  "BT-61-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BG-11": {
+   "level": "optional",
+   "name_sk": "DAŇOVÝ ZÁSTUPCA PREDÁVAJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-62": {
+   "level": "required",
+   "name_sk": "Meno/názov daňového zástupcu predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-63": {
+   "level": "required",
+   "name_sk": "Identifikátor daňového zástupcu predávajúceho na účely DPH",
+   "note": null,
+   "extension": false
+  },
+  "BG-12": {
+   "level": "required",
+   "name_sk": "POŠTOVÁ ADRESA DAŇOVÉHO ZÁSTUPCU PREDÁVAJÚCEHO",
+   "note": null,
+   "extension": false
+  },
+  "BT-64": {
+   "level": "conditional",
+   "name_sk": "Adresa daňového zástupcu riadok 1",
+   "note": "vyžaduje sa iba v prípade, ak sa transakcie zúčastňuje daňový zástupca.",
+   "extension": false
+  },
+  "BT-65": {
+   "level": "optional",
+   "name_sk": "Adresa daňového zástupcu riadok 2",
+   "note": null,
+   "extension": false
+  },
+  "BT-164": {
+   "level": "optional",
+   "name_sk": "Adresa daňového zástupcu riadok 3",
+   "note": null,
+   "extension": false
+  },
+  "BT-66": {
+   "level": "conditional",
+   "name_sk": "Mesto daňového zástupcu",
+   "note": "vyžaduje sa iba v prípade, ak sa transakcie zúčastňuje daňový zástupca.",
+   "extension": false
+  },
+  "BT-67": {
+   "level": "conditional",
+   "name_sk": "PSČ daňového zástupcu",
+   "note": "vyžaduje sa iba v prípade, ak sa transakcie zúčastňuje daňový zástupca.",
+   "extension": false
+  },
+  "BT-68": {
+   "level": "optional",
+   "name_sk": "Nižší správny celok krajiny daňového zástupcu",
+   "note": null,
+   "extension": false
+  },
+  "BT-69": {
+   "level": "required",
+   "name_sk": "Kód krajiny daňového zástupcu",
+   "note": null,
+   "extension": false
+  },
+  "BG-13": {
+   "level": "optional",
+   "name_sk": "DODACIE ÚDAJE",
+   "note": null,
+   "extension": false
+  },
+  "BT-70": {
+   "level": "optional",
+   "name_sk": "Názov subjektu určenia dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-71": {
+   "level": "optional",
+   "name_sk": "Identifikátor miesta určenia dodávky Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-71-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor miesta určenia dodávky Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-72": {
+   "level": "optional",
+   "name_sk": "Skutočný dátum dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BG-14": {
+   "level": "optional",
+   "name_sk": "FAKTURAČNÉ OBDOBIE",
+   "note": null,
+   "extension": false
+  },
+  "BT-73": {
+   "level": "optional",
+   "name_sk": "Počiatočný dátum fakturačného obdobia",
+   "note": null,
+   "extension": false
+  },
+  "BT-74": {
+   "level": "optional",
+   "name_sk": "Konečný dátum fakturačného obdobia",
+   "note": null,
+   "extension": false
+  },
+  "BG-15": {
+   "level": "optional",
+   "name_sk": "DODACIA ADRESA",
+   "note": null,
+   "extension": false
+  },
+  "BT-75": {
+   "level": "optional",
+   "name_sk": "Dodacia adresa riadok 1",
+   "note": null,
+   "extension": false
+  },
+  "BT-76": {
+   "level": "optional",
+   "name_sk": "Dodacia adresa riadok 2",
+   "note": null,
+   "extension": false
+  },
+  "BT-165": {
+   "level": "optional",
+   "name_sk": "Dodacia adresa riadok 3",
+   "note": null,
+   "extension": false
+  },
+  "BT-77": {
+   "level": "optional",
+   "name_sk": "Mesto určenia dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-78": {
+   "level": "optional",
+   "name_sk": "PSČ miesta určenia dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-79": {
+   "level": "optional",
+   "name_sk": "Nižší správny celok krajiny určenia dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-80": {
+   "level": "required",
+   "name_sk": "Kód krajiny určenia dodávky",
+   "note": null,
+   "extension": false
+  },
+  "BG-16": {
+   "level": "optional",
+   "name_sk": "POKYNY PRE PLATBU",
+   "note": null,
+   "extension": false
+  },
+  "BT-81": {
+   "level": "required",
+   "name_sk": "Kód typu spôsobu platby",
+   "note": null,
+   "extension": false
+  },
+  "BT-82": {
+   "level": "optional",
+   "name_sk": "Text spôsobu platby",
+   "note": null,
+   "extension": false
+  },
+  "BT-83": {
+   "level": "optional",
+   "name_sk": "Informácie o platbe",
+   "note": null,
+   "extension": false
+  },
+  "BT-83-1": {
+   "level": "optional",
+   "name_sk": "Informácie o platbe",
+   "note": null,
+   "extension": false
+  },
+  "BG-17": {
+   "level": "optional",
+   "name_sk": "BEZHOTOVOSTNÝ PREVOD",
+   "note": null,
+   "extension": false
+  },
+  "BT-84": {
+   "level": "required",
+   "name_sk": "Identifikátor platobného účtu",
+   "note": "Číslo účtu dodávateľa je POVINNÉ",
+   "extension": false
+  },
+  "BT-85": {
+   "level": "optional",
+   "name_sk": "Názov platobného účtu",
+   "note": null,
+   "extension": false
+  },
+  "BT-86": {
+   "level": "optional",
+   "name_sk": "Identifikátor poskytovateľa platobných služieb",
+   "note": null,
+   "extension": false
+  },
+  "BG-18": {
+   "level": "optional",
+   "name_sk": "INFORMÁCIE O PLATOBNEJ KARTE",
+   "note": null,
+   "extension": false
+  },
+  "BT-87": {
+   "level": "required",
+   "name_sk": "Číslo primárneho účtu platobnej karty",
+   "note": null,
+   "extension": false
+  },
+  "BT-88": {
+   "level": "optional",
+   "name_sk": "Meno držiteľa platobnej karty",
+   "note": null,
+   "extension": false
+  },
+  "BG-19": {
+   "level": "optional",
+   "name_sk": "INKASO",
+   "note": null,
+   "extension": false
+  },
+  "BT-89": {
+   "level": "optional",
+   "name_sk": "Identifikátor referencie k mandátu",
+   "note": null,
+   "extension": false
+  },
+  "BT-90": {
+   "level": "optional",
+   "name_sk": "Bankou priradený identifikátor príjemcu",
+   "note": null,
+   "extension": false
+  },
+  "BT-91": {
+   "level": "optional",
+   "name_sk": "Identifikátor účtu platcu",
+   "note": null,
+   "extension": false
+  },
+  "BG-20": {
+   "level": "optional",
+   "name_sk": "ZRÁŽKY NA ÚROVNI DOKLADU",
+   "note": null,
+   "extension": false
+  },
+  "BT-92": {
+   "level": "required",
+   "name_sk": "Suma zrážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-93": {
+   "level": "optional",
+   "name_sk": "Základ zrážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-94": {
+   "level": "optional",
+   "name_sk": "Percento zrážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-95": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH pre zrážku na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-96": {
+   "level": "optional",
+   "name_sk": "Sadzba DPH pre zrážku na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-97": {
+   "level": "optional",
+   "name_sk": "Dôvod zrážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-98": {
+   "level": "optional",
+   "name_sk": "Kód dôvodu zrážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BG-21": {
+   "level": "optional",
+   "name_sk": "PRIRÁŽKY NA ÚROVNI DOKLADU",
+   "note": null,
+   "extension": false
+  },
+  "BT-99": {
+   "level": "required",
+   "name_sk": "Suma prirážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-100": {
+   "level": "optional",
+   "name_sk": "Základ prirážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-101": {
+   "level": "optional",
+   "name_sk": "Percento prirážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-102": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH pre prirážku na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-102-1": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH pre prirážku na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-103": {
+   "level": "optional",
+   "name_sk": "Sadzba DPH pre prirážku na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-104": {
+   "level": "optional",
+   "name_sk": "Dôvod prirážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-105": {
+   "level": "optional",
+   "name_sk": "Kód dôvodu prirážky na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BG-22": {
+   "level": "required",
+   "name_sk": "CELKOVÉ SÚČTY ZA DOKLAD",
+   "note": null,
+   "extension": false
+  },
+  "BT-106": {
+   "level": "required",
+   "name_sk": "Súčet čistých súm riadkov faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-107": {
+   "level": "optional",
+   "name_sk": "Súčet zrážok na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-108": {
+   "level": "optional",
+   "name_sk": "Súčet prirážok na úrovni dokladu",
+   "note": null,
+   "extension": false
+  },
+  "BT-109": {
+   "level": "required",
+   "name_sk": "Celková suma faktúry bez DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-110": {
+   "level": "required",
+   "name_sk": "Celková suma DPH za faktúru",
+   "note": null,
+   "extension": false
+  },
+  "BT-111": {
+   "level": "optional",
+   "name_sk": "Celková suma DPH za faktúru v účtovnej mene",
+   "note": null,
+   "extension": false
+  },
+  "BT-112": {
+   "level": "required",
+   "name_sk": "Celková suma faktúry vrátane DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-113": {
+   "level": "optional",
+   "name_sk": "Zaplatená suma",
+   "note": null,
+   "extension": false
+  },
+  "BT-114": {
+   "level": "optional",
+   "name_sk": "Suma zaokrúhlenia",
+   "note": null,
+   "extension": false
+  },
+  "BT-115": {
+   "level": "required",
+   "name_sk": "Splatná suma na úhradu",
+   "note": null,
+   "extension": false
+  },
+  "BG-23": {
+   "level": "required",
+   "name_sk": "ROZDELENIE DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-116": {
+   "level": "required",
+   "name_sk": "Základ dane za kategóriu DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-117": {
+   "level": "required",
+   "name_sk": "Suma dane za kategóriu DPH",
+   "note": "nebude doplnené do § 74 bude riešené v podzákonnej norme",
+   "extension": false
+  },
+  "BT-118": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-118-1": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH",
+   "note": null,
+   "extension": false
+  },
+  "BT-119": {
+   "level": "conditional",
+   "name_sk": "Sadzba za príslušnú kategóriu DPH",
+   "note": "§ 74 ods. 1 písm. h)",
+   "extension": false
+  },
+  "BT-120": {
+   "level": "conditional",
+   "name_sk": "Text dôvodu oslobodenia od DPH",
+   "note": "§ 74 ods. 1 písm. h) = text dôvod oslobodenia",
+   "extension": false
+  },
+  "BT-121": {
+   "level": "optional",
+   "name_sk": "Kód dôvodu oslobodenia od DPH",
+   "note": null,
+   "extension": false
+  },
+  "BG-24": {
+   "level": "optional",
+   "name_sk": "DODATOČNÉ PODPORNÉ DOKUMENTY",
+   "note": null,
+   "extension": false
+  },
+  "BT-122": {
+   "level": "required",
+   "name_sk": "Odkaz na podporný dokument",
+   "note": null,
+   "extension": false
+  },
+  "BT-123": {
+   "level": "optional",
+   "name_sk": "Popis podporného dokumentu",
+   "note": null,
+   "extension": false
+  },
+  "BT-124": {
+   "level": "optional",
+   "name_sk": "Umiestnenie externého dokumentu",
+   "note": null,
+   "extension": false
+  },
+  "BT-125": {
+   "level": "optional",
+   "name_sk": "Priložený dokument",
+   "note": null,
+   "extension": false
+  },
+  "BT-125-1": {
+   "level": "required",
+   "name_sk": "Priložený dokument typu MIME",
+   "note": null,
+   "extension": false
+  },
+  "BG-25": {
+   "level": "required",
+   "name_sk": "RIADOK FAKTÚRY",
+   "note": null,
+   "extension": false
+  },
+  "BT-126": {
+   "level": "required",
+   "name_sk": "Identifikátor riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-127": {
+   "level": "optional",
+   "name_sk": "Poznámka k riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-128": {
+   "level": "optional",
+   "name_sk": "Identifikátor predmetu v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-128-1": {
+   "level": "optional",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-129": {
+   "level": "required",
+   "name_sk": "Fakturované množstvo",
+   "note": "SES - množstevný údaj",
+   "extension": false
+  },
+  "BT-130": {
+   "level": "required",
+   "name_sk": "Kód mernej jednotky fakturovaného množstva",
+   "note": null,
+   "extension": false
+  },
+  "BT-131": {
+   "level": "required",
+   "name_sk": "Čistá suma v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-132": {
+   "level": "optional",
+   "name_sk": "Odkaz na označenie príslušného riadku objednávky",
+   "note": null,
+   "extension": false
+  },
+  "BT-133": {
+   "level": "optional",
+   "name_sk": "Riadok faktúry pre referenciu pre zaúčtovanie kupujúcemu",
+   "note": null,
+   "extension": false
+  },
+  "BG-26": {
+   "level": "optional",
+   "name_sk": "OBDOBIE V RIADKU FAKTÚRY",
+   "note": null,
+   "extension": false
+  },
+  "BT-134": {
+   "level": "optional",
+   "name_sk": "Počiatočný dátum obdobia v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-135": {
+   "level": "optional",
+   "name_sk": "Konečný dátum obdobia v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BG-27": {
+   "level": "optional",
+   "name_sk": "ZRÁŽKY V RIADKU FAKTÚRY",
+   "note": null,
+   "extension": false
+  },
+  "BT-136": {
+   "level": "required",
+   "name_sk": "Suma zrážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-137": {
+   "level": "optional",
+   "name_sk": "Základ zrážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-138": {
+   "level": "optional",
+   "name_sk": "Percento zrážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-139": {
+   "level": "optional",
+   "name_sk": "Dôvod zrážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-140": {
+   "level": "optional",
+   "name_sk": "Kód dôvodu zrážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BG-28": {
+   "level": "optional",
+   "name_sk": "PRIRÁŽKY V RIADKU FAKTÚRY",
+   "note": null,
+   "extension": false
+  },
+  "BT-141": {
+   "level": "required",
+   "name_sk": "Suma prirážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-142": {
+   "level": "optional",
+   "name_sk": "Základ prirážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-143": {
+   "level": "optional",
+   "name_sk": "Percento prirážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-144": {
+   "level": "optional",
+   "name_sk": "Dôvod prirážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BT-145": {
+   "level": "optional",
+   "name_sk": "Kód dôvodu prirážky v riadku faktúry",
+   "note": null,
+   "extension": false
+  },
+  "BG-29": {
+   "level": "required",
+   "name_sk": "CENOVÉ ÚDAJE",
+   "note": "SES - UBL2.1 kardinalita 1..1 - zároveň povinnosť ID 178 - D16B kardinalita 0..1 - no povinnosť ID178 ID179 je vždy povinna podľa kardinality, preto niesú povinné",
+   "extension": false
+  },
+  "BT-146": {
+   "level": "required",
+   "name_sk": "Cena za položku netto",
+   "note": "§ 74 ods. 1 písm. g) = cena po zľave (ak je zahrnutá v brutto JC)",
+   "extension": false
+  },
+  "BT-147": {
+   "level": "optional",
+   "name_sk": "Zľava z ceny za položku",
+   "note": null,
+   "extension": false
+  },
+  "BT-148": {
+   "level": "conditional",
+   "name_sk": "Cena za položku brutto",
+   "note": "V prípade \"Ceny za položku brutto\", teda ak nie je vyplnená \"Cena za položku netto\", je povinné vyplnenie položiek \"Cena za položku brutto\" a \"Zľava z ceny za položku\".",
+   "extension": false
+  },
+  "BT-149": {
+   "level": "optional",
+   "name_sk": "Základné množstvo ceny za položku",
+   "note": null,
+   "extension": false
+  },
+  "BT-150": {
+   "level": "optional",
+   "name_sk": "Kód mernej jednotky základného množstva ceny za položku",
+   "note": null,
+   "extension": false
+  },
+  "BG-30": {
+   "level": "required",
+   "name_sk": "ÚDAJE O DPH V RIADKU",
+   "note": null,
+   "extension": false
+  },
+  "BT-151": {
+   "level": "required",
+   "name_sk": "Kód kategórie DPH fakturovanej položky",
+   "note": null,
+   "extension": false
+  },
+  "BT-152": {
+   "level": "optional",
+   "name_sk": "Sadzba DPH fakturovanej položky",
+   "note": null,
+   "extension": false
+  },
+  "BG-31": {
+   "level": "required",
+   "name_sk": "INFORMÁCIE O POLOŽKÁCH",
+   "note": null,
+   "extension": false
+  },
+  "BT-153": {
+   "level": "required",
+   "name_sk": "Názov položky",
+   "note": "§ 74 ods. 1 písm. f)",
+   "extension": false
+  },
+  "BT-154": {
+   "level": "optional",
+   "name_sk": "Popis položky",
+   "note": null,
+   "extension": false
+  },
+  "BT-155": {
+   "level": "optional",
+   "name_sk": "Identifikátor položky predávajúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-156": {
+   "level": "optional",
+   "name_sk": "Identifikátor položky kupujúceho",
+   "note": null,
+   "extension": false
+  },
+  "BT-157": {
+   "level": "optional",
+   "name_sk": "Identifikátor štandardu položky",
+   "note": null,
+   "extension": false
+  },
+  "BT-157-1": {
+   "level": "required",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-158": {
+   "level": "optional",
+   "name_sk": "Identifikátor klasifikácie položky",
+   "note": null,
+   "extension": false
+  },
+  "BT-158-1": {
+   "level": "required",
+   "name_sk": "Identifikátor schémy",
+   "note": null,
+   "extension": false
+  },
+  "BT-159": {
+   "level": "optional",
+   "name_sk": "Krajina pôvodu položky",
+   "note": null,
+   "extension": false
+  },
+  "BG-32": {
+   "level": "optional",
+   "name_sk": "ATRIBÚTY POLOŽKY",
+   "note": null,
+   "extension": false
+  },
+  "BT-160": {
+   "level": "required",
+   "name_sk": "Názov atribútu položky",
+   "note": "§ 74 ods. 1 písm. l)",
+   "extension": false
+  },
+  "BT-161": {
+   "level": "required",
+   "name_sk": "Hodnota atribútu položky",
+   "note": "§ 74 ods. 1 písm. l)",
+   "extension": false
+  }
+ }
+}

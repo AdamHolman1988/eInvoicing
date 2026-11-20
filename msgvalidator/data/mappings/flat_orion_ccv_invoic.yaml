@@ -1,0 +1,287 @@
+# ORION INVOIC – pevná délka (CCV, spec. 2.5.7) -> sémantický model EN 16931 (BT/BG)
+#
+# Pole se adresují jménem <záznam><číslo> stejně jako ve specifikaci (HDR3, LIN14, SUM30 …).
+# Strany (odběratel, příjemce, místo dodání, fakturační místo, dodavatel) jsou přímo v HDR, ne v samostatných záznamech.
+# Virtuální záznamy (layout 'unpivot'):
+#   VAT – rekapitulace DPH ze SUM po skupinách 0 / 1 / 1.2 / 2 a PDP (SKUPINA, ZAKLAD, SAZBA, DAN, KATEGORIE)
+#   DAC – dodatečné slevy (A) / přirážky (C) dokladu po skupinách DPH (KOD, SKUPINA, PROCENTO, CASTKA, SAZBA)
+# Dobropis (381) má ve formátu záporné částky; virtuální UBL je převádí podle konvence převodníku.
+
+id: flat-orion-ccv-invoic
+layout: orion_ccv_invoic
+format: ORION TXT
+message: INVOIC
+
+groups:
+  BG-20: {scope: summary, each: "DAC[KOD=A]", skip_if_missing: [BT-92]}
+  BG-21: {scope: summary, each: "DAC[KOD=C]", skip_if_missing: [BT-99]}
+  BG-23: {scope: summary, each: "VAT", skip_if_missing: [BT-116, BT-117]}
+  BG-25: {scope: line, each: "LIN"}
+  BG-27: {scope: line, parent: BG-25, each: "LAC[LAC2=A]"}
+  BG-28: {scope: line, parent: BG-25, each: "LAC[LAC2=C]"}
+
+terms:
+  # ---------------------------------------------------------------- záhlaví
+  BT-1:
+    - {path: "HDR", value: HDR3}
+  BT-2:
+    - {path: "HDR", value: HDR7, date: "102"}
+  BT-3:
+    - {path: "HDR", value: HDR5}
+  BT-5:
+    - {path: "HDR", value: HDR78}
+  BT-6:
+    - {path: "HDR", value: HDR89}
+  BT-7:
+    - {path: "HDR", value: HDR8, date: "102"}
+  BT-9:
+    - {path: "HDR", value: HDR13, date: "102"}
+  BT-12:
+    - {path: "HDR", value: HDR15}
+  BT-13:
+    - {path: "HDR", value: HDR16}
+  BT-14:
+    - {path: "HDR", value: HDR18}
+  BT-15:
+    - {path: "HDR", value: HDR85}
+  BT-16:
+    - {path: "HDR", value: HDR20, note: "Číslo dodacího listu."}
+  BT-22:
+    - {path: "TXT", join: [TXT3, TXT4, TXT5, TXT6, TXT7]}
+    - {path: "REG", value: REG2}
+    - {path: "AAW", value: AAW2}
+  BT-23:
+    - {const: "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", note: "Doplní konverze (Profile ID)."}
+  BT-24:
+    - {const: "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", note: "Doplní konverze (Customization ID)."}
+  BT-25:
+    - {path: "HDR[HDR22=IV]", value: HDR23}
+    - {path: "HDR", value: HDR23, note: "Referenční číslo faktury bez kvalifikátoru IV."}
+  BT-26:
+    - {path: "HDR", value: HDR24, date: "102"}
+
+  # ---------------------------------------------------------------- BG-4 prodávající (HDR57–65, 93)
+  BT-27:
+    - {path: "HDR", value: HDR61}
+  BT-29:
+    - {path: "HDR[HDR57=EAN]", value: HDR58, scheme: "0088"}
+    - {path: "HDR", value: HDR58, note: "Vlastní kód dodavatele (typ rozlišení HDR57 není EAN)."}
+  BT-30:
+    - {path: "HDR", value: HDR59, note: "IČO."}
+  BT-31:
+    - {path: "HDR", value: HDR93}
+    - {derive: vat_id_if_prefixed_at, args: {path: "HDR", value: HDR60}, note: "IČ DPH dodavatele (HDR93) chybí; použito DIČ s prefixem země (HDR60)."}
+  BT-32:
+    - {path: "HDR", value: HDR60, note: "DIČ dodavatele."}
+  BT-33:
+    - {path: "TXT", value: TXT3, note: "Zápis v obchodním rejstříku – 1. blok TXT."}
+  BT-34:
+    - derive: gln_endpoint_at
+      args: {path: "HDR[HDR57=EAN]", value: HDR58}
+      note: "Peppol endpoint není ve formátu; odvozeno z GLN (0088). V SK se jako endpoint typicky používá DIČ (0245) – ověřte registraci v Peppol SMP."
+    - {derive: sk_endpoint_from_vat_at, args: {path: "HDR", value: HDR93}, note: "Peppol endpoint odvozen z DIČ (0245)."}
+    - {derive: sk_endpoint_from_vat_at, args: {path: "HDR", value: HDR60}, note: "Peppol endpoint odvozen z DIČ (0245)."}
+  BT-35:
+    - {path: "HDR", value: HDR62}
+  BT-37:
+    - {path: "HDR", value: HDR63}
+  BT-38:
+    - {path: "HDR", value: HDR64}
+  BT-40:
+    - {derive: country_code_at, args: {path: "HDR", value: HDR65}, note: "Kód země z adresy – řádek 4 (HDR65)."}
+    - {derive: country_from_vat_at, args: {path: "HDR", value: HDR93}, note: "Kód země není samostatné pole; odvozeno z prefixu IČ DPH."}
+    - {derive: country_from_vat_at, args: {path: "HDR", value: HDR60}, note: "Kód země není samostatné pole; odvozeno z prefixu DIČ."}
+
+  # ---------------------------------------------------------------- BG-7 kupující (HDR25–33, 92)
+  BT-44:
+    - {path: "HDR", value: HDR29}
+  BT-46:
+    - {path: "HDR[HDR25=EAN]", value: HDR26, scheme: "0088"}
+    - {path: "HDR", value: HDR26, note: "Vlastní kód odběratele (typ rozlišení HDR25 není EAN)."}
+  BT-47:
+    - {path: "HDR", value: HDR27}
+  BT-48:
+    - {path: "HDR", value: HDR92}
+    - {derive: vat_id_if_prefixed_at, args: {path: "HDR", value: HDR28}, note: "IČ DPH odběratele (HDR92) chybí; použito DIČ s prefixem země (HDR28)."}
+  BT-49:
+    - derive: gln_endpoint_at
+      args: {path: "HDR[HDR25=EAN]", value: HDR26}
+      note: "Peppol endpoint není ve formátu; odvozeno z GLN (0088). Ověřte registraci kupujícího v Peppol SMP."
+    - {derive: sk_endpoint_from_vat_at, args: {path: "HDR", value: HDR26}, note: "Místo GLN je v rozlišení odběratele DIČ – endpoint 0245 (DIČ)."}
+    - {derive: sk_endpoint_from_vat_at, args: {path: "HDR", value: HDR92}, note: "Peppol endpoint odvozen z DIČ odběratele (0245)."}
+    - {derive: sk_endpoint_from_vat_at, args: {path: "HDR", value: HDR28}, note: "Peppol endpoint odvozen z DIČ odběratele (0245)."}
+  BT-50:
+    - {path: "HDR", value: HDR30}
+  BT-52:
+    - {path: "HDR", value: HDR31}
+  BT-53:
+    - {path: "HDR", value: HDR32}
+  BT-55:
+    - {derive: country_code_at, args: {path: "HDR", value: HDR33}, note: "Kód země z adresy – řádek 4 (HDR33)."}
+    - {derive: country_from_vat_at, args: {path: "HDR", value: HDR92}, note: "Kód země není samostatné pole; odvozeno z prefixu IČ DPH."}
+    - {derive: country_from_vat_at, args: {path: "HDR", value: HDR28}, note: "Kód země není samostatné pole; odvozeno z prefixu DIČ."}
+
+  # ---------------------------------------------------------------- BG-13 dodání (HDR43–49)
+  BT-70:
+    - {path: "HDR", value: HDR45}
+  BT-71:
+    - {path: "HDR[HDR43=EAN]", value: HDR44, scheme: "0088"}
+  BT-72:
+    - {path: "HDR", value: HDR10, date: "102"}
+  BT-75:
+    - {path: "HDR", value: HDR46}
+  BT-77:
+    - {path: "HDR", value: HDR47}
+  BT-78:
+    - {path: "HDR", value: HDR48}
+  BT-80:
+    - {derive: country_code_at, args: {path: "HDR", value: HDR49}, note: "Kód země z adresy místa dodání – řádek 4 (HDR49)."}
+    - {derive: country_from_vat_at, args: {path: "HDR[HDR45]", value: HDR92}, note: "Země místa dodání ve formátu není; předpoklad = země odběratele (z IČ DPH)."}
+    - {derive: country_from_vat_at, args: {path: "HDR[HDR45]", value: HDR28}, note: "Země místa dodání ve formátu není; předpoklad = země odběratele (z DIČ)."}
+
+  # ---------------------------------------------------------------- BG-14 období fakturace
+  BT-73:
+    - {path: "HDR", value: HDR11, date: "102"}
+  BT-74:
+    - {path: "HDR", value: HDR12, date: "102"}
+
+  # ---------------------------------------------------------------- BG-16 platební instrukce
+  BT-81:
+    - {path: "HDR", value: HDR14}
+  BT-83:
+    - {path: "HDR", value: HDR76, note: "Variabilní symbol."}
+  BT-84:
+    - {path: "HDR", value: HDR83}
+    - {path: "HDR", value: HDR72, note: "Použito národní číslo účtu (ne IBAN) – pro SK je IBAN povinný."}
+  BT-86:
+    - {path: "HDR", value: HDR84}
+
+  # ---------------------------------------------------------------- BG-20 / BG-21 dodatečné slevy / přirážky dokladu (DAC ze SUM)
+  BT-92:
+    - {path: "@", value: CASTKA}
+  BT-94:
+    - {path: "@", value: PROCENTO}
+  BT-95:
+    - {derive: vat_category_from_rate_at, args: {path: "@", value: SAZBA}, note: "Kategorie DPH odvozena ze sazby skupiny."}
+  BT-96:
+    - {path: "@", value: SAZBA}
+  BT-99:
+    - {path: "@", value: CASTKA}
+  BT-101:
+    - {path: "@", value: PROCENTO}
+  BT-102:
+    - {derive: vat_category_from_rate_at, args: {path: "@", value: SAZBA}, note: "Kategorie DPH odvozena ze sazby skupiny."}
+  BT-103:
+    - {path: "@", value: SAZBA}
+
+  # ---------------------------------------------------------------- BG-22 součty (SUM)
+  BT-106:
+    - {path: "SUM", value: SUM13, scope: summary}
+  BT-107:
+    - {path: "SUM", value: SUM21, scope: summary}
+  BT-108:
+    - {path: "SUM", value: SUM29, scope: summary}
+  BT-109:
+    - {path: "SUM", value: SUM5, scope: summary}
+  BT-110:
+    - {path: "SUM", value: SUM10, scope: summary}
+  BT-112:
+    - {path: "SUM", value: SUM30, scope: summary}
+  BT-113:
+    - {path: "SUM", value: SUM33, scope: summary}
+  BT-114:
+    - {path: "SUM", value: SUM35, scope: summary}
+  BT-115:
+    - {path: "SUM", value: SUM34, scope: summary}
+
+  # ---------------------------------------------------------------- BG-23 rozpis DPH (VAT ze SUM)
+  BT-116:
+    - {path: "@", value: ZAKLAD}
+  BT-117:
+    - {path: "@", value: DAN}
+    - {derive: zero_tax_amount, note: "Částka DPH chybí; pro kategorii AE/E/Z/O (nebo sazbu 0 %) konverze doplní 0."}
+  BT-118:
+    - {path: "@", value: KATEGORIE}
+    - derive: vat_category_from_rate_at
+      args: {path: "@", value: SAZBA}
+      note: "Kategorie DPH ve formátu není; odvozeno ze sazby (S pro sazbu > 0, u 0 % nejednoznačné Z/E/O)."
+  BT-119:
+    - {path: "@", value: SAZBA}
+
+  # ---------------------------------------------------------------- BG-25 řádky (LIN)
+  BT-126:
+    - {path: "@", value: LIN2}
+  BT-127:
+    - {path: "@", value: LIN48}
+  BT-129:
+    - {path: "@", value: LIN9}
+  BT-130:
+    - path: "@"
+      value: LIN16
+      map: {PCE: H87, PCS: H87, KS: H87, KAR: CT, CAR: CT, KRT: CT, BAL: PK, PAL: PF, KG: KGM, L: LTR, M: MTR}
+      note: "Jednotka převedena na UN/ECE Rec 20."
+    - derive: default_unit
+      args: {path: "@"}
+      note: "Měrná jednotka (LIN16) chybí – konverze doplní H87 (kus); ověřit s partnerem."
+  BT-131:
+    - {path: "@", value: LIN14}
+  BT-132:
+    - {path: "@", value: LIN42}
+  BT-133:
+    - {path: "@", value: LIN26, note: "Číslo objednávky na řádku."}
+  BT-146:
+    - {path: "@", value: LIN13}
+  BT-147:
+    - {path: "@", value: LIN12}
+    - {derive: price_discount, note: "Sleva z ceny = cena před slevou − cena po slevě."}
+  BT-148:
+    - {path: "@", value: LIN10}
+  BT-151:
+    - derive: vat_category_from_rate_at
+      args: {path: "@", value: LIN15, flag_path: "@[LIN49=1]", flag: LIN49}
+      note: "Kategorie DPH ve formátu není; odvozeno ze sazby (příznak PDP LIN49=1 -> AE)."
+  BT-152:
+    - {path: "@", value: LIN15}
+  BT-153:
+    - {path: "@", value: LIN7}
+  BT-154:
+    - {path: "@", value: LIN39}
+  BT-155:
+    - {path: "@[LIN3=SUP]", value: LIN4}
+    - {path: "@[LIN5=SUP]", value: LIN6}
+  BT-156:
+    - {path: "@", value: LIN43}
+    - {path: "@[LIN3=INT]", value: LIN4}
+    - {path: "@[LIN5=INT]", value: LIN6}
+  BT-157:
+    - {path: "@[LIN3=EAN]", value: LIN4, scheme: "0160"}
+    - {path: "@[LIN5=EAN]", value: LIN6, scheme: "0160"}
+  BT-158:
+    - {path: "@", value: LIN44, note: "Celní sazebník (HS/CN)."}
+  BT-159:
+    - {path: "@", value: LIN52}
+
+  # ---------------------------------------------------------------- BG-27 / BG-28 slevy a přirážky na řádku (LAC)
+  BT-136:
+    - {path: "@", value: LAC7}
+  BT-138:
+    - {path: "@", value: LAC6}
+  BT-139:
+    - {path: "@", value: LAC3}
+  BT-140:
+    - {path: "@", value: LAC4}
+  BT-141:
+    - {path: "@", value: LAC7}
+  BT-143:
+    - {path: "@", value: LAC6}
+  BT-144:
+    - {path: "@", value: LAC3}
+  BT-145:
+    - {path: "@", value: LAC4, note: "AEO = recyklační příspěvek, AEP = autorský poplatek."}
+
+# Pomocné údaje mimo EN 16931 (kontrola je použije, do UBL se nepřenáší)
+aux:
+  item_type:  # Z = zboží, O = obaly, S = služby -> u služeb je chybějící GTIN (BT-157) jen varování
+    group: BG-25
+    rules:
+      - {path: "@", value: LIN8}

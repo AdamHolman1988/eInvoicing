@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.edi text eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.ico binary
+tests/samples/flat/*.txt -text
+tests/samples/idoc/*.idoc -text
+*.pdf binary

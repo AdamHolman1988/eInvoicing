@@ -1,0 +1,342 @@
+# Mapování EANCOM / GS1 CZ INVOIC (D.96A EAN008, D.01B EAN011) -> sémantický model EN 16931 (BT/BG)
+#
+# Zdroj: GS1 CZ MIG INVOIC D96A v2.02, INVOIC D01B S3 v2.06 (EDITEL), číslování proměnných (1-1 …)
+# odpovídá kapitole 5 MIG a Billa/COOP "PEPPOL-BIS3.0_SK_FMCG" tabulkám.
+#
+# Formát pravidla:
+#   path:    selektor (viz msgvalidator/semantic/selector.py), např. "NAD[1.1=SU] > RFF[1.1=VA]"
+#   value:   "prvek.komponenta" segmentu nalezeného posledním krokem (1-based, 1 = první prvek za tagem)
+#   join:    [ "4.1", "4.2" ] – spojí více komponent mezerou (např. jméno NAD rozdělené do 5×35 znaků)
+#   map:     převod hodnot formátu na hodnoty cílového modelu (např. jednotka PCE -> H87)
+#   scheme:  identifikátor schématu, který se doplní (např. 0088 = GLN, 0160 = GTIN)
+#   derive:  název odvozovací funkce (msgvalidator/semantic/derive.py) – hodnota NENÍ ve zprávě explicitně
+#   const:   hodnotu doplní konverze (není součástí EDIFACT, např. BT-24)
+#   versions: omezení na verze (D96A / D01B); bez uvedení platí pro obě
+#   var:     odkaz na proměnnou MIG (1-1 = CIS_DOKL …)
+#   note:    poznámka pro analytika (zobrazí se v reportu)
+# U jednoho BT se pravidla zkouší v uvedeném pořadí; první, které vrátí hodnotu, vyhrává.
+#
+# groups: kde se opakující se skupiny BG nacházejí
+#   scope: header | line | summary
+#   each:  selektor instance skupiny (BT pod ní se pak vyhodnocují relativně, '@' = trigger skupiny)
+#   skip_if_missing: instance bez kteréhokoli z uvedených BT se považuje za prázdnou (konverze ji vynechá)
+
+id: edifact-invoic-eancom
+format: EDIFACT
+message: INVOIC
+versions: [D96A, D01B]
+
+groups:
+  BG-20: {scope: header, each: "ALC[1.1=A]", skip_if_missing: [BT-92, BT-94]}
+  BG-21: {scope: header, each: "ALC[1.1=C]", skip_if_missing: [BT-99, BT-101]}
+  BG-23: {scope: summary, each: "TAX[1.1=7;2.1=VAT]", skip_if_missing: [BT-116, BT-119]}
+  BG-25: {scope: line, each: "LIN"}
+  # GS1 CZ: řádkové ALC+A (SG39) = sleva NA JEDNOTKU (= PRI AAB − AAA) -> BT-147, ne BG-27 řádková sleva.
+  #         řádkové ALC+C s AEO/AEP = recyklační / autorský poplatek -> BG-28 řádková přirážka.
+  BG-28: {scope: line, parent: BG-25, each: "ALC[1.1=C]"}
+
+terms:
+  # ---------------------------------------------------------------- záhlaví
+  BT-1:
+    - {path: "BGM", value: "2.1", var: "1-1 CIS_DOKL"}
+  BT-2:
+    - {path: "DTM[1.1=137]", value: "1.2", format_at: "1.3", var: "1-4 DAT_VYST"}
+  BT-3:
+    - path: "BGM"
+      value: "1.1"
+      var: "1-2 DRUH_DOKL"
+      map: {"83": "381", "84": "383"}
+      note: "83/84 (dobropis/vrubopis k finančním úpravám) převedeno na 381/383."
+  BT-5:
+    - {path: "CUX[1.1=2;1.3=4]", value: "1.2", var: "1-57 KOD_MENY"}
+    - {path: "CUX[1.1=2]", value: "1.2"}
+  BT-6:
+    - {path: "CUX[1.3=10E]", value: "1.2"}
+    - {path: "CUX[2.3=10E]", value: "2.2"}
+  BT-7:
+    - {path: "DTM[1.1=131]", value: "1.2", format_at: "1.3"}
+    - path: "DTM[1.1=325]"
+      value: "1.2"
+      format_at: "1.3"
+      var: "1-6 DAT_UZP"
+      note: "GS1 CZ přenáší DUZP kvalifikátorem 325 (Tax period)."
+  BT-9:
+    - {path: "PAT > DTM[1.1=13]", value: "1.2", format_at: "1.3", var: "1-11 DAT_SPLAT"}
+    - {path: "DTM[1.1=13]", value: "1.2", format_at: "1.3"}
+  BT-10:
+    - {path: "RFF[1.1=ABO]", value: "1.2", note: "Buyer reference – v EANCOM obvykle neuváděno; ABO jen po dohodě."}
+  BT-12:
+    - {path: "RFF[1.1=CT]", value: "1.2", var: "1-15 CIS_SML"}
+  BT-13:
+    - {path: "RFF[1.1=ON]", value: "1.2", var: "1-16 CIS_OBJ_ZAK"}
+  BT-14:
+    - {path: "RFF[1.1=VN]", value: "1.2"}
+  BT-15:
+    - {path: "RFF[1.1=ALO]", value: "1.2"}
+  BT-16:
+    - {path: "RFF[1.1=AAK]", value: "1.2"}
+    - {path: "RFF[1.1=DQ]", value: "1.2", note: "Použito číslo dodacího listu (DQ) – v EANCOM AAK = číslo DESADV."}
+    - {path: "LIN > RFF[1.1=AAK|DQ]", value: "1.2", note: "Převzato z řádku (RFF v LIN) – v Peppol je BT-16 jen na úrovni dokladu; při více dodacích listech nejednoznačné."}
+  BT-20:
+    - {path: "FTX[1.1=AAB]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-22:
+    - {path: "FTX[1.1=AAI|SUR|ZZZ]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-23:
+    - {const: "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", note: "Doplní konverze (Profile ID)."}
+  BT-24:
+    - {const: "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", note: "Doplní konverze (Customization ID)."}
+  BT-25:
+    - {path: "RFF[1.1=IV|OI]", value: "1.2"}
+  BT-26:
+    - {path: "RFF[1.1=IV|OI] > DTM[1.1=171]", value: "1.2", format_at: "1.3"}
+
+  # ---------------------------------------------------------------- BG-4 prodávající
+  BT-27:
+    - {path: "NAD[1.1=SE]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+    - {path: "NAD[1.1=SU]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"], var: "2-3 OBCH_JM_1"}
+  BT-29:
+    - {path: "NAD[1.1=SE;2.3=9]", value: "2.1", scheme: "0088"}
+    - {path: "NAD[1.1=SU;2.3=9]", value: "2.1", scheme: "0088", var: "2-2 GLN_PARTNERA"}
+  BT-30:
+    - {path: "NAD[1.1=SE|SU] > RFF[1.1=GN|XA]", value: "1.2", note: "IČO (RFF+GN)."}
+  BT-31:
+    - {path: "NAD[1.1=SE|SU] > RFF[1.1=VA]", value: "1.2", var: "2-15 VAT_IC"}
+  BT-32:
+    - {path: "NAD[1.1=SE|SU] > RFF[1.1=FC]", value: "1.2", var: "2-17 SK_DIC"}
+    - {derive: sk_tax_id_from_vat, args: {party: "SE|SU"}, note: "SK DIČ chybí (RFF+FC); odvozeno z IČ DPH bez prefixu SK."}
+  BT-33:
+    - {path: "FTX[1.1=REG]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-34:
+    - derive: endpoint_from_party
+      args: {party: "SE|SU"}
+      note: "Peppol endpoint není v EDIFACT; odvozeno z GLN (0088). V SK se jako endpoint typicky používá DIČ (0245) – ověřte registraci partnera v Peppol SMP."
+  BT-35:
+    - {path: "NAD[1.1=SE|SU]", value: "5.1"}
+  BT-36:
+    - {path: "NAD[1.1=SE|SU]", value: "5.2"}
+  BT-37:
+    - {path: "NAD[1.1=SE|SU]", value: "6.1"}
+  BT-38:
+    - {path: "NAD[1.1=SE|SU]", value: "8.1"}
+  BT-39:
+    - {path: "NAD[1.1=SE|SU]", value: "7.1"}
+  BT-40:
+    - {path: "NAD[1.1=SE|SU]", value: "9.1"}
+    - {derive: country_from_vat, args: {party: "SE|SU"}, note: "Kód země chybí v NAD; odvozeno z prefixu DIČ."}
+  BT-41:
+    - {path: "NAD[1.1=SE|SU] > CTA", value: "2.2"}
+  BT-42:
+    - {path: "NAD[1.1=SE|SU] > CTA > COM[1.2=TE]", value: "1.1"}
+  BT-43:
+    - {path: "NAD[1.1=SE|SU] > CTA > COM[1.2=EM]", value: "1.1"}
+
+  # ---------------------------------------------------------------- BG-7 kupující
+  BT-44:
+    - {path: "NAD[1.1=BY]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-46:
+    - {path: "NAD[1.1=BY;2.3=9]", value: "2.1", scheme: "0088"}
+  BT-47:
+    - {path: "NAD[1.1=BY] > RFF[1.1=GN|XA]", value: "1.2"}
+  BT-48:
+    - {path: "NAD[1.1=BY] > RFF[1.1=VA]", value: "1.2"}
+  BT-49:
+    - derive: endpoint_from_party
+      args: {party: "BY"}
+      note: "Peppol endpoint není v EDIFACT; odvozeno z GLN (0088). Ověřte registraci kupujícího v Peppol SMP."
+  BT-50:
+    - {path: "NAD[1.1=BY]", value: "5.1"}
+  BT-51:
+    - {path: "NAD[1.1=BY]", value: "5.2"}
+  BT-52:
+    - {path: "NAD[1.1=BY]", value: "6.1"}
+  BT-53:
+    - {path: "NAD[1.1=BY]", value: "8.1"}
+  BT-54:
+    - {path: "NAD[1.1=BY]", value: "7.1"}
+  BT-55:
+    - {path: "NAD[1.1=BY]", value: "9.1"}
+    - {derive: country_from_vat, args: {party: "BY"}, note: "Kód země chybí v NAD; odvozeno z prefixu DIČ."}
+  BT-56:
+    - {path: "NAD[1.1=BY] > CTA", value: "2.2"}
+  BT-57:
+    - {path: "NAD[1.1=BY] > CTA > COM[1.2=TE]", value: "1.1"}
+  BT-58:
+    - {path: "NAD[1.1=BY] > CTA > COM[1.2=EM]", value: "1.1"}
+
+  # ---------------------------------------------------------------- BG-10 příjemce platby
+  BT-59:
+    - {path: "NAD[1.1=PE]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-60:
+    - {path: "NAD[1.1=PE;2.3=9]", value: "2.1", scheme: "0088"}
+
+  # ---------------------------------------------------------------- BG-13 dodání
+  BT-70:
+    - {path: "NAD[1.1=DP]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-71:
+    - {path: "NAD[1.1=DP;2.3=9]", value: "2.1", scheme: "0088"}
+  BT-72:
+    - {path: "DTM[1.1=35]", value: "1.2", format_at: "1.3", var: "1-8 DAT_DOD"}
+  BT-75:
+    - {path: "NAD[1.1=DP]", value: "5.1"}
+  BT-77:
+    - {path: "NAD[1.1=DP]", value: "6.1"}
+  BT-78:
+    - {path: "NAD[1.1=DP]", value: "8.1"}
+  BT-80:
+    - {path: "NAD[1.1=DP]", value: "9.1"}
+
+  # ---------------------------------------------------------------- BG-14 období fakturace
+  BT-73:
+    - {path: "DTM[1.1=167|90|194]", value: "1.2", format_at: "1.3", var: "1-9 FKT_OD_DAT"}
+  BT-74:
+    - {path: "DTM[1.1=168|91|206]", value: "1.2", format_at: "1.3", var: "1-10 FKT_DO_DAT"}
+
+  # ---------------------------------------------------------------- BG-16 platební instrukce
+  BT-81:
+    - {path: "PAI", value: "1.3", var: "1-12 ZPUS_UHR"}
+    - {path: "PAT > PAI", value: "1.3"}
+  BT-83:
+    - path: "NAD[1.1=SE|SU] > FII[1.1=RB]"
+      value: "2.3"
+      var: "1-46 VAR_SYM_PLAT"
+      note: "Variabilní symbol (GS1 CZ jej přenáší v FII C078 3192)."
+  BT-84:
+    - {path: "NAD[1.1=SE|SU] > FII[1.1=RB]", value: "3.8", var: "1-48 IBAN"}
+    - {path: "FII[1.1=RB]", value: "3.8"}
+    - path: "NAD[1.1=SE|SU] > FII[1.1=RB]"
+      value: "2.1"
+      var: "1-44 CIS_BNK_UCT_DOD"
+      note: "Použito národní číslo účtu (ne IBAN) – pro kód úhrady 58 (SEPA) je vyžadován IBAN."
+  BT-86:
+    - {path: "NAD[1.1=SE|SU] > FII[1.1=RB]", value: "3.4", var: "1-49 SWIFT"}
+
+  # ---------------------------------------------------------------- BG-20 / BG-21 slevy a přirážky dokladu
+  BT-92:
+    - {path: "@ > MOA[1.1=8|204|23]", value: "1.2"}
+  BT-93:
+    - {path: "@ > MOA[1.1=25]", value: "1.2"}
+  BT-94:
+    - {path: "@ > PCD[1.1=1|3|12]", value: "1.2"}
+  BT-95:
+    - {path: "@ > TAX", value: "6.1"}
+    - {derive: vat_category_from_rate, args: {path: "@ > TAX"}, note: "Kategorie DPH chybí; odvozeno ze sazby."}
+  BT-96:
+    - {path: "@ > TAX", value: "5.4"}
+  BT-97:
+    - {path: "@", value: "5.4"}
+    - {path: "@ > ALI", value: "1.1"}
+  BT-98:
+    - {path: "@", value: "5.1"}
+  BT-99:
+    - {path: "@ > MOA[1.1=8|23]", value: "1.2"}
+  BT-100:
+    - {path: "@ > MOA[1.1=25]", value: "1.2"}
+  BT-101:
+    - {path: "@ > PCD[1.1=2|3]", value: "1.2"}
+  BT-102:
+    - {path: "@ > TAX", value: "6.1"}
+    - {derive: vat_category_from_rate, args: {path: "@ > TAX"}, note: "Kategorie DPH chybí; odvozeno ze sazby."}
+  BT-103:
+    - {path: "@ > TAX", value: "5.4"}
+  BT-104:
+    - {path: "@", value: "5.4"}
+  BT-105:
+    - {path: "@", value: "5.1"}
+
+  # ---------------------------------------------------------------- BG-22 součty (sumární část)
+  BT-106:
+    - {path: "MOA[1.1=79]", value: "1.2", scope: summary}
+  BT-107:
+    - {path: "MOA[1.1=260|131]", value: "1.2", scope: summary}
+  BT-108:
+    - {path: "MOA[1.1=259]", value: "1.2", scope: summary}
+  BT-109:
+    - {path: "MOA[1.1=125]", value: "1.2", scope: summary}
+  BT-110:
+    - {path: "MOA[1.1=176|150|124]", value: "1.2", scope: summary}
+    - {path: "TAX[2.1=VAT;!5.4] > MOA[1.1=176|150|124]", value: "1.2", scope: summary, note: "Celková DPH převzata z TAX+7+VAT bez sazby (D96A GS1 CZ)."}
+  BT-112:
+    - {path: "MOA[1.1=77|86]", value: "1.2", scope: summary}
+  BT-113:
+    - {path: "MOA[1.1=113]", value: "1.2", scope: summary}
+  BT-114:
+    - {path: "MOA[1.1=165]", value: "1.2", scope: summary}
+  BT-115:
+    - {path: "MOA[1.1=9]", value: "1.2", scope: summary}
+
+  # ---------------------------------------------------------------- BG-23 rozpis DPH (každá skupina TAX v sumární části)
+  BT-116:
+    - {path: "@ > MOA[1.1=125]", value: "1.2"}
+    - {path: "@", value: "4.1", note: "Základ daně převzat z TAX 5286 (D96A GS1 CZ)."}
+  BT-117:
+    - {path: "@ > MOA[1.1=124|150]", value: "1.2"}
+    - {derive: zero_tax_amount, note: "Částka DPH chybí; pro kategorii AE/E/Z/O (nebo sazbu 0 %) konverze doplní 0."}
+  BT-118:
+    - {path: "@", value: "6.1"}
+    - {derive: vat_category_from_rate, args: {path: "@"}, note: "Kategorie DPH (5305) ve zprávě chybí; odvozeno ze sazby (S pro sazbu > 0, u 0 % nejednoznačné Z/E/O)."}
+  BT-119:
+    - {path: "@", value: "5.4"}
+    - {derive: rate_from_code, note: "Sazba chybí; GS1 CZ kód daňové skupiny 0 = 0 %."}
+
+  # ---------------------------------------------------------------- BG-25 řádky (každý LIN)
+  BT-126:
+    - {path: "@", value: "1.1"}
+  BT-127:
+    - {path: "@ > FTX[1.1=AAI]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"]}
+  BT-129:
+    - {path: "@ > QTY[1.1=47]", value: "1.2", var: "3-8 FAKT_MNOZ"}
+  BT-130:
+    - path: "@ > QTY[1.1=47]"
+      value: "1.3"
+      map: {PCE: H87, PCS: H87, KS: H87, KAR: CT, CAR: CT, KRT: CT, BAL: PK, PAL: PF, PF: PF, KG: KGM, L: LTR, M: MTR}
+      note: "Jednotka převedena z EANCOM kódu na UN/ECE Rec 20."
+    - derive: default_unit
+      args: {path: "@ > QTY[1.1=47]"}
+      note: "Jednotka v QTY chybí – EANCOM bez jednotky = kusy; konverze doplní H87 (ověřit s partnerem)."
+  BT-131:
+    - {path: "@ > MOA[1.1=203]", value: "1.2"}
+  BT-132:
+    - {path: "@ > RFF[1.1=ON|LI]", value: "1.3"}
+  BT-134:
+    - {path: "@ > DTM[1.1=194]", value: "1.2", format_at: "1.3"}
+  BT-135:
+    - {path: "@ > DTM[1.1=206]", value: "1.2", format_at: "1.3"}
+  BT-146:
+    - {path: "@ > PRI[1.1=AAA]", value: "1.2"}
+  BT-147:
+    - {path: "@ > ALC[1.1=A] > MOA[1.1=204]", value: "1.2", var: "3-21 L_SL_JEDN_ABS", note: "Sleva na jednotku (GS1 CZ: řádkové ALC+A / MOA+204)."}
+    - {derive: price_discount, note: "Sleva z ceny = hrubá (AAB) − čistá (AAA)."}
+
+  # ---------------------------------------------------------------- BG-28 řádkové přirážky (recyklační / autorský poplatek)
+  BT-141:
+    - {path: "@ > MOA[1.1=8|23]", value: "1.2", note: "Recyklační / autorský poplatek celkem za řádek (MOA+8)."}
+  BT-142:
+    - {path: "@ > MOA[1.1=25]", value: "1.2"}
+  BT-144:
+    - {path: "@", value: "2.1"}
+  BT-145:
+    - {path: "@", value: "5.1", note: "AEO = recyklační poplatek, AEP = autorský poplatek (UNCL7161)."}
+  BT-148:
+    - {path: "@ > PRI[1.1=AAB]", value: "1.2"}
+  BT-149:
+    - {path: "@ > PRI[1.1=AAA]", value: "1.5"}
+  BT-150:
+    - {path: "@ > PRI[1.1=AAA]", value: "1.6"}
+  BT-151:
+    - {path: "@ > TAX[2.1=VAT]", value: "6.1"}
+    - {derive: vat_category_from_rate, args: {path: "@ > TAX[2.1=VAT]"}, note: "Kategorie DPH (5305) ve zprávě chybí; odvozeno ze sazby (S pro sazbu > 0, u 0 % nejednoznačné Z/E/O)."}
+  BT-152:
+    - {path: "@ > TAX[2.1=VAT]", value: "5.4"}
+  BT-153:
+    - {path: "@ > IMD[1.1=E|A|C]", join: ["3.4", "3.5"], var: "3-57 L_DOD_SPEC"}
+    - {path: "@ > FTX[1.1=ZZZ|AAI]", join: ["4.1", "4.2", "4.3", "4.4", "4.5"], note: "Název zboží převzat z FTX (IMD bez textu)."}
+  BT-155:
+    - {path: "@ > PIA[2.2=SA]", value: "2.1"}
+    - {path: "@ > PIA[3.2=SA]", value: "3.1"}
+  BT-156:
+    - {path: "@ > PIA[2.2=IN]", value: "2.1"}
+    - {path: "@ > PIA[3.2=IN]", value: "3.1"}
+  BT-157:
+    - {path: "@[3.2=EN|SRV]", value: "3.1", scheme: "0160"}
+  BT-159:
+    - {path: "@ > ALI", value: "1.1"}

@@ -1,0 +1,136 @@
+{
+ "id": "lidl-sk",
+ "name": "Lidl SK (eFaktúra, dodávky tovaru)",
+ "group": "Slovenská transpozice – rozšířené formáty",
+ "description": "Príloha č. 1 – Technická špecifikácia e-faktúry Lidl SK pre dodávky tovaru od 1. 1. 2027: vybrané voliteľné BT nad rámec SK CIUS. Chýbajúci alebo nesprávny údaj = formálna vada, Lidl faktúru vráti.",
+ "source": "3. Lidl poziadavky na BIS format faktur - nalezitosti - Technická špecifikácia pre dodávky tovaru - eFaktúra Lidl (1).pdf",
+ "extends": [
+  "sk-cius"
+ ],
+ "requirements": {
+  "BT-13": {
+   "level": "conditional",
+   "name_sk": "Referenčné označenie objednávky",
+   "note": "Číslo objednávky – povinné, ak bolo pri objednávke zadané; musí sa doslovne zhodovať s ORDERS."
+  },
+  "BT-16": {
+   "level": "required",
+   "name_sk": "Referenčné označenie avíza o odoslaní",
+   "note": "Číslo dodacieho listu – povinné; musí sa zhodovať s DESADV / potvrdeným dodacím listom."
+  },
+  "BT-21": {
+   "level": "conditional",
+   "name_sk": "Kód subjektu poznámky k faktúre",
+   "note": "Kategorizácia poznámky – podmienené."
+  },
+  "BT-22": {
+   "level": "conditional",
+   "name_sk": "Poznámka k faktúre",
+   "note": "Doplňujúce informácie k predmetu fakturácie – podmienené."
+  },
+  "BT-29": {
+   "level": "conditional",
+   "name_sk": "Identifikátor predávajúceho",
+   "note": "GLN predávajúceho, ak bolo pridelené."
+  },
+  "BT-31": {
+   "level": "conditional",
+   "name_sk": "IČ DPH predávajúceho",
+   "note": "Povinné, ak bolo pridelené."
+  },
+  "BT-35": {
+   "level": "required",
+   "name_sk": "Adresa predávajúceho – ulica",
+   "note": "Úplná adresa predávajúceho vrátane PSČ."
+  },
+  "BT-37": {
+   "level": "required",
+   "name_sk": "Adresa predávajúceho – mesto",
+   "note": "Úplná adresa predávajúceho vrátane PSČ."
+  },
+  "BT-38": {
+   "level": "required",
+   "name_sk": "Adresa predávajúceho – PSČ",
+   "note": "Úplná adresa predávajúceho vrátane PSČ."
+  },
+  "BT-48": {
+   "level": "required",
+   "name_sk": "IČ DPH kupujúceho",
+   "note": null,
+   "values": [
+    "SK2020279415"
+   ],
+   "values_note": "IČ DPH Lidl SK je SK2020279415"
+  },
+  "BT-50": {
+   "level": "required",
+   "name_sk": "Adresa kupujúceho – ulica",
+   "note": "Prievozská 2, 821 09 Bratislava"
+  },
+  "BT-52": {
+   "level": "required",
+   "name_sk": "Adresa kupujúceho – mesto",
+   "note": "Prievozská 2, 821 09 Bratislava"
+  },
+  "BT-53": {
+   "level": "required",
+   "name_sk": "Adresa kupujúceho – PSČ",
+   "note": null,
+   "values": [
+    "82109"
+   ],
+   "values_note": "Prievozská 2, 821 09 Bratislava"
+  },
+  "BT-70": {
+   "level": "required",
+   "name_sk": "Názov subjektu určenia dodávky",
+   "note": "Názov skladu Lidl (Logistické centrum Nemšová / Prešov / Sereď)."
+  },
+  "BT-71": {
+   "level": "required",
+   "name_sk": "Identifikátor miesta určenia dodávky",
+   "note": "GLN dodacieho miesta (schemeID 0088).",
+   "values": [
+    "4054599000053",
+    "4054599000060",
+    "4054599000077"
+   ],
+   "values_note": "GLN skladov: 4054599000053 Nemšová, 4054599000060 Prešov, 4054599000077 Sereď"
+  },
+  "BT-72": {
+   "level": "required",
+   "name_sk": "Skutočný dátum dodávky",
+   "note": null
+  },
+  "BT-75": {
+   "level": "required",
+   "name_sk": "Dodacia adresa – ulica",
+   "note": "Púchovská 12, 914 41 Nemšová / Záborské 501, 082 53 Prešov / Nový Majer 4715/27, 926 01 Sereď"
+  },
+  "BT-77": {
+   "level": "required",
+   "name_sk": "Dodacia adresa – mesto",
+   "note": null
+  },
+  "BT-78": {
+   "level": "required",
+   "name_sk": "Dodacia adresa – PSČ",
+   "note": null
+  },
+  "BT-80": {
+   "level": "required",
+   "name_sk": "Dodacia adresa – krajina",
+   "note": null
+  },
+  "BT-119": {
+   "level": "conditional",
+   "name_sk": "Sadzba DPH",
+   "note": "Povinné, ak tovar nie je oslobodený od dane."
+  },
+  "BT-157": {
+   "level": "required",
+   "name_sk": "GTIN položky",
+   "note": "GTIN produktu – povinné, ak je pridelený; musí sa zhodovať s ORDERS/DESADV (v PDF uvedené ako BT-158)."
+  }
+ }
+}

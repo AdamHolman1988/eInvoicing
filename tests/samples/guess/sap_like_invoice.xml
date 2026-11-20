@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic sample for the mapping GUESS arithmetic test (fictitious data, SAP InvoiceRequest-like shape).
+     Traps: ExchangeRate/Rate looks like a VAT rate, PriceDetails/TotalPrice like the unit price, ProductTax/Amount
+     like the VAT amount – only the arithmetic tells the real price (Component/Rate/DecimalValue), the line VAT
+     rate (TaxAmount / NetAmount) and the single document-level VAT breakdown (ProductTax). -->
+<InvoiceRequest>
+  <Invoice>
+    <ID>9100000123</ID>
+    <Date>2026-11-10</Date>
+    <CurrencyCode>EUR</CurrencyCode>
+    <SellerParty>
+      <Name>Fiktivni Pivovar a.s.</Name>
+      <TaxID>SK2020000003</TaxID>
+    </SellerParty>
+    <BuyerParty>
+      <Name>Fiktivni Obchod s.r.o.</Name>
+      <TaxID>SK2120000006</TaxID>
+    </BuyerParty>
+    <Price>
+      <GrossAmount>344.86</GrossAmount>
+      <NetAmount>289.8</NetAmount>
+      <TaxAmount>55.06</TaxAmount>
+    </Price>
+    <ProductTax>
+      <CountryCode>SK</CountryCode>
+      <BaseAmount>289.8</BaseAmount>
+      <Rate><DecimalValue>19.0</DecimalValue></Rate>
+      <Amount>999.99</Amount>
+    </ProductTax>
+    <Item>
+      <ItemID>000010</ItemID>
+      <Quantity>120.0</Quantity>
+      <Product><Note>Napoj A 0,5 l</Note></Product>
+      <Price>
+        <NetAmount>102.0</NetAmount>
+        <TaxAmount>19.38</TaxAmount>
+        <ExchangeRate><Rate>1.0</Rate></ExchangeRate>
+        <Component><Rate><DecimalValue>0.85</DecimalValue></Rate></Component>
+      </Price>
+      <PriceDetails><TotalPrice>0.0</TotalPrice></PriceDetails>
+    </Item>
+    <Item>
+      <ItemID>000020</ItemID>
+      <Quantity>48.0</Quantity>
+      <Product><Note>Napoj B 0,33 l</Note></Product>
+      <Price>
+        <NetAmount>112.8</NetAmount>
+        <TaxAmount>21.43</TaxAmount>
+        <ExchangeRate><Rate>1.0</Rate></ExchangeRate>
+        <Component><Rate><DecimalValue>2.35</DecimalValue></Rate></Component>
+      </Price>
+      <PriceDetails><TotalPrice>0.0</TotalPrice></PriceDetails>
+    </Item>
+    <Item>
+      <ItemID>000030</ItemID>
+      <Quantity>10.0</Quantity>
+      <Product><Note>Sud C 30 l</Note></Product>
+      <Price>
+        <NetAmount>75.0</NetAmount>
+        <TaxAmount>14.25</TaxAmount>
+        <ExchangeRate><Rate>1.0</Rate></ExchangeRate>
+        <Component><Rate><DecimalValue>7.5</DecimalValue></Rate></Component>
+      </Price>
+      <PriceDetails><TotalPrice>0.0</TotalPrice></PriceDetails>
+    </Item>
+  </Invoice>
+</InvoiceRequest>

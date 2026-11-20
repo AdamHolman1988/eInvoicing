@@ -1,0 +1,104 @@
+{
+ "id": "xrechnung",
+ "name": "XRechnung 3.0 (DE)",
+ "description": "Německá CIUS: jádro EN 16931 + povinná pravidla BR-DE (KoSIT, 3.0.2). Oficiální pravidla běží nad dokumentem jako XRechnung.",
+ "source": "rules/xrechnung/resources/xrechnung/3.0.2/xsl/XRechnung-UBL-validation.xsl",
+ "extends": [
+  "peppol-bis3"
+ ],
+ "rules": "xrechnung",
+ "requirements": {
+  "BG-6": {
+   "level": "required",
+   "note": "BR-DE-2: Die Gruppe \"SELLER CONTACT\" (BG-6) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-2"
+   ]
+  },
+  "BG-16": {
+   "level": "required",
+   "note": "BR-DE-1: Eine Rechnung (INVOICE) muss Angaben zu \"PAYMENT INSTRUCTIONS\" (BG-16) enthalten.",
+   "rules": [
+    "BR-DE-1"
+   ]
+  },
+  "BT-10": {
+   "level": "required",
+   "note": "BR-DE-15: Das Element \"Buyer reference\" (BT-10) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-15"
+   ],
+   "unless": []
+  },
+  "BT-37": {
+   "level": "required",
+   "note": "BR-DE-3: Das Element \"Seller city\" (BT-37) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-3"
+   ]
+  },
+  "BT-38": {
+   "level": "required",
+   "note": "BR-DE-4: Das Element \"Seller post code\" (BT-38) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-4"
+   ]
+  },
+  "BT-41": {
+   "level": "required",
+   "note": "BR-DE-5: Das Element \"Seller contact point\" (BT-41) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-5"
+   ]
+  },
+  "BT-42": {
+   "level": "required",
+   "note": "BR-DE-6: Das Element \"Seller contact telephone number\" (BT-42) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-6"
+   ]
+  },
+  "BT-43": {
+   "level": "required",
+   "note": "BR-DE-7: Das Element \"Seller contact email address\" (BT-43) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-7"
+   ]
+  },
+  "BT-52": {
+   "level": "required",
+   "note": "BR-DE-8: Das Element \"Buyer city\" (BT-52) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-8"
+   ]
+  },
+  "BT-53": {
+   "level": "required",
+   "note": "BR-DE-9: Das Element \"Buyer post code\" (BT-53) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-9"
+   ]
+  },
+  "BT-77": {
+   "level": "required",
+   "note": "BR-DE-10: Das Element \"Deliver to city\" (BT-77) muss übermittelt werden, wenn die Gruppe \"DELIVER TO ADDRESS\" (BG-15) übermittelt wird.",
+   "rules": [
+    "BR-DE-10"
+   ]
+  },
+  "BT-78": {
+   "level": "required",
+   "note": "BR-DE-11: Das Element \"Deliver to post code\" (BT-78) muss übermittelt werden, wenn die Gruppe \"DELIVER TO ADDRESS\" (BG-15) übermittelt wird.",
+   "rules": [
+    "BR-DE-11"
+   ]
+  },
+  "BT-119": {
+   "level": "required",
+   "note": "BR-DE-14: Das Element \"VAT category rate\" (BT-119) muss übermittelt werden.",
+   "rules": [
+    "BR-DE-14"
+   ]
+  }
+ }
+}

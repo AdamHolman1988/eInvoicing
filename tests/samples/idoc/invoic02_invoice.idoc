@@ -1,0 +1,149 @@
+EDI_DC40
+  TABNAM      EDI_DC40
+  DOCNUM      0000000000000042
+  IDOCTYP     INVOIC02
+  MESTYP      INVOIC
+  SNDPOR      SAPTST
+  SNDPRN      TSTCLNT100
+  RCVPRN      GRIT_TST
+  CREDAT      20261001
+
+E1EDK01
+  CURCY       EUR
+  KUNDEUINR   SK2021111111
+  EIGENUINR   SK2020000000
+  BSART       INVO
+  BELNR       FV2026042
+
+E1EDKA1
+  PARVW       RS
+  LIFNR       8590000000015
+  NAME1       Dodavatel Test s.r.o.
+  STRAS       Testovací 1
+  ORT01       Bratislava
+  PSTLZ       811 01
+  LAND1       SK
+
+E1EDKA1
+  PARVW       AG
+  PARTN       C100
+  NAME1       Objednatel Eshop
+  LAND1       SK
+
+E1EDKA1
+  PARVW       RE
+  PARTN       C100
+  NAME1       Odběratel Test a.s.
+  STRAS       Zkušební 2
+  ORT01       Košice
+  PSTLZ       040 01
+  LAND1       SK
+
+E1EDK02
+  QUALF       009
+  BELNR       FV2026042
+  DATUM       20260930
+
+E1EDK02
+  QUALF       001
+  BELNR       OBJ-77
+  DATUM       20260920
+
+E1EDK02
+  QUALF       011
+  BELNR       FV2026042
+
+E1EDK03
+  IDDAT       012
+  DATUM       20261001
+
+E1EDK03
+  IDDAT       026
+  DATUM       20260930
+
+E1EDK03
+  IDDAT       028
+  DATUM       20261031
+
+E1EDK04
+  MWSKZ       A1
+  MSATZ       23.000
+  MWSBT       3.45
+
+E1EDK18
+  QUALF       005
+  ZTERM_TXT   Splatné do 30 dní
+
+E1EDK28
+  BCOUN       SK
+  BRNUM       TESTSKBX
+  ACNAM       Dodavatel Test s.r.o.
+  BIBAN       SK3112000000198742637541
+
+Z1TEST
+  ZFIELD      x
+
+E1EDP01
+  POSEX       000010
+  MENGE       2.000
+  MENEE       PCE
+  PSTYV       TAN
+
+  E1EDP04
+    MWSKZ       A1
+    MSATZ       23.000
+    MWSBT       2.30
+
+  E1EDP05
+    ALCKZ       -
+    KOTXT       Skonto
+    BETRG       1.00
+    KPERC       10.000-
+
+  E1EDP19
+    QUALF       002
+    IDTNR       A-1
+    KTEXT       Zboží A
+
+  E1EDP19
+    QUALF       003
+    IDTNR       8590000000107
+
+  E1EDP26
+    QUALF       003
+    BETRG       10.00
+
+E1EDP01
+  POSEX       000020
+  MENGE       1.000
+  MENEE       PCE
+  PSTYV       TAD
+
+  E1EDP04
+    MWSKZ       A1
+    MSATZ       23.000
+    MWSBT       1.15
+
+  E1EDP19
+    QUALF       002
+    IDTNR       DOPR
+    KTEXT       Montáž
+
+  E1EDP26
+    QUALF       003
+    BETRG       5.00
+
+E1EDS01
+  SUMID       010
+  SUMME       15.00
+  WAERQ       EUR
+
+E1EDS01
+  SUMID       005
+  SUMME       3.45
+  WAERQ       EUR
+
+E1EDS01
+  SUMID       011
+  SUMME       18.45
+  WAERQ       EUR
