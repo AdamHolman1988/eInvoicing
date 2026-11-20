@@ -1,2 +1,2 @@
 """MsgValidator – local validator / gap analyser for e-invoice messages."""
-__version__ = "0.1.0"
+__version__ = "0.1.1"

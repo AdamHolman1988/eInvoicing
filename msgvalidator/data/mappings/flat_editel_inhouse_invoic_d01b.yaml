@@ -153,6 +153,8 @@ terms:
   # ---------------------------------------------------------------- BG-16 platební instrukce
   BT-81:
     - {path: "HDR", value: ZPUS_UHR}
+    - {derive: payment_means_from_account_at, args: {path: "HDR", value: IBAN, code: "58"}}
+    - {derive: payment_means_from_account_at, args: {path: "HDR", value: CIS_BNK_UCT_DOD, code: "30"}}
   BT-83:
     - {path: "HDR", value: VAR_SYMB_PLAT, note: "Variabilní symbol."}
   BT-84:

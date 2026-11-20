@@ -159,6 +159,8 @@ def check_values(sem: Semantic) -> list[Finding]:
                 out.extend(_check_value(bt, term, v, ctx, cls))
     from ..semantic.doctype import check as doctype_check
     out.extend(doctype_check(sem, Finding))
+    from ..semantic.arith import check as arith_check
+    out.extend(arith_check(sem, Finding))
     return out
 
 

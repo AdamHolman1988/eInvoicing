@@ -118,3 +118,73 @@ def test_ccv_service_line_gtin_warning():
     assert [c.aux["item_type"].value for c in sem.groups["BG-25"]] == ["Z", "S"]
     gtin = [(f.severity, f.code) for f in rep.messages[0].gaps if f.bt == "BT-157"]
     assert gtin == [("warning", "GAP-SERVICE")]
+
+
+# ---------------------------------------------------------------- CCV úpravy vzoru (dobropis, BT-81, zaokrouhlení DPH)
+def _ccv_edit(changes: dict) -> bytes:
+    """changes: {(tag, field name): value} – applied to every record with that tag (numbers right-aligned)."""
+    layout = flat.load_layout("orion_ccv_invoic")
+    out = []
+    for line in CCV.decode("cp1250").split("\r\n"):
+        tag = line[:3]
+        for (t, name), val in changes.items():
+            if t != tag:
+                continue
+            f = next(f for f in layout.fields(tag) if f["name"] == name)
+            width = f["end"] - f["start"] + 1
+            v = val(line[f["start"] - 1:f["end"]].strip()) if callable(val) else val
+            v = v.rjust(width) if f["type"] == "Num" else v.ljust(width)
+            line = line[:f["start"] - 1] + v + line[f["end"]:]
+        out.append(line)
+    return "\r\n".join(out).encode("cp1250")
+
+
+def _neg(v: str) -> str:
+    return v if not v or float(v) == 0 else "-" + v
+
+
+def test_ccv_negative_creditnote_flipped_in_ubl():
+    neg = {("LIN", n): _neg for n in ("LIN9", "LIN14")}
+    neg |= {("SUM", n): _neg for n in ("SUM3", "SUM4", "SUM5", "SUM8", "SUM9", "SUM10", "SUM13", "SUM30", "SUM34")}
+    data = _ccv_edit({("HDR", "HDR5"): "381", ("HDR", "HDR23"): "FV2026001", **neg})
+    rep = validate(data, "ccv.txt", ["peppol-bis3", "sk-cius"])
+    m = rep.messages[0]
+    assert m.semantic.doc_kind == "CreditNote"
+    xml = m.virtual_xml.decode("utf-8")
+    assert ">-" not in xml and 'PayableAmount currencyID="EUR">146.80<' in xml
+    assert any(f.code == "UBL-CONVERSION" and "otočí znaménka" in f.message for f in m.rules)
+    assert m.rules_info["accepted"]
+
+
+def test_ccv_payment_means_derived_from_iban():
+    rep = validate(_ccv_edit({("HDR", "HDR14"): ""}), "ccv.txt", ["peppol-bis3", "sk-cius"])
+    m = rep.messages[0]
+    v = m.semantic.document.values["BT-81"][0]
+    assert (v.value, v.how) == ("58", "derived")
+    assert m.rules_info["accepted"]
+
+
+def test_writer_placeholder_payment_means_keeps_xsd_valid():
+    from msgvalidator.ubl.writer import write
+    rep = validate(_ccv_edit({("HDR", "HDR14"): ""}), "ccv.txt", ["peppol-bis3"], virtual_rules=False)
+    sem = rep.messages[0].semantic
+    del sem.document.values["BT-81"]
+    vdoc = write(sem)
+    assert b"<cbc:PaymentMeansCode>1</cbc:PaymentMeansCode>" in vdoc.xml
+    assert any("BT-81" in n for n in vdoc.notes)
+
+
+def test_ccv_vat_rounding_strict_warning():
+    # 100.00 × 23 % = 23.00, file says 23.01 – BR-CO-17 tolerates ±1, our strict check must not
+    data = _ccv_edit({("SUM", "SUM9"): "23.01", ("SUM", "SUM10"): "26.81",
+                      ("SUM", "SUM30"): "146.81", ("SUM", "SUM34"): "146.81"})
+    rep = validate(data, "ccv.txt", ["peppol-bis3", "sk-cius"])
+    m = rep.messages[0]
+    arith = [f for f in m.values if f.code.startswith("ARITH")]
+    assert {(f.severity, f.code, f.bt) for f in arith} == {("warning", "ARITH-VAT", "BT-117"),
+                                                           ("warning", "ARITH-VAT-TOTAL", "BT-110")}
+    assert "správně 23.00" in next(f.message for f in arith if f.code == "ARITH-VAT")
+    assert m.rules_info["accepted"]  # official rules let it through – that is the point
+    # a correct document has no arithmetic finding
+    assert not [f for f in validate(CCV, "ccv.txt", ["peppol-bis3"], virtual_rules=False).messages[0].values
+                if f.code.startswith("ARITH")]

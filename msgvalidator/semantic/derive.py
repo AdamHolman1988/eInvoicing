@@ -261,10 +261,12 @@ def ref_if_differs_at(ctx_nodes, args, header_nodes, ctx_values):
 
 
 def payment_means_from_account_at(ctx_nodes, args, header_nodes, ctx_values):
+    code = args.get("code", "30")
+    what = "SEPA převod" if code == "58" else "převod (58 = SEPA převod)"
     for seg, v in _at(ctx_nodes, header_nodes, args):
-        return {"value": args.get("code", "30"), "seg": seg, "how": "derived",
-                "note": f"Je uvedeno číslo účtu / IBAN → platba převodem (kód {args.get('code', '30')}; "
-                        f"58 = SEPA převod). Ověřte s klientem."}
+        return {"value": code, "seg": seg, "how": "derived",
+                "note": f"Kód způsobu úhrady chybí; je uvedeno číslo účtu / IBAN → kód {code} – {what}. "
+                        f"Ověřte s klientem."}
     return None
 
 

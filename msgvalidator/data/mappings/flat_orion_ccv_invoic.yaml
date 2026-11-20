@@ -148,6 +148,8 @@ terms:
   # ---------------------------------------------------------------- BG-16 platební instrukce
   BT-81:
     - {path: "HDR", value: HDR14}
+    - {derive: payment_means_from_account_at, args: {path: "HDR", value: HDR83, code: "58"}}
+    - {derive: payment_means_from_account_at, args: {path: "HDR", value: HDR72, code: "30"}}
   BT-83:
     - {path: "HDR", value: HDR76, note: "Variabilní symbol."}
   BT-84:

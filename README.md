@@ -2,7 +2,7 @@
 
 [CZ](#cz) · [EN](#en) · **[⬇ MsgValidator.exe](https://github.com/AdamHolman1988/eInvoicing/releases/latest/download/MsgValidator.exe)** (Windows, no install)
 
-![Kontrola souboru](docs/screenshots/01-home.png)
+<picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/01-home-dark.png"><img src="docs/screenshots/01-home.png" alt="Kontrola souboru"></picture>
 
 ## CZ
 
@@ -34,10 +34,12 @@
 
 ## Screenshots
 
-| | |
-|---|---|
-| ![Oficiální pravidla](docs/screenshots/02-official-rules.png) Official rules (KoSIT) | ![Gap analýza](docs/screenshots/03-gap-analysis.png) Gap analysis vs. profiles |
-| ![Mapování klienta](docs/screenshots/04-mapper.png) Client mapping | ![Vzory](docs/screenshots/05-samples.png) Sample documents |
+<table>
+<tr><td><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/02-official-rules-dark.png"><img src="docs/screenshots/02-official-rules.png" alt="Official rules"></picture><br>Official rules (KoSIT)</td><td><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/03-gap-analysis-dark.png"><img src="docs/screenshots/03-gap-analysis.png" alt="Gap analysis"></picture><br>Gap analysis vs. profiles</td></tr>
+<tr><td><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/04-mapper-dark.png"><img src="docs/screenshots/04-mapper.png" alt="Client mapping"></picture><br>Client mapping</td><td><picture><source media="(prefers-color-scheme: dark)" srcset="docs/screenshots/05-samples-dark.png"><img src="docs/screenshots/05-samples.png" alt="Samples"></picture><br>Sample documents</td></tr>
+</table>
+
+Screenshots follow your GitHub theme (light / dark).
 
 ## Run
 

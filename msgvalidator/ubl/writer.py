@@ -262,7 +262,12 @@ class _W:
 
         if self.has(d, "BT-81", "BT-83", "BT-84"):
             pm = self.el(root, "cac:PaymentMeans")
-            self.put(pm, "cbc:PaymentMeansCode", d, "BT-81")
+            if self.put(pm, "cbc:PaymentMeansCode", d, "BT-81") is None:
+                # UBL XSD requires the code; without it the XSD fails and no Schematron rule runs at all
+                self.const(pm, "cbc:PaymentMeansCode", "1")
+                self.notes.append("BT-81 Payment means type code chybí – do virtuálního UBL doplněn zástupný kód 1 "
+                                  "(nedefinováno), aby šlo spustit pravidla. Skutečný kód je potřeba doplnit "
+                                  "(viz gap analýza).")
             if not inv:
                 self.put(pm, "cbc:PaymentDueDate", d, "BT-9")
             self.put(pm, "cbc:PaymentID", d, "BT-83")
@@ -308,7 +313,33 @@ class _W:
 
         for ln in self.sem.groups.get("BG-25", []):
             self.line(root, ln)
+        if not inv:
+            self.credit_note_signs(root)
         return root
+
+    def credit_note_signs(self, root) -> None:
+        """Source formats (ORION, INHOUSE, SAP…) often carry a credit note with negative amounts. A UBL CreditNote
+        is negative by its type, so its amounts are positive – negative ones would mean a debit (double negation).
+        Prices stay as they are (BR-27: never negative)."""
+        total = next((self._num(self._v(self.sem.document, bt)) for bt in ("BT-109", "BT-106", "BT-112", "BT-115")
+                      if self._v(self.sem.document, bt) is not None), None)
+        if total is None or total >= 0:
+            return
+        price = f"{{{CAC}}}Price"
+        flipped = 0
+        for e in root.iter():
+            if not (e.get("currencyID") or e.tag == f"{{{CBC}}}CreditedQuantity"):
+                continue
+            if any(a.tag == price for a in e.iterancestors()):
+                continue
+            t = (e.text or "").strip()
+            if not t or self._num(Value("", t)) in (None, 0):
+                continue
+            e.text = t[1:] if t.startswith("-") else "-" + t
+            flipped += 1
+        self.notes.append(f"Dobropis má ve zdrojovém formátu záporné částky (celkem {total}) – v UBL CreditNote se "
+                          f"posílají kladné (záporná částka by znamenala vrubopis). Konverze otočí znaménka "
+                          f"({flipped} částek / množství, ceny beze změny).")
 
 
 def write(sem: Semantic) -> VirtualDoc:
