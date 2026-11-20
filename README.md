@@ -1,6 +1,6 @@
 # MsgValidator – eInvoicing
 
-[CZ](#cz) · [EN](#en)
+[CZ](#cz) · [EN](#en) · **[⬇ MsgValidator.exe](https://github.com/AdamHolman1988/eInvoicing/releases/latest/download/MsgValidator.exe)** (Windows, no install)
 
 ![Kontrola souboru](docs/screenshots/01-home.png)
 
