@@ -28,9 +28,17 @@ SCENARIOS = {
     "credit-note": ("Dobropis", "Credit note", "381", "Vrácení zboží s odkazem na původní fakturu (BT-25)."),
     "corrected": ("Opravná faktura", "Corrected invoice", "384",
                   "Oprava ceny s odkazem na původní fakturu; SK → SK (Peppol povoluje 384 jen DE–DE a SK–SK)."),
-    "prepayment": ("Zálohová faktura", "Prepayment invoice", "386", "Záloha 10 000 + DPH."),
+    "prepayment": ("Zálohová faktura", "Prepayment invoice", "386",
+                   "Záloha 10 000 + DPH (výzva k platbě; na Slovensku se přes eFaktúru neposílá)."),
     "final": ("Konečná faktura po záloze", "Final invoice after prepayment", "380",
-              "Odečtená zaplacená záloha (BT-113) a odkaz na zálohovou fakturu."),
+              "Odečtená nezdaněná záloha jako zaplaceno předem (BT-113) a odkaz na zálohovou fakturu."),
+    "tax-advance": ("Daňový doklad k přijaté platbě", "Tax document for a received payment", "388",
+                    "SK → SK, přijatá záloha 1 000 + DPH 23 % před dodáním (FAQ FS SR, časť II, príklad 22)."),
+    "advance-credit": ("Dobropis k dokladu k přijaté platbě", "Credit note for a received-payment document", "381",
+                       "Vrácení zálohy: kladné částky a odkaz BT-25 na doklad 388; SK → SK."),
+    "final-sk": ("Konečná faktura po zdaněné záloze", "Final invoice after a taxed advance", "380",
+                 "SK → SK, záloha odečtená záporným řádkem (množství −1, DPH 23 %) s odkazem BT-25 na doklad 388 "
+                 "(FAQ FS SR, časť II, príklad 38)."),
     "self-billing": ("Self-billing", "Self-billing", "389",
                      "Fakturu vystavuje odběratel (Peppol BIS Self-Billing 3.0; kontroluje se jádro EN 16931)."),
     "reverse-charge": ("Přenesená daňová povinnost", "Domestic reverse charge", "380",
@@ -42,6 +50,9 @@ SCENARIOS = {
     "partial": ("Dílčí faktura", "Partial invoice", "326",
                 "Dílčí plnění podle smlouvy (BT-12); DE → DE (Peppol povoluje 326 jen DE–DE)."),
 }
+
+# Slovak domestic scenarios (SK seller and buyer, EUR, 23 %)
+SK_SCENARIOS = {"corrected", "tax-advance", "advance-credit", "final-sk"}
 
 D2 = Decimal("0.01")
 
@@ -107,19 +118,20 @@ def build(scenario: str, issue: dt.date | None = None) -> Semantic:
     label, _, code, _ = SCENARIOS[scenario]
     issue = issue or dt.date.today()
     b = _B()
-    prefix = {"381": "DB", "384": "OF", "386": "ZF", "389": "SB"}.get(code, "FV")
+    prefix = {"381": "DB", "384": "OF", "386": "ZF", "388": "ZDP", "389": "SB"}.get(code, "FV")
+    sk = scenario in SK_SCENARIOS
     process = SELFBILLING if scenario == "self-billing" else BILLING
     b.put(b.doc, "BT-1", f"{prefix}-{issue.year}-0001")
     b.put(b.doc, "BT-2", issue.isoformat())
     b.put(b.doc, "BT-3", code)
-    b.put(b.doc, "BT-5", "EUR" if scenario in ("intra-eu", "corrected", "partial") else "CZK")
+    b.put(b.doc, "BT-5", "EUR" if sk or scenario in ("intra-eu", "partial") else "CZK")
     b.put(b.doc, "BT-9", (issue + dt.timedelta(days=14)).isoformat())
     b.put(b.doc, "BT-10", "OBJ-4711")
     b.put(b.doc, "BT-23", process[0])
     b.put(b.doc, "BT-24", process[1])
     b.put(b.doc, "BT-22", f"Vzorový doklad ({label}) – fiktivní data.")
-    seller, buyer = {"intra-eu": (SELLER, BUYER_DE), "corrected": (SELLER_SK, BUYER_SK),
-                     "partial": (SELLER_DE, BUYER_DE)}.get(scenario, (SELLER, BUYER))
+    seller, buyer = {"intra-eu": (SELLER, BUYER_DE), "partial": (SELLER_DE, BUYER_DE)}.get(
+        scenario, (SELLER_SK, BUYER_SK) if sk else (SELLER, BUYER))
     _party(b, seller, "seller")
     b.put(b.doc, "BT-41", "Jana Vzorová")
     b.put(b.doc, "BT-42", "+420 123 456 789")
@@ -134,11 +146,16 @@ def build(scenario: str, issue: dt.date | None = None) -> Semantic:
         b.put(b.doc, "BT-26", (issue - dt.timedelta(days=10)).isoformat())
     if scenario == "final":
         b.put(b.doc, "BT-25", f"ZF-{issue.year}-0001")
+    if sk:  # SK CIUS: tax point date (date of delivery / of the received payment, § 74 ods. 1 písm. d)
+        b.put(b.doc, "BT-7", (issue - dt.timedelta(days=2 if scenario == "tax-advance" else 0)).isoformat())
+    if scenario in ("advance-credit", "final-sk"):
+        b.put(b.doc, "BT-25", f"ZDP-{issue.year}-0001")
+        b.put(b.doc, "BT-26", (issue - dt.timedelta(days=10)).isoformat())
     if scenario == "partial":
         b.put(b.doc, "BT-12", "SML-2026-15")
 
     # lines
-    cat, rate, exemption = "S", Decimal({"corrected": "23", "partial": "19"}.get(scenario, "21")), (None, None)
+    cat, rate, exemption = "S", Decimal("23" if sk else {"partial": "19"}.get(scenario, "21")), (None, None)
     if scenario == "reverse-charge":
         cat, rate, exemption = "AE", Decimal("0"), ("Daň odvede zákazník (přenesená daňová povinnost).", "VATEX-EU-AE")
     if scenario == "intra-eu":
@@ -148,6 +165,12 @@ def build(scenario: str, issue: dt.date | None = None) -> Semantic:
     items = ITEMS
     if scenario == "prepayment":
         items = [("Záloha na objednávku OBJ-4711", None, "ZAL", Decimal("1"), "C62", Decimal("10000.00"))]
+    elif scenario in ("tax-advance", "advance-credit"):
+        what = "Prijatá platba – záloha" if scenario == "tax-advance" else "Vrátenie zálohy"
+        items = [(f"{what} na objednávku OBJ-4711", None, "ZAL", Decimal("1"), "C62", Decimal("1000.00"))]
+    elif scenario == "final-sk":
+        items = ITEMS + [(f"Odpočet zálohy – daňový doklad ZDP-{issue.year}-0001", None, "ZAL", Decimal("-1"), "C62",
+                          Decimal("1000.00"))]
     elif scenario == "credit-note":
         items = [("Vzorové zboží A – vráceno", ITEMS[0][1], "A-001", Decimal("2"), "H87", Decimal("125.00"))]
     elif scenario == "corrected":

@@ -41,6 +41,7 @@
 ''': povolené Z (zboží), O (obaly), S (služba).': ''': allowed Z (goods), O (packaging), S (service).'
 (384 i mezi slovenskými): (384 also between Slovak companies)
 (BT-113), ale doklad neodkazuje na zálohovou fakturu (BT-25).: (BT-113), but the document does not reference the prepayment invoice (BT-25).
+(BT-113), ale doklad neodkazuje na zálohový doklad (BT-25).: (BT-113), but the document does not refer to the prepayment document (BT-25).
 (bez slev a poplatků dokladu): (no document allowances or charges)
 (dopočteno): (computed)
 (hrubá − čistá cena).: (gross − net price).
@@ -51,6 +52,7 @@
 (název pole nenapovídá): (field name gives no hint)
 (pevná délka): (fixed-width)
 (předpoklad): (assumption)
+(rozdíl: (difference
 (segment mimo slovník): (segment outside dictionary)
 (self-billing) není v Peppol BIS Billing 3.0 povolen (PEPPOL-EN16931-P0100).: (self-billing) is not allowed in Peppol BIS Billing 3.0 (PEPPOL-EN16931-P0100).
 (textový výpis): (text dump)
@@ -59,6 +61,7 @@
 (žádný výskyt).: (no occurrence).
 ) / množství.: ) / quantity.
 ) Peppol BIS Billing povoluje jen mezi dvěma německými firmami: ) is allowed by Peppol BIS Billing only between two German companies
+) má zápornou celkovou částku: ) has a negative total
 ) není v dokumentaci ORION INVOIC: ) is not in the ORION INVOIC documentation
 ) neodpovídá UNB (: ) does not match UNB (
 ) neodpovídá UNH (: ) does not match UNH (
@@ -71,6 +74,8 @@
 ) – oficiální konfigurace KoSIT je jen pro XRechnung 3.0; zkontrolováno podle EN 16931.: ) – the official KoSIT configuration exists only for XRechnung 3.0; checked against EN 16931.
 ) – profil vyžaduje u zboží, u služby jen varování.: ) – the profile requires it for goods; for services only a warning.
 ) – při kontrole se odhad nepoužije.: ) – the check will not use the guess.
+) – v UBL CreditNote se posílají kladné (záporná částka by znamenala vrubopis). Konverze otočí znaménka (: ) – in a UBL CreditNote they are sent as positive (a negative amount would mean a debit note).
+  The conversion flips the signs (
 ), požadováno min.: ), required min.
 ). Nejde o naučený formát, výsledek berte orientačně.: ). This is not a learned format; treat the result as indicative.
 '). Opakující se skupiny:': '). Repeating groups:'
@@ -90,10 +95,16 @@
 ', ve zprávě chybí.': ', missing in the message.'
 ', vložen je': ', embedded is'
 ', zpráva deklaruje verzi': ', the message declares version'
+', časť I, príklad 34).': ', part I, no. 34).'
+', časť I, príklad 50).': ', part I, no. 50).'
+', časť I, príklad 50; Peppol BIS Billing 3.0, kap. 5.6.1).': ', part I, no. 50; Peppol BIS Billing 3.0, sec. 5.6.1).'
+', časť II, príklad 22 a 38; Peppol BIS Billing 3.0, kap. 5.6.': ', part II, no. 22 and 38; Peppol BIS Billing 3.0, sec. 5.6.'
+', časť II, príklad 38).': ', part II, no. 38).'
 -- Gap analýza (: -- Gap analysis (
 -- Oficiální pravidla –: -- Official rules –
 -- Struktura (: -- Structure (
 . Nejdřív vlevo vyberte: . First select on the left
+. Ověřte s klientem.: . Check with the client.
 . Pokud klient používá pole jinak, vytvořte mu vlastní mapování.: . If the client uses the fields differently, create a custom mapping for it.
 . Pokud něco nesedí, upravte ho v editoru.: . If something does not match, adjust it in the editor.
 . Projděte údaje vlevo, opravte co nesedí, pojmenujte klienta a uložte – pak se z odhadu stane naučený formát.: . Review the terms on the left, fix what is wrong, name the client and save – the guess then
@@ -103,6 +114,7 @@
 ? .<br>Odhad zkontrolujte a uložte v editoru „Mapování klienta“; pak se z něj stane naučený formát.</div><details open><summary>Odhad mapování (
 : .<br>Review and save the guess in the “Client mapping” editor; it then becomes a learned format.</div><details open><summary>Guessed mapping (
 83/84 (dobropis/vrubopis k finančním úpravám) převedeno na 381/383.: 83/84 (credit/debit note for financial adjustments) converted to 381/383.
+9/DPH/2025/IM: 9/DPH/2025/IM
 ': chybí odkaz na původní fakturu (BT-25).': ': reference to the original invoice (BT-25) is missing.'
 ': chybí u řádku se službou (': ': missing on a service line ('
 ': doplní konverze (''': ': conversion fills in ('''
@@ -148,7 +160,7 @@
 ? <div class="guess"><b class="tag">ODHAD</b>Formát není naučený – přiřazení níže je odhad podle názvů polí, nadřazených prvků a tvaru hodnot (průměrná jistota
 : <div class="guess"><b class="tag">GUESS</b>The format is not learned – the assignment below is guessed from field names, parent elements and value shapes (average confidence
 ? <div class="guess"><b class="tag">ODHAD</b>Formát není naučený – přiřazení níže je odhad podle názvů polí, nadřazených prvků, tvaru hodnot a aritmetiky částek (průměrná jistota
-: ''
+: <div class="guess"><b class="tag">GUESS</b>The format has not been learned – the assignment below is a guess based on field names, parent elements, value shapes and amount arithmetic (average confidence
 <div class="legend">Aritmetická kontrola přiřazení:<ul>: <div class="legend">Arithmetic check of the assignment:<ul>
 <div class="legend">Dopočteno (formát údaj nenese):<ul>: <div class="legend">Computed (the format does not carry it):<ul>
 '<div class="legend">Nepřiřazená pole:': '<div class="legend">Unassigned fields:'
@@ -183,10 +195,15 @@ AEO = recyklační příspěvek, AEP = autorský poplatek.: AEO = recycling cont
 : BT)</summary><div class="wrap"><table><tr><th>BT</th><th>Name</th><th>Level</th><th>Source field</th><th>Sample</th><th>Confidence</th><th>Why</th></tr>
 BT, průměrná jistota: BT, average confidence
 BT-23 je proces self-billing, ale typ dokladu: BT-23 is the self-billing process, but document type
+? BT-81 Payment means type code chybí – do virtuálního UBL doplněn zástupný kód 1 (nedefinováno), aby šlo spustit pravidla. Skutečný kód je potřeba doplnit (viz gap analýza).
+: BT-81 Payment means type code is missing – a placeholder code 1 (not defined) was added to the virtual UBL so the rules can run. The real code must be supplied (see gap analysis).
 Bankovní spojení: Bank details
 Bez chyb: No errors
 Bez nálezů.: No findings.
 Buyer reference – v EANCOM obvykle neuváděno; ABO jen po dohodě.: Buyer reference – usually not given in EANCOM; ABO only by agreement.
+? Byl-li k záloze vystaven daňový doklad 388, odečítá se záporným řádkem (množství −1, základ i DPH se stejnou sazbou) s odkazem BT-25 na ten doklad, ne přes BT-113 ani slevu dokladu (
+: If a tax document 388 was issued for the advance, it is deducted by a negative line (quantity −1, base and VAT at the same rate) with a BT-25 reference to that document, not via BT-113 or a document allowance
+  (
 Běžná faktura, 2 řádky, DPH 21 %.: Ordinary invoice, 2 lines, 21 % VAT.
 'CCV XML se nepodařilo převést na ORION XML 3:': 'CCV XML could not be converted to ORION XML 3:'
 CII je v roadmapě.: CII is on the roadmap.
@@ -199,6 +216,7 @@ Cena za jednotku (u některých klientů s DPH) (?): Unit price (incl. VAT for s
 'Cena za jednotku dopočtena: (netto řádku': 'Unit price calculated: (line net amount'
 Cenová jednotka: Price unit
 'Chyba při zpracování:': 'Processing error:'
+'Chybné zaokrouhlení DPH se promítá do součtů:': 'Incorrect VAT rounding carries into the totals:'
 Chyby oficiálních pravidel EN 16931 níže jsou u tohoto profilu očekávané.: Errors from the official EN 16931 rules below are expected for this profile.
 Chybí povinný: Missing mandatory
 Chybí povinný prvek <: Missing mandatory element <
@@ -230,17 +248,25 @@ Daň = základ × sazba.: Tax = taxable amount × rate.
 Daň odvede zákazník (přenesená daňová povinnost).: ''
 Daň položky: Item tax
 Daň – záhlaví (rekapitulace DPH): Tax – header (VAT summary)
+Daňový doklad k přijaté platbě: Tax document for a received payment
+? 'Daňový doklad k přijaté platbě (388): v konečné faktuře se zdaněná záloha odečítá záporným řádkem (množství −1, stejná sazba DPH, odkaz BT-25 na tento doklad); vrácení zálohy se posílá jako dobropis
+  381 s kladnými částkami a odkazem BT-25 na tento doklad.'
+: 'Tax document for a received payment (388): in the final invoice a taxed advance is deducted by a negative line (quantity −1, same VAT rate, BT-25 reference to this document); an advance refund is sent
+  as credit note 381 with positive amounts and a BT-25 reference to this document.'
 Desetinný oddělovač musí být tečka.: Decimal separator must be a period.
 Distribuční cesta (?): Distribution channel (?)
 Divize (?): Division (?)
 Dní: Days
 Dobropis ORION nese záporné částky; Peppol CreditNote má částky kladné – konverze musí obrátit znaménka.: An ORION credit note carries negative amounts; a Peppol CreditNote has positive amounts – the conversion
   must reverse the signs.
+Dobropis k dokladu k přijaté platbě: Credit note for a received-payment document
+Dobropis má ve zdrojovém formátu záporné částky (celkem: The credit note has negative amounts in the source format (total
 Dodací podmínky: Delivery terms
 Dodání do jiného státu EU: Intra-community supply
 Dodání zboží do jiného členského státu – osvobozeno.: ''
 Dodávka (?): Delivery (?)
 Dodávka / dodací list: Delivery / delivery note
+Doklad k záloze (: Advance document (
 Dokument neodpovídá žádnému scénáři konfigurace ': Document does not match any scenario of configuration '
 ? 'Dokument se k XRechnung nehlásí – kontrola „co kdyby“: identifikátor specifikace (BT-24) dočasně nastaven na XRechnung 3.0, ostatní obsah beze změny.'
 : 'Document does not declare XRechnung – „what if“ check: specification identifier (BT-24) temporarily set to XRechnung 3.0, other content unchanged.'
@@ -262,6 +288,7 @@ Dílčí faktura: Partial invoice
 Dílčí plnění podle smlouvy (BT-12); DE → DE (Peppol povoluje 326 jen DE–DE).: Partial invoice under a contract (BT-12); DE → DE (Peppol allows 326 only DE–DE).
 Dílčí plnění – etapa 1 ze 3: ''
 EN 16931 záporné faktury dovoluje, ale řada odběratelů je odmítá.: EN 16931 allows negative invoices, but many buyers reject them.
+FAQ Finančnej správy SR k eFaktúre 9/DPH/2025/IM: Slovak Financial Administration FAQ on eFaktúra 9/DPH/2025/IM
 Factur-X vyžaduje v XMP DocumentType, DocumentFileName, Version a ConformanceLevel.: Factur-X requires DocumentType, DocumentFileName, Version and ConformanceLevel in XMP.
 Faktura 380 má zápornou celkovou částku: Invoice 380 has a negative total
 Faktura EN 16931: Invoice EN 16931
@@ -308,6 +335,8 @@ IČO (RFF+GN).: Company ID (IČO) (RFF+GN).
 IČO.: Company ID (IČO).
 Jana Vzorová: ''
 Jazyk ISO: Language ISO
+Jde-li o odpočet zdaněné zálohy, musí doklad odkazovat na daňový doklad k přijaté platbě (388) v BT-25 (: If this is the deduction of a taxed advance, the document must refer to the tax document for the
+  received payment (388) in BT-25 (
 Je uvedeno číslo účtu / IBAN → platba převodem (kód: Account number / IBAN given → credit transfer (code
 Je-li to zboží, údaj doplňte; u služby ověřte s odběratelem, že řádek bez něj přijme.: If these are goods, fill in the item; for a service, verify with the buyer that it accepts the line without it.
 Jednotka / sazba: Unit / rate
@@ -334,6 +363,7 @@ Klientské mapování ': Client mapping '
 Klikněte na: Click
 Klíč platebních podmínek: Payment terms key
 KoSIT XRechnung 3.0.2 (oficiální konfigurace KoSIT): KoSIT XRechnung 3.0.2 (official KoSIT configuration)
+Konečná faktura po zdaněné záloze: Final invoice after a taxed advance
 Konečná faktura po záloze: Final invoice after prepayment
 Kontaktní osoba / uživatel: Contact person / user
 Kontrola hodnot: Value checks
@@ -353,6 +383,7 @@ Kód země není samostatné pole; odvozeno z prefixu IČ DPH.: Country code is 
 Kód země z adresy místa dodání – řádek 4 (HDR49).: Country code from the delivery address – line 4 (HDR49).
 Kód země z adresy – řádek 4 (HDR33).: Country code from the address – line 4 (HDR33).
 Kód země z adresy – řádek 4 (HDR65).: Country code from the address – line 4 (HDR65).
+Kód způsobu úhrady chybí; je uvedeno číslo účtu / IBAN → kód: Payment means code missing; an account number / IBAN is present → code
 Lhůta / skonto: Term / cash discount
 Lidl SK (eFaktúra, dodávky tovaru): Lidl SK (e-invoice, delivery of goods)
 Majitel účtu: Account holder
@@ -371,6 +402,7 @@ Měna účetního okruhu: Company code currency
 Měrná jednotka: Unit of measure
 Měrná jednotka (LIN16) chybí – konverze doplní H87 (kus); ověřit s partnerem.: Unit of measure (LIN16) missing – conversion fills in H87 (piece); verify with partner.
 Město: City
+Na Slovensku musí opravný doklad nést jednoznačnou referenci na původní fakturu v BT-25 (: In Slovakia a corrective document must carry an unambiguous reference to the original invoice in BT-25 (
 Namapovat tento formát: Map this format
 Namapujte ho – kliknutím přiřadíte údaje faktury polím souboru a mapování se uloží pro tohoto klienta.: Map it – click to assign invoice items to file fields; the mapping is saved for this client.
 Načítám: Loading
@@ -421,12 +453,16 @@ Obálka uvádí Type ': The envelope states Type '
 Odběratel ji nemusí umět zpracovat – použijte název ze slovníku nebo ji dohodněte.: The buyer may not be able to process it – use a name from the vocabulary or agree on it.
 Odesílatel by měl přejít na ZUGFeRD 2.x / Factur-X (profil EN 16931) nebo XRechnung.: The sender should switch to ZUGFeRD 2.x / Factur-X (EN 16931 profile) or XRechnung.
 Odečtena záloha: Prepayment deducted
+Odečtená nezdaněná záloha jako zaplaceno předem (BT-113) a odkaz na zálohovou fakturu.: Untaxed prepayment deducted as paid amount (BT-113) and a reference to the prepayment invoice.
 Odečtená zaplacená záloha (BT-113) a odkaz na zálohovou fakturu.: Paid prepayment deducted (BT-113) and a reference to the prepayment invoice.
 Odhad nepoužit – soubor nevypadá jako faktura (: Guess not used – the file does not look like an invoice (
 Odhad zkontrolujte v editoru „Mapování klienta“ (otevře se předvyplněný) a uložte – pak se z něj stane naučený formát.: Review the guess in the “Client mapping” editor (it opens pre-filled) and save – it
   then becomes a learned format.
 Odkud se bere: Where it comes from
+Odpočet zálohy – daňový doklad ZDP-: ''
 Oficiální pravidla: Official rules
+? Oficiální pravidlo BR-CO-17 toleruje odchylku ±1 jednotky měny, takže Peppol validace projde – částka DPH na dokladu je ale chybně zaokrouhlená. Ověřte výpočet DPH u vystavitele.
+: Official rule BR-CO-17 tolerates a deviation of ±1 currency unit, so Peppol validation passes – but the VAT amount on the document is rounded incorrectly. Check the VAT calculation with the issuer.
 Okno nechte otevřené; ukončení Ctrl+C nebo zavřením okna.: Keep the window open; stop with Ctrl+C or by closing the window.
 Opakuje se pro každý segment: Repeats for each segment
 Oprava ceny s odkazem na původní fakturu; SK → SK (Peppol povoluje 384 jen DE–DE a SK–SK).: Price correction with a reference to the original invoice; SK → SK (Peppol allows 384 only DE–DE and SK–SK).
@@ -451,6 +487,8 @@ PROCESSID v obálce ': PROCESSID in the envelope '
 PSČ: Postal code
 Partner dokladu: Document partner
 Partner položky: Item partner
+? 'Peppol BIS záporné faktury dovoluje (kap. 5.6: příjemce musí umět obě varianty), ale řada odběratelů je odmítá – explicitní dobropis je bezpečnější.'
+: 'Peppol BIS allows negative invoices (sec. 5.6: receivers must support both variants), but many buyers reject them – an explicit credit note is safer.'
 Peppol endpoint není v EDIFACT; odvozeno z GLN (0088). Ověřte registraci kupujícího v Peppol SMP.: Peppol endpoint is not in EDIFACT; derived from GLN (0088). Verify the buyer registration in Peppol SMP.
 ? Peppol endpoint není v EDIFACT; odvozeno z GLN (0088). V SK se jako endpoint typicky používá DIČ (0245) – ověřte registraci partnera v Peppol SMP.
 : Peppol endpoint is not in EDIFACT; derived from GLN (0088). In SK the tax ID (DIČ) (0245) is typically used as endpoint – verify the partner registration in Peppol SMP.
@@ -469,6 +507,8 @@ Pevná hodnota z klientského mapování.: Fixed value from the client mapping.
 Platební podmínky: Payment terms
 Plná kontrola: Full check
 Plátce: Payer
+Po přijetí platby se vystavuje daňový doklad k přijaté platbě s typem 388 (časť II, príklad 22) – ten už eFaktúrou je.: After the payment is received, a tax document for the received payment with type 388
+  is issued (part II, no. 22) – that one is an e-invoice.
 Podle čeho se klient pozná při kontrole: How the client is recognized during checks
 Podmínky položky (cena, slevy, přirážky): Item conditions (price, discounts, charges)
 Podmínky záhlaví (slevy / přirážky / mezisoučty): Header conditions (discounts / charges / subtotals)
@@ -498,6 +538,8 @@ Požadované datum dodání (?): Requested delivery date (?)
 : Retailer requirements beyond SK CIUS (column 'Required for ...') – 1. Billa poziadavky - PEPPOL-BIS3.0_SK_FMCG_version_v1.10_BILLA_SK.xlsx
 Pravidla: Rules
 Pravidla KoSIT: KoSIT rules
+Prepayment 10 000 + VAT (a payment request; not sent via eFaktúra in Slovakia).: ''
+Prijatá platba – záloha: ''
 Pro ostatní země použijte 380 (s odkazem BT-25) nebo dobropis 381.: For other countries use 380 (with reference BT-25) or credit note 381.
 Pro tento soubor se virtuální UBL negeneruje.: No virtual UBL is generated for this file.
 Prodejní kancelář / závod (?): Sales office / plant (?)
@@ -543,9 +585,13 @@ Rozpoznání klienta…: Client recognition…
 Rozšíření typu: Type extension
 SAP IDoc: SAP IDoc
 SAP IDoc – segmenty a formát polí: SAP IDoc – segments and field format
+SEPA převod: SEPA credit transfer
 SK CIUS – transpozícia Peppol BIS 3.0: SK CIUS – transposition of Peppol BIS 3.0
 SK DIČ chybí (RFF+FC); odvozeno z IČ DPH bez prefixu SK.: SK tax ID (DIČ) missing (RFF+FC); derived from the VAT ID without SK prefix.
 SK DIČ chybí; odvozeno z IČ DPH bez prefixu SK.: SK tax ID (DIČ) missing; derived from the VAT ID without SK prefix.
+SK → SK, přijatá záloha 1 000 + DPH 23 % před dodáním (FAQ FS SR, časť II, príklad 22).: SK → SK, advance payment 1 000 + 23 % VAT received before delivery (SK FA FAQ, part II, no. 22).
+? SK → SK, záloha odečtená záporným řádkem (množství −1, DPH 23 %) s odkazem BT-25 na doklad 388 (FAQ FS SR, časť II, príklad 38).
+: SK → SK, advance deducted by a negative line (quantity −1, 23 % VAT) with a BT-25 reference to the 388 document (SK FA FAQ, part II, no. 38).
 SWIFT / kód banky: SWIFT / bank code
 'SYS1 Typ zprávy: ''': 'SYS1 Message type: '''
 Sazba (cena za jednotku): Rate (unit price)
@@ -649,6 +695,8 @@ Vložené XML: Embedded XML
 Vložené XML se jmenuje: The embedded XML is named
 'Vložené XML:': 'Embedded XML:'
 Vrácení zboží s odkazem na původní fakturu (BT-25).: Returned goods with a reference to the original invoice (BT-25).
+'Vrácení zálohy: kladné částky a odkaz BT-25 na doklad 388; SK → SK.': 'Advance refund: positive amounts and a BT-25 reference to the 388 document; SK → SK.'
+Vrátenie zálohy: ''
 Vyplňte název klienta.: Enter the client name.
 Vytvořit mapování klienta: Create client mapping
 Vzorek klienta – segmenty a pole: Client sample – segments and fields
@@ -691,6 +739,10 @@ Země původu: Country of origin
 Země určení: Country of destination
 Zkusit dřív: Try first
 Znaménko (+ / −): Sign (+ / −)
+? Znaménko patří na množství (BT-129) a částku řádku (BT-131), cena zůstává kladná (Peppol BIS Billing 3.0, kap. 5.6.2). Pro vrácení nebo storno je bezpečnější dobropis 381 s kladnými částkami a odkazem
+  BT-25.
+: The sign belongs to the quantity (BT-129) and the line amount (BT-131); the price stays positive (Peppol BIS Billing 3.0, sec. 5.6.2). For a refund or cancellation a credit note 381 with positive amounts
+  and a BT-25 reference is safer.
 Znovu zkontrolovat: Check again
 Zpráva: Message
 Záhlaví dokladu: Document header
@@ -701,15 +753,23 @@ Základ daně převzat z TAX 5286 (D96A GS1 CZ).: Taxable amount taken from TAX 
 Základ ve skupině DPH (?; SUNIT = sazba): Base in VAT group (?; SUNIT = rate)
 Základní typ: Basic type
 Základní typ (INVOIC01 / INVOIC02): Basic type (INVOIC01 / INVOIC02)
+Záloha 10 000 + DPH (výzva k platbě; na Slovensku se přes eFaktúru neposílá).: Prepayment 10 000 + VAT (a payment request; not sent via eFaktúra in Slovakia).
 Záloha 10 000 + DPH.: Prepayment 10 000 + VAT.
 Záloha na objednávku OBJ-4711: ''
 Zálohová faktura: Prepayment invoice
+? 'Zálohová faktura 386 mezi slovenskými firmami: proforma / výzva k platbě není faktura podle zákona o DPH a přes eFaktúru se neposílá ('
+: 'Prepayment invoice 386 between Slovak companies: a proforma / payment request is not an invoice under the VAT Act and is not sent via eFaktúra ('
 ? 'Zálohová faktura: zaplacená částka se v konečné faktuře odečítá jako zaplaceno předem (BT-113) a konečná faktura by na zálohovou měla odkazovat (BT-25).'
 : 'Prepayment invoice: the paid amount is deducted in the final invoice as prepaid amount (BT-113) and the final invoice should reference the prepayment invoice (BT-25).'
+? Zálohový doklad i daňový doklad k přijaté platbě mají být kladné. Vrácení nebo storno zálohy se posílá jako dobropis 381 s kladnými částkami a odkazem BT-25 na původní doklad (
+: Both a prepayment document and a tax document for a received payment should be positive. An advance refund or cancellation is sent as credit note 381 with positive amounts and a BT-25 reference to the
+  original document (
 Zápis v obchodním rejstříku (AAI).: Commercial register entry (AAI).
 Zápis v obchodním rejstříku – 1. blok TXT.: Commercial register entry – 1st TXT block.
+Záporná cena: Negative price
 ? Záporná částka řádku při kladném množství (např. sleva jako řádek) – Peppol nedovoluje zápornou cenu, konverze musí obrátit znaménko množství.
 : Negative line amount with positive quantity (e.g. discount as a line) – Peppol does not allow a negative price, the conversion must reverse the quantity sign.
+Záporný řádek: Negative line
 Závod: Plant
 Záznam: Record
 \d+ řádků: \d+ lines
@@ -718,6 +778,7 @@ a pak na záhlaví segmentu položky ve vzorku.: and then the header of the item
 'aritmetika řádku to vyvrací (sedí jiné pole:': 'the line arithmetic contradicts it (another field fits:'
 'aritmetika řádku:': 'line arithmetic:'
 aritmetiky částek: amount arithmetic
+bez odkazu na předchozí doklad (BT-25).: without a reference to a preceding document (BT-25).
 bez oficiálních pravidel: without official rules
 beze změny: unchanged
 běží na: running at
@@ -732,6 +793,7 @@ const show=()=>{const d=cur()==='dark';b.textContent=d?'☀':'☾';b.title=d?'Sv
 daň = základ × sazba, zaokrouhleno na 2 místa: tax = taxable amount × rate, rounded to 2 decimals
 daňová faktura: tax invoice
 daňové oznámení: tax notification
+daňový doklad (např. k přijaté platbě před dodáním): tax document (e.g. for a payment received before delivery)
 dobropis speditéra: forwarder's credit note
 dobropis – finanční úpravy: credit note – financial adjustments
 dobropis – zboží a služby: credit note – goods and services
@@ -802,6 +864,7 @@ mimo zprávu (chybí UNH).: outside a message (UNH missing).
 množství × cena = částka řádku: quantity × price = line amount
 musí následovat za: must follow
 místo dodání: delivery place
+na objednávku OBJ-4711: ''
 nahradí pravidla: replaces the rules
 např. Company, s.r.o.: e.g. Company, s.r.o.
 např. rekapitulace DPH pro každý E1EDK04, slevy dokladu pro E1EDK05: e.g. VAT summary for each E1EDK04, document discounts for E1EDK05
@@ -835,6 +898,8 @@ název prvku ': element name '
 obchodní faktura: commercial invoice
 obchodní faktura s balicím listem: commercial invoice with packing list
 'obálka:': 'envelope:'
+odečtena jako zaplaceno předem (BT-113) – na Slovensku jen pro nezdaněnou zálohu (bez daňového dokladu k přijaté platbě).: deducted as paid amount (BT-113) – in Slovakia only for an untaxed advance (no
+  tax document for the received payment).
 odhadnout mapování neznámého XML formátu: guess the mapping of an unknown XML format
 odvozeno z dopočtené sazby (kladná sazba = S, 0 % nejednoznačné): derived from the computed rate (positive rate = S, 0 % ambiguous)
 odvozeno z čísla účtu / IBAN (převod na účet = 30): derived from the account number / IBAN (credit transfer = 30)
@@ -869,6 +934,7 @@ prázdné ve vzorku: empty in sample
 prázdných prvků (: empty elements (
 'předpoklad: běžná faktura – v souboru není pole s typem dokladu': 'assumption: ordinary invoice – the file has no document type field'
 převod: conversion
+převod (58 = SEPA převod): transfer (58 = SEPA credit transfer)
 převod kódů: code conversion
 převodník nevrátil ORION XML: the converter did not return ORION XML
 při platbě do: for payment within
@@ -1013,6 +1079,7 @@ zálohová faktura: prepayment invoice
 Číslo zboží dodavatele (KTEXT = název): Seller item number (KTEXT = name)
 Číslo zboží odběratele: Buyer item number
 Číslo účtu: Account number
+částek / množství, ceny beze změny).: amounts / quantities, prices unchanged).
 číselná pole: numeric fields
 číslic, dokumentace povoluje max.: digits, documentation allows max.
 číslo (desetinná tečka): a number (decimal point)
@@ -1045,10 +1112,12 @@ zálohová faktura: prepayment invoice
 Σ částka řádku × sazba =: Σ line amount × rate =
 Σ částka řádku × sazba = BT-110: Σ line amount × rate = BT-110
 – ODHAD mapování: – mapping GUESS
+– Peppol / EN 16931 vyžaduje cenu vždy kladnou (BR-27, BR-28).: – Peppol / EN 16931 require the price to be positive (BR-27, BR-28).
 – doklad: – document
 – formát celkovou DPH nenese: – the format does not carry the total VAT
 – jeho pole lze použít v klientském mapování.: – its fields can be used in the client mapping.
 – kontrola souborů tohoto klienta ho teď použije automaticky.: – checks of files from this client will now use it automatically.
+– nejsou obrácená znaménka?: – are the signs reversed?
 – nemá jít spíš o dobropis (381)?: – should it rather be a credit note (381)?
 – neznámý formát,: – unknown format,
 – neznámý formát, mapování začíná od nuly.: – unknown format, mapping starts from scratch.
@@ -1060,7 +1129,9 @@ zálohová faktura: prepayment invoice
 – ve vzorku: – in the sample
 – zpráva: – message
 — nové mapování: — new mapping
+→ správně: → correct
 − přirážky: − charges
+≠ základ: ≠ base
 '✓ ověřeno:': '✓ verified:'
 ✗ aritmetika ukazuje na jiné pole: ✗ the arithmetic points to another field
 '✗ nesedí:': '✗ does not add up:'
