@@ -1,0 +1,111 @@
+# Plain-language explanations of findings for less experienced users ("Co to znamená?").
+# First match wins: `match` is a code or an fnmatch pattern, optional `sev` limits it to one severity.
+# Keep it short: what it means for the invoice + what to do. cs = Czech UI, en = English UI.
+
+severity:
+  error:
+    cs: "Dokument porušuje závazné pravidlo. Přístupový bod Peppol / příjemce ho odmítne. Je nutné opravit."
+    en: "The document breaks a mandatory rule. The Peppol access point / receiver will reject it. Must be fixed."
+  warning:
+    cs: "Dokument projde, ale něco je podezřelé nebo podmíněně povinné a validátor neumí sám rozhodnout, zda podmínka platí. Zkontrolujte ručně; často jde o skutečný nedostatek."
+    en: "The document passes, but something is suspicious or conditionally required and the validator cannot decide on its own whether the condition applies. Check it manually; it is often a real gap."
+  info:
+    cs: "Jen pro přehled (co se odkud převedlo, co se dopočítalo). Nic se nemusí dělat."
+    en: "For your overview only (what was converted, what was computed). No action needed."
+
+rules:
+  - match: SK-CIUS-BT-33
+    cs: "Chybí údaj o zápisu v obchodním registru (právní forma, soud, oddíl, vložka). Podle § 3a Obchodného zákonníka ho musí mít každá obchodní listina firmy zapsané v OR – u s.r.o. nebo a.s. je to tedy reálná povinnost, ne doporučení. V UBL patří do PartyLegalEntity/CompanyLegalForm, např. „Zapísaná v OR OS Bratislava I, oddiel Sro, vložka č. 1234/B“."
+    en: "The commercial register entry (legal form, court, section, file number) is missing. Under § 3a of the Slovak Commercial Code every business document of a registered company must contain it – for an s.r.o. / a.s. it is a real obligation. In UBL: PartyLegalEntity/CompanyLegalForm."
+  - match: "SK-CIUS-BT-30-1"
+    cs: "U IČO dodavatele chybí atribut schemeID (o jaký identifikátor jde). Pro slovenské IČO se uvádí schemeID=\"0158\". Faktura projde, jen příjemce strojově nepozná, že je to IČO."
+    en: "The seller company ID has no schemeID attribute. Slovak IČO uses schemeID=\"0158\". The invoice passes; the receiver just cannot tell automatically that it is an IČO."
+  - match: "SK-CIUS-BT-47-1"
+    cs: "U IČO odběratele chybí atribut schemeID. Pro slovenské IČO se uvádí schemeID=\"0158\". Faktura projde, jen příjemce strojově nepozná, že je to IČO."
+    en: "The buyer company ID has no schemeID attribute. Slovak IČO uses schemeID=\"0158\"."
+  - match: "SK-CIUS-BT-30"
+    cs: "Chybí IČO dodavatele. Pokud firma IČO má (každá firma v OR ho má), musí být na faktuře."
+    en: "The seller IČO (company ID) is missing. If the company has one (every registered company does), it must be on the invoice."
+  - match: "SK-CIUS-BT-47"
+    cs: "Chybí IČO odběratele. Pokud ho odběratel má, musí být na faktuře."
+    en: "The buyer IČO (company ID) is missing. If the buyer has one, it must be on the invoice."
+  - match: "SK-CIUS-BT-31"
+    cs: "Chybí IČ DPH dodavatele. Plátce DPH ho na faktuře uvádět musí; neplátce ne."
+    en: "The seller VAT ID is missing. A VAT payer must state it; a non-payer does not have one."
+  - match: "SK-CIUS-BT-48"
+    cs: "Chybí IČ DPH odběratele. Povinné, pokud ho odběratel má (u přenesení daňové povinnosti a dodání do EU vždy)."
+    en: "The buyer VAT ID is missing. Required if the buyer has one (always for reverse charge and intra-EU supplies)."
+  - match: "SK-CIUS-BT-7"
+    cs: "Chybí datum zdanitelného plnění (DUZP). Povinné jen tehdy, když se liší od data vystavení – pokud je tam datum dodání (BT-72), stačí to."
+    en: "The tax point date is missing. Required only when it differs from the issue date – a delivery date (BT-72) is enough."
+  - match: "SK-CIUS-BT-6"
+    cs: "Faktura je v cizí měně, ale chybí měna účtování DPH a částka DPH v EUR. Při fakturaci v cizí měně musí být DPH uvedena i v EUR."
+    en: "The invoice is in a foreign currency but the VAT accounting currency and VAT amount in EUR are missing."
+  - match: "SK-CIUS-BT-120"
+    cs: "U osvobozeného plnění chybí důvod osvobození (odkaz na paragraf zákona o DPH). Bez něj faktura nesplňuje § 74 zákona o DPH."
+    en: "The VAT exemption reason (legal reference) is missing for an exempt supply."
+  - match: "SK-CIUS-BT-148"
+    cs: "Je uvedena sleva z ceny, ale chybí cena před slevou (hrubá cena). Doplňte ji, aby šla sleva dohledat."
+    en: "A price discount is given but the gross price before the discount is missing."
+  - match: "SK-CIUS-*"
+    sev: error
+    cs: "Slovenská povinná náležitost faktury (zákon o DPH § 74 / SK transpozice Peppol BIS). Bez ní faktura neprojde – je nutné ji doplnit."
+    en: "A mandatory Slovak invoice element (VAT Act § 74 / SK transposition of Peppol BIS). The invoice will not pass without it."
+  - match: "SK-CIUS-*"
+    cs: "Podmíněně povinný slovenský údaj. Validátor neví, jestli podmínka platí (např. jestli firma IČO má), proto jen varuje. Pokud podmínka platí, je to povinné."
+    en: "A conditionally required Slovak element. The validator cannot tell whether the condition applies, so it only warns. If it does, the element is mandatory."
+
+  - match: VAL-SK-ICO-IS-DIC
+    cs: "V poli pro IČO je ve skutečnosti DIČ (10 číslic). KoSIT to nepozná, protože formálně je to jen text – věcně je to ale chybný údaj na faktuře. Správné IČO má 8 číslic a najdete ho v ORSR / RPO."
+    en: "The company ID field actually holds the DIČ (tax number, 10 digits). KoSIT cannot see this – formally it is just text – but the invoice states a wrong fact. A Slovak IČO has 8 digits (ORSR / RPO)."
+  - match: VAL-SK-ICO-IS-ICDPH
+    cs: "V poli pro IČO je IČ DPH. IČO je 8místné číslo z obchodního registru."
+    en: "The company ID field holds the VAT ID. A Slovak IČO is an 8-digit number from the business register."
+  - match: "VAL-SK-ICO-*"
+    cs: "IČO nevypadá jako slovenské IČO (8 číslic s kontrolní číslicí). Ověřte ho v ORSR / RPO – nejčastěji jde o překlep nebo jiné číslo v poli."
+    en: "The IČO does not look like a Slovak company ID (8 digits with a check digit). Verify it in ORSR / RPO."
+  - match: "VAL-SK-DIC-*"
+    cs: "DIČ nevypadá jako slovenské DIČ (10 číslic dělitelných 11) nebo nesedí s IČ DPH. Ověřte ho v registru Finanční správy SR."
+    en: "The DIČ does not look like a Slovak tax number (10 digits divisible by 11) or does not match the VAT ID."
+  - match: "VAL-SK-ICDPH*"
+    cs: "IČ DPH nevypadá jako slovenské IČ DPH (SK + 10 číslic dělitelných 11). Ověřte ho v registru FS SR nebo ve VIES."
+    en: "The VAT ID does not look like a Slovak VAT ID (SK + 10 digits divisible by 11). Check it in VIES."
+  - match: VAL-SK-ENDPOINT
+    cs: "Peppol adresa příjemce/odesílatele (schéma 0245 = slovenské DIČ) není platné DIČ. Na takovou adresu se faktura v síti Peppol nedoručí."
+    en: "The Peppol address (scheme 0245 = Slovak DIČ) is not a valid DIČ. The invoice cannot be delivered to it."
+
+  - match: VAL-VATID
+    cs: "IČ DPH musí začínat kódem země (SK…, CZ…). Bez prefixu ho pravidla Peppol odmítnou."
+    en: "A VAT ID must start with the country code (SK…, CZ…)."
+  - match: VAL-CODELIST
+    cs: "Hodnota není v povoleném číselníku (např. kód měrné jednotky, kategorie DPH). Příjemce ji neumí přečíst – je nutné použít kód z číselníku."
+    en: "The value is not in the allowed code list (e.g. unit code, VAT category). It must be a code from the list."
+  - match: VAL-CHECKDIGIT
+    cs: "GLN / EAN (GTIN) má špatnou kontrolní číslici – pravděpodobně překlep. Příjemce podle něj nemusí najít firmu nebo zboží."
+    en: "The GLN / GTIN has a wrong check digit – probably a typo."
+  - match: VAL-DECIMALS
+    cs: "Částka má víc než 2 desetinná místa. Peppol dovoluje u částek jen 2 (jednotkové ceny mohou mít víc)."
+    en: "The amount has more than 2 decimals. Peppol allows only 2 for amounts (unit prices may have more)."
+  - match: "ARITH-*"
+    cs: "Nesedí výpočet (řádky × ceny, součty, DPH). Příjemce ani účetní systém si to neopraví sám – je nutné opravit ve zdroji."
+    en: "A calculation does not add up (lines × prices, totals, VAT). It must be fixed at the source."
+
+  - match: "BR-CO-*"
+    sev: error
+    cs: "Nesedí vazba mezi údaji (typicky součty nebo DPH podle EN 16931). Faktura bude odmítnuta."
+    en: "A consistency rule of EN 16931 failed (typically totals or VAT). The invoice will be rejected."
+  - match: "BR-*"
+    sev: error
+    cs: "Porušené pravidlo evropské normy EN 16931 – závazné pro všechny e-faktury v EU. Faktura bude odmítnuta."
+    en: "A rule of the European standard EN 16931 failed – binding for all e-invoices in the EU. The invoice will be rejected."
+  - match: "PEPPOL-*"
+    sev: error
+    cs: "Porušené pravidlo sítě Peppol (BIS Billing 3.0). Přístupový bod fakturu nepřijme."
+    en: "A Peppol BIS Billing 3.0 rule failed. The access point will not accept the invoice."
+  - match: "PEPPOL-*"
+    sev: warning
+    cs: "Doporučení sítě Peppol. Faktura projde, ale v budoucí verzi pravidel z toho může být chyba."
+    en: "A Peppol recommendation. The invoice passes, but a future rule version may turn it into an error."
+  - match: "cvc-*"
+    cs: "Dokument neodpovídá schématu XML (špatný element, pořadí nebo formát). Je to technická chyba generátoru – faktura neprojde."
+    en: "The document does not match the XML schema (wrong element, order or format). The invoice will not pass."

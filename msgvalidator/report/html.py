@@ -7,6 +7,7 @@ import threading
 from dataclasses import asdict
 
 from ..i18n import tr
+from . import explain
 from ..ui.theme import FAMILY, THEME_INIT, TOKENS
 from ..validate import Report, coverage_rows
 
@@ -41,7 +42,7 @@ th{background:var(--surface);color:var(--muted);font-weight:600;font-size:12px;p
 .ctx{font-size:12px;color:var(--muted)}
 .prof{display:inline-block;font-size:11px;border:1px solid var(--line);padding:0 5px;margin:1px 2px 0 0;color:var(--muted)}
 .st{font-size:12px;padding:1px 6px;white-space:nowrap}
-.st-explicit{background:var(--okbg);color:var(--ok)}.st-derived,.st-const{background:var(--warnbg);color:var(--warn)}
+.st-explicit{background:var(--okbg);color:var(--ok)}.st-derived,.st-const,.st-warning{background:var(--warnbg);color:var(--warn)}
 .st-missing,.st-not-in-format{background:var(--errbg);color:var(--err)}
 .guess{border:2px dashed var(--warn);border-radius:8px;padding:8px 12px;margin:8px 0;background:var(--warnbg)}
 .guess b.tag{background:var(--warn);color:#fff;border-radius:4px;padding:1px 6px;margin-right:6px}
@@ -53,6 +54,10 @@ details summary{cursor:pointer;color:var(--accent);margin:10px 0;font-weight:500
 .legend{font-size:12px;color:var(--muted);margin:4px 0 8px}
 .wrap{overflow-x:auto;border:1px solid var(--line)}
 .wrap table{border:0}
+.why summary{margin:4px 0 0;font-size:12px;font-weight:500}
+.why{font-size:12.5px;color:var(--fg);background:var(--soft);padding:2px 8px;margin-top:4px;border-left:2px solid var(--accent)}
+.why:not([open]){background:none;padding:0;border:0}
+.sevlegend{font-size:12px;color:var(--muted);margin:4px 0 10px;display:grid;gap:2px}
 .run{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--accent);padding:8px 12px;margin:6px 0}
 """
 
@@ -105,8 +110,13 @@ def _findings_table(findings, show_profiles: bool, profiles_head: str = "Profily
         ctx = _ctx(f)
         if ctx:
             desc += f'<div class="ctx">{ctx}</div>'
+        lang = getattr(_STATE, "lang", "cs")
+        why = explain.rule(f.code, f.severity, lang)
+        if why:
+            desc += f'<details class="why"><summary>Co to znamená?</summary>{e(why)}</details>'
         prof = "".join(f'<span class="prof">{e(p)}</span>' for p in f.profiles) if show_profiles else ""
-        rows.append(f'<tr data-sev="{f.severity}"><td><span class="pill p-{f.severity}">{SEV_LABEL[f.severity]}</span></td>'
+        tip = e(explain.severity(f.severity, lang))
+        rows.append(f'<tr data-sev="{f.severity}"><td><span class="pill p-{f.severity}" title="{tip}">{SEV_LABEL[f.severity]}</span></td>'
                     f'<td class="code">{e(f.code)}</td><td>{desc}</td><td>{"<br>".join(where)}</td>'
                     + (f"<td>{prof}</td>" if show_profiles else "") + "</tr>")
     head = "<tr><th>Závažnost</th><th>Kód</th><th>Popis</th><th>Kde</th>" + (f"<th>{profiles_head}</th>" if show_profiles else "") + "</tr>"
@@ -170,6 +180,13 @@ def body(rep: Report, lang: str = "cs") -> str:
     return _translate_static(html, lang) if lang == "en" else html
 
 
+def _sev_legend() -> str:
+    lang = getattr(_STATE, "lang", "cs")
+    rows = "".join(f'<div><span class="pill p-{s}">{SEV_LABEL[s]}</span> {e(explain.severity(s, lang))}</div>'
+                   for s in ("error", "warning", "info"))
+    return f'<details class="why"><summary>Jak číst výsledek?</summary><div class="sevlegend">{rows}</div></details>'
+
+
 def _body(rep: Report) -> str:
     c = rep.counts()
     out = ['<div class="rep">',
@@ -183,7 +200,8 @@ def _body(rep: Report) -> str:
            '<div class="filters">Zobrazit: '
            '<label><input type="checkbox" value="error" checked> chyby</label>'
            '<label><input type="checkbox" value="warning" checked> varování</label>'
-           '<label><input type="checkbox" value="info"> info</label></div>']
+           '<label><input type="checkbox" value="info"> info</label></div>',
+           _sev_legend()]
     if rep.envelope:
         out.append("<h2>Obálka / formát</h2>" + _findings_table(rep.envelope, False))
     for m in rep.messages:
@@ -195,8 +213,14 @@ def _body(rep: Report) -> str:
             for r in runs:
                 verdict = ('<span class="pill p-ok">PŘIJATO</span>' if r["accepted"]
                            else '<span class="pill p-error">ODMÍTNUTO</span>')
-                steps = " ".join(f'<span class="st st-{"explicit" if ok else "missing"}">{"✓" if ok else "✖"} {e(n)}</span>'
-                                 for n, ok in r["steps"])
+                def _st(n, ok):
+                    warn = ok and n in r.get("warn_steps", [])
+                    if not ok:
+                        return f'<span class="st st-missing">✖ {e(n)}</span>'
+                    if warn:
+                        return f'<span class="st st-warning" title="Jen varování – nebrání přijetí">▲ {e(n)}</span>'
+                    return f'<span class="st st-explicit">✓ {e(n)}</span>'
+                steps = " ".join(_st(n, ok) for n, ok in r["steps"])
                 out.append(f'<div class="run"><div class="meta"><b>{e(r["label"])}</b> &nbsp;{verdict}&nbsp; '
                            f'scénář: {e(r["scenario"] or "žádný")}</div>'
                            + (f'<div class="hint">{e(r["note"])}</div>' if r.get("note") else "")

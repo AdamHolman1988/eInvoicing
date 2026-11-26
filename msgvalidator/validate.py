@@ -72,7 +72,7 @@ def rules_findings(result) -> tuple[list[Finding], dict]:
     out = [Finding(LEVEL.get(m.level, "error"), m.code, m.text, line=m.line,
                    segment=readable(m.xpath), profiles=[m.step]) for m in result.messages]
     info = {"repository": result.repository, "scenario": result.scenario, "accepted": result.accepted,
-            "steps": result.steps}
+            "steps": result.steps, "warn_steps": result.warn_steps}
     return out, info
 
 
@@ -98,7 +98,7 @@ def _combine_runs(runs: list[dict]) -> tuple[list[Finding], dict]:
     findings = merge([f for r in runs for f in r["findings"]])
     info = {"runs": [{k: v for k, v in r.items() if k != "findings"} for r in runs],
             "accepted": all(r["accepted"] for r in runs),
-            "repository": runs[0]["repository"], "scenario": runs[0]["scenario"], "steps": runs[0]["steps"]}
+            "repository": runs[0]["repository"], "scenario": runs[0]["scenario"], "steps": runs[0]["steps"], "warn_steps": runs[0].get("warn_steps", [])}
     return findings, info
 
 
@@ -176,7 +176,7 @@ def virtual_rules_findings(sem, rules_repo: str = "peppol"):
     info = {"repository": result.repository, "scenario": f"virtuální UBL {vdoc.kind} → {result.scenario}",
             # ignoring findings caused only by anonymised test values
             "accepted": result.accepted or not any(f.severity == "error" for f in out),
-            "steps": result.steps}
+            "steps": result.steps, "warn_steps": result.warn_steps}
     return merge(out), info, vdoc.xml
 
 

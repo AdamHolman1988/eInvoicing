@@ -57,6 +57,7 @@ __HEADER__
     <div class="actions">
       <button id="rerun" class="sec" disabled>Znovu zkontrolovat</button>
       <button id="dl" class="sec" disabled>HTML report</button>
+      <button id="dlp" class="sec" disabled title="Tisková sestava – faktura v obvyklé podobě pro účetní (vizualizace, ne originál dokladu)">PDF faktura</button>
       <button id="dlj" class="sec" disabled>JSON</button>
       <button id="dlx" class="sec" disabled title="XML faktury vytažené z PDF (ZUGFeRD / Factur-X) nebo z Peppol obálky, nebo ORION XML převedené z CCV XML">Vložené / převedené XML</button>
       <button id="dlu" class="sec" disabled title="Zdrojový formát převedený do Peppol UBL – nad ním běží oficiální pravidla">Virtuální UBL</button>
@@ -95,7 +96,7 @@ async function run(){
   if(!r.ok){st.textContent='';document.getElementById('result').innerHTML='<pre class="rep">'+esc(t)+'</pre>';return;}
   document.getElementById('result').innerHTML=t; st.textContent='';
   showCta(r.headers.get('X-Mappable')==='1', r.headers.get('X-Family'), decodeURIComponent(r.headers.get('X-Client')||''));
-  ['rerun','dl','dlj','dlu'].forEach(id=>document.getElementById(id).disabled=false);
+  ['rerun','dl','dlp','dlj','dlu'].forEach(id=>document.getElementById(id).disabled=false);
   document.getElementById('dlx').disabled=!['PDF','XML-ORION-CCV','SBDH'].includes(r.headers.get('X-Family'));
   bindFilters();
 }
@@ -119,6 +120,11 @@ async function download(path,ext,type){const r=await post(path);const b=new Blob
 document.getElementById('rerun').onclick=run;
 box.addEventListener('change',()=>current&&run());
 document.getElementById('dl').onclick=()=>download('/api/report','.html','text/html');
+document.getElementById('dlp').onclick=async()=>{const r=await post('/api/pdf');
+  if(r.ok){const b=new Blob([await r.arrayBuffer()],{type:'application/pdf'});const a=document.createElement('a');
+    a.href=URL.createObjectURL(b);a.download=current.name.replace(/\.[^.]+$/,'')+'.pdf';a.click();return;}
+  if(r.status!==501){alert(await r.text());return;}
+  const h=await (await post('/api/print')).text();const w=window.open('','_blank');w.document.write(h);w.document.close();w.onload=()=>w.print();setTimeout(()=>w.print(),500);};
 document.getElementById('dlj').onclick=()=>download('/api/json','.json','application/json');
 document.getElementById('dlx').onclick=()=>download('/api/embedded','.xml','application/xml');
 document.getElementById('dlu').onclick=()=>download('/api/ubl','.ubl.xml','application/xml');

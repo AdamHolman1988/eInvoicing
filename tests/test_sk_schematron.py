@@ -128,3 +128,18 @@ def test_br_co_25_applies_to_invoice_not_credit_note():
     assert "SK CIUS" in inv.scenario and "SK CIUS" in cn.scenario
     assert any(m.code == "SK-CIUS-BR-CO-25" and m.level == "error" for m in inv.messages)
     assert not any(m.code == "SK-CIUS-BR-CO-25" for m in cn.messages)  # context "Faktúra" only
+
+
+def test_step_with_only_warnings_is_not_failed(sk_invoice):
+    # conditional SK rules (e.g. BT-33 legal form) are warnings: the step must not be shown as failed
+    r = kosit.validate(sk_invoice, "peppol")
+    warn = [m for m in r.messages if m.step == SK_STEP and m.level == "warning"]
+    errs = [m for m in r.messages if m.step == SK_STEP and m.level in ("error", "fatal")]
+    if warn and not errs:
+        assert dict(r.steps)[SK_STEP] is True and SK_STEP in r.warn_steps
+
+
+def test_step_with_error_is_failed(sk_invoice):
+    bad = sk_invoice.replace(b"<cbc:CityName>London</cbc:CityName>", b"", 1)
+    r = kosit.validate(bad, "peppol")
+    assert dict(r.steps)[SK_STEP] is False and SK_STEP not in r.warn_steps

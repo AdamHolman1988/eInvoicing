@@ -120,6 +120,17 @@ class Handler(BaseHTTPRequestHandler):
             if xml is None:
                 return self._send(404, "Pro tento soubor se virtuální UBL negeneruje.", "text/plain; charset=utf-8")
             return self._send(200, xml, "application/xml")
+        if self.path in ("/api/print", "/api/pdf"):
+            from ..report import printout
+            page = printout.for_report(rep, self.lang)
+            if page is None:
+                return self._send(404, "Z tohoto souboru nelze sestavit fakturu (chybí sémantický model).", "text/plain; charset=utf-8")
+            if self.path == "/api/print":
+                return self._send(200, page)
+            try:
+                return self._send(200, printout.to_pdf(page), "application/pdf")
+            except Exception as ex:  # no browser: the UI falls back to the print dialog
+                return self._send(501, str(ex), "text/plain; charset=utf-8")
         if self.path == "/api/json":
             return self._send(200, json.dumps(html_report.to_dict(rep), ensure_ascii=False, indent=1),
                               "application/json; charset=utf-8")

@@ -77,6 +77,7 @@ class Result:
     messages: list[Message] = field(default_factory=list)
     steps: list[tuple[str, bool]] = field(default_factory=list)  # (step name, valid)
     report_xml: str = ""
+    warn_steps: list[str] = field(default_factory=list)  # steps that passed but raised warnings
 
 
 def _res(el, root: pathlib.Path) -> tuple[str, pathlib.Path, etree._Element]:
@@ -225,13 +226,17 @@ def _validate(repo: Repository, data: bytes, name: str) -> Result:
         saxon.xpath_true(rep_node, "/rep:report/rep:assessment/rep:accept", ns)
 
     rep = etree.fromstring(report_xml.encode("utf-8"))
-    msgs = []
+    msgs, warn_steps = [], []
     for vsr in rep.iter(f"{{{REP}}}validationStepResult"):
         step = vsr.findtext("s:resource/s:name", namespaces=NS) or vsr.get("id")
         if not vsr.get("id", "").startswith("val-xsd"):
-            steps.append((step, vsr.get("valid") == "true"))
+            # KoSIT's report marks a step valid="false" even when it holds only warnings; a step fails only on errors
+            levels = {m.get("level") or "error" for m in vsr.findall("rep:message", NS)}
+            steps.append((step, vsr.get("valid") == "true" or "error" not in levels))
+            if "warning" in levels and "error" not in levels:
+                warn_steps.append(step)
         for m in vsr.findall("rep:message", NS):
             line = int(m.get("lineNumber")) if m.get("lineNumber") else _line_of(tree, m.get("xpathLocation"))
             msgs.append(Message(m.get("code") or "UNSPECIFIC", m.get("level") or "error",
                                 " ".join("".join(m.itertext()).split()), step, m.get("xpathLocation"), line))
-    return Result(repo.id, sc.name, accepted, rep.get("valid") == "true", msgs, steps, report_xml)
+    return Result(repo.id, sc.name, accepted, rep.get("valid") == "true", msgs, steps, report_xml, warn_steps)

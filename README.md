@@ -16,6 +16,8 @@
 - konec dohadů „sedí tenhle vzorek na specifikaci?“ – odpověď za pár sekund, po jednotlivých BT
 - oficiální pravidla (KoSIT, CEN, Peppol) i nad ne-XML formáty přes „virtuální UBL“
 - mapování klienta (SAP IDoc, vlastní XML) naklikáte bez programování
+- u každého nálezu vysvětlení běžnou řečí („Co to znamená?“), kontrola SK IČO / DIČ / IČ DPH
+- PDF faktura: tisková sestava v obvyklé podobě pro účetní z jakéhokoli vstupního formátu
 - vše běží lokálně, soubory nikam neodcházejí
 
 ## EN
@@ -30,6 +32,8 @@
 - no more guessing whether a sample matches the spec – answer in seconds, per business term
 - official rules (KoSIT, CEN, Peppol) even for non-XML formats via a "virtual UBL"
 - client mappings (SAP IDoc, custom XML) built by clicking, no coding
+- every finding explained in plain language ("What does it mean?"), Slovak company / tax ID checks
+- PDF invoice: a conventional print layout for accountants from any input format
 - runs locally, files never leave your machine
 
 ## Screenshots

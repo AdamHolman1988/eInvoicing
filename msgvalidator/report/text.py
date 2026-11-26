@@ -45,7 +45,9 @@ def render(rep: Report, verbose: bool = True, show_info: bool = False) -> str:
                 verdict = "PŘIJATO (accept)" if r["accepted"] else "ODMÍTNUTO (reject)"
                 out.append(f"-- Oficiální pravidla – {r['label']}: {r['scenario'] or 'žádný scénář'} → {verdict}")
                 for name, ok in r["steps"]:
-                    out.append(f"     {'✓' if ok else '✖'} {name}")
+                    warn = ok and name in r.get("warn_steps", [])
+                    out.append(f"     {'✖' if not ok else '▲' if warn else '✓'} {name}"
+                               + ("  (jen varování – nebrání přijetí)" if warn else ""))
             out += [_line(f, verbose) + (f"  [{f.segment}]" if f.segment else "") for f in m.rules if keep(f)]
         fs = [f for f in m.gaps if keep(f)]
         out.append(f"-- Gap analýza ({len(fs)})")

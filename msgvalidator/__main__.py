@@ -29,6 +29,7 @@ def main(argv=None) -> int:
     c.add_argument("--html", help="uložit HTML report do souboru")
     c.add_argument("--json", help="uložit JSON report do souboru")
     c.add_argument("--info", action="store_true", help="zobrazit i informativní nálezy")
+    c.add_argument("--pdf", help="uložit tiskovou sestavu faktury (PDF; .html = jen tisková HTML)")
     c.add_argument("--ubl", help="uložit virtuální UBL (EDIFACT / ORION → Peppol UBL) do souboru")
     c.add_argument("--no-rules", action="store_true", help="u EDIFACT / ORION nespouštět oficiální pravidla nad virtuálním UBL")
     c.add_argument("--lang", default="cs", choices=["cs", "en"], help="jazyk výstupu (cs / en)")
@@ -120,6 +121,16 @@ def main(argv=None) -> int:
         if args.html:
             pathlib.Path(args.html).write_text(html.render(rep, args.lang), encoding="utf-8")
             print(f"\nHTML report: {args.html}")
+        if args.pdf:
+            from .report import printout
+            page = printout.for_report(rep, args.lang)
+            if page is None:
+                print("\nTiskovou sestavu nelze vytvořit (chybí sémantický model).")
+            elif args.pdf.lower().endswith((".html", ".htm")):
+                pathlib.Path(args.pdf).write_text(page, encoding="utf-8")
+            else:
+                pathlib.Path(args.pdf).write_bytes(printout.to_pdf(page))
+                print(f"\nPDF faktura: {args.pdf}")
         if args.json:
             pathlib.Path(args.json).write_text(json.dumps(html.to_dict(rep), ensure_ascii=False, indent=1), encoding="utf-8")
         return 1 if rep.counts()["error"] else 0

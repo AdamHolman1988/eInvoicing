@@ -1136,3 +1136,12 @@ zálohová faktura: prepayment invoice
 ✗ aritmetika ukazuje na jiné pole: ✗ the arithmetic points to another field
 '✗ nesedí:': '✗ does not add up:'
 '⟶ profily:': '⟶ profiles:'
+PDF faktura: PDF invoice
+Tisková sestava – faktura v obvyklé podobě pro účetní (vizualizace, ne originál dokladu): Print layout – the invoice in its usual form for accountants (a visualisation, not the original document)
+'  (jen varování – nebrání přijetí)': '  (warnings only – does not prevent acceptance)'
+Jen varování – nebrání přijetí: Warnings only – does not prevent acceptance
+Z tohoto souboru nelze sestavit fakturu (chybí sémantický model).: No invoice layout can be built from this file (no semantic model).
+'Tiskovou sestavu nelze vytvořit (chybí sémantický model).': 'The print layout cannot be created (no semantic model).'
+'PDF faktura:': 'PDF invoice:'
+Co to znamená?: What does it mean?
+Jak číst výsledek?: How to read the result?
